@@ -1,7 +1,14 @@
+@font-face {
+    font-family: 'Nexa-Heavy';
+    src: url('../font/Nexa-Heavy.ttf');
+}
+
 body{
     background-color: #2E4053;
+    font-family: 'Nexa-Heavy', 'sans-serif';
     margin: 0;
     padding: 0;
+    color: #D9D9D9;
 }
 
 .nav-container{
