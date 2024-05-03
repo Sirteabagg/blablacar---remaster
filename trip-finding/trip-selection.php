@@ -1,72 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style-main-structure.css">
-    <link rel="stylesheet" href="styles/style-trip-finding.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="scripts/trip-form.js"></script>
 
     <title>Document</title>
 </head>
 
 <body>
-    <main>
-        <div class="title">
-            <h1>BlaBla OMNES</h1>
-        </div>
-        <div class="main-container">
-            <form method="post" action="trip-selection.php">
-                <div class="form-container">
-                    <div>
-                        <svg fill="#2E4053" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve">
-                            <g>
-                                <path d="M148.5,0C87.43,0,37.747,49.703,37.747,110.797c0,91.026,99.729,179.905,103.976,183.645
-		c1.936,1.705,4.356,2.559,6.777,2.559c2.421,0,4.841-0.853,6.778-2.559c4.245-3.739,103.975-92.618,103.975-183.645
-		C259.253,49.703,209.57,0,148.5,0z M148.5,272.689c-22.049-21.366-90.243-93.029-90.243-161.892
-		c0-49.784,40.483-90.287,90.243-90.287s90.243,40.503,90.243,90.287C238.743,179.659,170.549,251.322,148.5,272.689z" />
-                                <path d="M148.5,59.183c-28.273,0-51.274,23.154-51.274,51.614c0,28.461,23.001,51.614,51.274,51.614
-		c28.273,0,51.274-23.153,51.274-51.614C199.774,82.337,176.773,59.183,148.5,59.183z M148.5,141.901
-		c-16.964,0-30.765-13.953-30.765-31.104c0-17.15,13.801-31.104,30.765-31.104c16.964,0,30.765,13.953,30.765,31.104
-		C179.265,127.948,165.464,141.901,148.5,141.901z" />
-                            </g>
-                        </svg>
-                        <input type="text" name="departure" placeholder="Départ" class="form-input font-nexa ml-2">
-                    </div>
-                    <div>
-                        <svg fill="#2E4053" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve">
-                            <g>
-                                <path d="M148.5,0C87.43,0,37.747,49.703,37.747,110.797c0,91.026,99.729,179.905,103.976,183.645
-		c1.936,1.705,4.356,2.559,6.777,2.559c2.421,0,4.841-0.853,6.778-2.559c4.245-3.739,103.975-92.618,103.975-183.645
-		C259.253,49.703,209.57,0,148.5,0z M148.5,272.689c-22.049-21.366-90.243-93.029-90.243-161.892
-		c0-49.784,40.483-90.287,90.243-90.287s90.243,40.503,90.243,90.287C238.743,179.659,170.549,251.322,148.5,272.689z" />
-                                <path d="M148.5,59.183c-28.273,0-51.274,23.154-51.274,51.614c0,28.461,23.001,51.614,51.274,51.614
-		c28.273,0,51.274-23.153,51.274-51.614C199.774,82.337,176.773,59.183,148.5,59.183z M148.5,141.901
-		c-16.964,0-30.765-13.953-30.765-31.104c0-17.15,13.801-31.104,30.765-31.104c16.964,0,30.765,13.953,30.765,31.104
-		C179.265,127.948,165.464,141.901,148.5,141.901z" />
-                            </g>
-                        </svg>
-                        <input type="text" name="arrival" placeholder="Arrivée" class="form-input font-nexa ml-2">
-                    </div>
-                    <div>
-                        <input type="date" name="date" class="form-input font-nexa custom-date-input">
-                    </div>
-                    <div>
-                        <svg fill="#2E4053" width="50px" height="50px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 15.503A5.041 5.041 0 1 0 16 5.42a5.041 5.041 0 0 0 0 10.083zm0 2.215c-6.703 0-11 3.699-11 5.5v3.363h22v-3.363c0-2.178-4.068-5.5-11-5.5z" />
-                        </svg>
-                        <input type="number" name="passengers" inputmode="numeric" placeholder="1" value="1" class="form-input font-nexa ml-2">
-                    </div>
-                    <input type="submit" value="Rechercher" class="bouton-submit font-nexa">
-                </div>
+    <?php
+    if (isset($_POST["departure"], $_POST["arrival"], $_POST["date"], $_POST["passengers"])) {
+        $depart = $_POST["departure"];
+        $arrivee = $_POST["arrival"];
+        $date = $_POST["date"];
+        $nbPassagers = $_POST["passengers"];
+    } else {
+        echo "poute";
+    }
+    ?>
+    <p> <?php echo $depart ?> </p><br>
+    <p> <?php echo $arrivee ?> </p><br>
+    <p> <?php echo $date ?> </p><br>
+    <p> <?php echo $nbPassagers ?> </p>
 
-
-            </form>
-        </div>
-    </main>
     <footer>
         <nav>
             <div class="nav-container">
