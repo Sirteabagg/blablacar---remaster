@@ -1,0 +1,102 @@
+/* @media screen and (min-width: 780px) {
+    
+} */
+
+@font-face {
+    font-family: "Nexa";
+    src: url('../font/Nexa-Heavy.ttf');
+}
+
+body{
+    font-family: 'Nexa', 'sans-serif';
+}
+
+main{
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+}
+
+
+.title{
+    width: 75%;
+    height: max-content;
+    background-color: #D9D9D9;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    margin: 20px;
+    border-radius: 10px; 
+    border: 2px solid black; 
+}
+
+
+
+.title h1{
+    color: #138D75;
+    margin: 0;
+}
+
+.form-container{
+    display: grid;
+    grid-template-rows: repeat(5,1fr);
+    padding-top: 10px;
+}
+
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #D9D9D9;
+    width: max-content;
+    height: 310px;
+    justify-self: center;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.font-nexa{
+    font-family: 'Nexa', sans-serif;
+}
+
+.form-input{
+    background-color: transparent;
+    border: none;
+    width: 300px;
+    height: 60px;
+    font-size: 15px;
+    color: #138D75;
+    /* border-bottom: solid 2px #b6b6b6; */
+}
+
+.bouton-submit{
+    border: none;
+    background-color: #138D75;
+    height: 60px;
+    width: 300px;
+    margin: 2px;
+    padding: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #D9D9D9;
+    font-size: 1Ò5px;
+    align-self: flex-start;
+}
+
+input[type="text"]::placeholder{
+    color: #138D75;
+}
+
+
+.custom-date-input::-webkit-calendar-picker-indicator {
+    position: relative;
+    left: 15%; 
+    size: 50px;
+}
+
+.form-container div{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #c8c8c8;
+    width: max-content;
+    margin-left: 2px;
+}
