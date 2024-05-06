@@ -20,7 +20,6 @@
         $date = $_POST["date"];
         $nbPassagers = $_POST["passengers"];
     } else {
-        // echo "poute";
         $depart = "Lyon";
         $arrivee = "Paris";
     }
@@ -128,13 +127,11 @@
                     <div class="dep center-item-col">
                         départure
                     </div>
-                    <!-- espace -->
                     <div class="point center-item-col">
                         <div class="circle-bg">
                             <div class="circle-upper"></div>
                         </div>
                     </div>
-                    <!-- espace -->
                     <div class="hour center-item-col">
                         10h
                     </div>
