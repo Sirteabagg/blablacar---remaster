@@ -4,36 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style-main-structure.css">
+    <link rel="stylesheet" href="styles/style-profil.css">
     <title>Document</title>
-    <style>
-        .menup{
-            display: grid;
-            grid-template-columns: repeat(5,1fr);
-            grid-template-rows:150px;
-            grid-gap: 15px;
-        }
-        .item{
-            background-color:white;
-            grid-column:5fr;
-            border-radius:10px;
-            grid-column:1/6;
-        }
-        .titre{
-            grid-column:1/4;
-            grid-row:1/2;
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            background-color:#2E4053;
-            color:#138D75;
-            font-size:30px;
-        }
-        .ID{
-            grid-column:4/6;
-        }
-
-        
-    </style>
 </head>
 <body>
     <div class="menup">
