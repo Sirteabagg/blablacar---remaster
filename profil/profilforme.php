@@ -10,11 +10,16 @@
 <body>
     <div class="menup">
         <div class="item titre">Mon Profil</div>
-        <div class="item ID"><img src="">Image ici</div> 
-        <div class="item">Mes Préférences</div> 
-        <div class="item">Mes Préférences</div>
-        <div class="item">Mes Préférences</div>             
+        <div class="item ID">
+        <img src="../images/utilisateur.png" class="img-user">
+        </div> 
     </div>
+    <div class="menu">
+        <div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div> 
+        <div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div>
+        <div class="itemss grid-container">Déconnexion<div>&gt</div></div>
+    </div>             
+    
 
 </body>
 </head>
