@@ -8,22 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-    <div class="menup">
-        <div class="item titre">Mon Profil</div>
-        <div class="item ID">
-        <img src="../images/utilisateur.png" class="img-user">
-        </div> 
-    </div>
-    <div class="menu">
-        <a href=""><div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div></a>
-        <a href=""><div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div></a>
-        <a href=""><div class="itemss grid-container">Déconnexion<div>&gt</div></div></a>
-    </div>             
-    
-    </div>
+ 
 </body>
-</head>
+
 
 <footer>
         <nav>

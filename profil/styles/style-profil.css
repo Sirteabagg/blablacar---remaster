@@ -1,3 +1,11 @@
+.container{
+    padding: 10px;
+}
+
+body{
+    font-family: 'Nexa', 'sans-serif';
+}
+
 .menup{
     display: grid;
     grid-template-columns: repeat(5,1fr);
@@ -13,7 +21,7 @@
     align-items: center;
     background-color:#2E4053;
     color:#138D75;
-    font-size:30px;
+    font-size:35px;
 }
 .ID{
     display: flex;
@@ -34,7 +42,8 @@
 .menu{
     display: grid;
     grid-template-rows: repeat(3, 50px);
-    gap: 10px;
+    gap: 40px;
+    padding-top: 30px;
 }
 
 .itemss{
@@ -43,6 +52,7 @@
     border-radius:10px;
     font-size:20px;    
     gap: 10px;
+    
 }
 
 .grid-container{
