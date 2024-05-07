@@ -1,0 +1,152 @@
+
+@font-face {
+    font-family: 'Nexa-Heavy';
+    src: url('../font/Nexa-Heavy.ttf');
+}
+
+body{
+    background-color: #2E4053;
+    font-family: 'Nexa-Heavy', 'sans-serif';
+    margin: 0;
+    padding: 0;
+    }
+
+header{
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100pw;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.centrerhorizontalement{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modele-container{
+    
+    display: grid;
+    background-color: white;
+    justify-content : space-around;
+    border-left: 10px #3D5670;
+    border-right: 10px #3D5670;
+    grid-template-areas :
+    'text1 text2 text3'
+    'select select select'
+    'select select select';
+    height: 119px;
+    width: 90%;
+    align-items: center;
+    border-radius: 20px;
+    
+    
+}
+
+.text1 {
+    grid-area : text1 ;
+
+}
+.text2 {
+    grid-area : text2 ;
+}
+.text3 {
+    grid-area : text3 ;
+}
+
+.select {
+    grid-area : select ;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-input{
+    background-color: transparent;
+    border: none;
+    width: 250px;
+    height: 60px;
+    font-size: 15px;
+    color: #138D75;
+    /* border-bottom: solid 2px #b6b6b6; */
+}
+
+
+footer{
+    display: flex;
+    align-items: center;
+    width: max-content;
+    position: fixed;
+    background-color: #3D5670;
+    height: 50px;
+    width: 100%;
+    bottom: 0;
+}
+footer nav{
+    width: 100%;
+}
+
+
+
+.switch {
+	display: inline-block;
+	position: relative;
+	width: 50px;
+	height: 30px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.switch input {
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	width: 0;
+	height: 0;
+}
+
+.switch input + span {
+    position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background: #3D5670;
+   border-radius: 20px;
+}
+
+.switch input:checked + span {
+	background: #138D75;
+}
+
+.switch input + span:before {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	width: 21px;
+	height: 21px;
+	background: white;
+	border-radius: 50%;
+	transform: translateY(-50%);
+	transition: all .5s;
+}
+
+.switch input:checked + span:before {
+	left: 24px;
+}
