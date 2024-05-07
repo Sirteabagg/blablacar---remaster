@@ -16,7 +16,7 @@
         </div> 
     </div>
     <div class="menu">
-        <a href=""><div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div></a>
+        <a href="info.php"><div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div></a>
         <a href=""><div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div></a>
         <a href=""><div class="itemss grid-container">Déconnexion<div>&gt</div></div></a>
     </div>             
