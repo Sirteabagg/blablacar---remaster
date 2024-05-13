@@ -26,6 +26,13 @@ main {
     flex-direction: column;
 }
 
+form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -38,6 +45,8 @@ nav {
     align-items: center;
     gap: 8px;
 }
+
+
 
 .modele-container{
     
@@ -75,6 +84,7 @@ nav {
     align-items: center;
 }
 
+
 .form-input{
     background-color: transparent;
     border: none;
@@ -91,7 +101,7 @@ footer{
     align-items: center;
     width: max-content;
     position: fixed;
-    background-color: #3D5670;
+    background-color: #138D75;
     height: 50px;
     width: 100%;
     bottom: 0;
@@ -125,7 +135,7 @@ footer nav{
    bottom: 0;
    left: 0;
    right: 0;
-   background: #3D5670;
+   background: #91d8d8;
    border-radius: 20px;
 }
 
@@ -150,3 +160,29 @@ footer nav{
 .switch input:checked + span:before {
 	left: 24px;
 }
+
+.styled {
+    display: flex;
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: #138D75;
+    background-image: linear-gradient(
+      to top left,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(0, 0, 0, 0)
+    );
+}
+
+.styled:hover {
+  background-color: #138D75;
+}
+
