@@ -19,6 +19,7 @@ body{
 footer{
     display: flex;
     align-items: center;
+    justify-content: center;
     width: max-content;
     position: fixed;
     background-color: #3D5670;

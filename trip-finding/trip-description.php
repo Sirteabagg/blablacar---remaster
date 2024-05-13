@@ -41,7 +41,9 @@
                     </div>
                     <div>
                         <div>address 1</div>
-                        <div>Ville</div>
+                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis facere natus temporibus, nulla, vitae velit assumenda quis quam, explicabo a eaque odio. Dolorem quo expedita tempora itaque modi, laboriosam at?
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit laborum tempore esse aliquid, molestiae asperiores vero ullam, maxime veritatis dolorem ut tempora sit libero recusandae expedita quia. Impedit, iusto quam!
+                        </div>
                     </div>
                 </div>
                 <div class="trip-schem">
@@ -88,13 +90,30 @@
                             <div>5/5</div>
                         </div>
                     </div>
-                    <div>
-                        <img src="" alt="" srcset="">
+                    <div class="div-grid">
+                        <img src="../images/utilisateur.png" class="img-user">
+                        <div class="">&gt;</div>
                     </div>
                 </div>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore rem qui illo distinctio repudiandae, quod delectus, facilis dolores expedita ducimus praesentium. Qui consequatur sed fugit dolores iste nam sunt nulla?</div>
             </div>
         </div>
+        <div class="boxes-shadow pad-bot">
+            <a href="trip-form.php" class="passenger-button">
+                <div>passagers</div>
+                <div>&gt;</div>
+            </a>
+        </div>
+        </div>
     </main>
+    <footer>
+        <div>
+            <a href="trip-form.php" class="reservation-button">
+                Demande de réservation
+            </a>
+        </div>
+
+    </footer>
 </body>
 
 </html>
