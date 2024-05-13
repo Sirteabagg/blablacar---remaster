@@ -9,13 +9,13 @@
 </head>
 <body>
 <div class="container"><H1 class="titre">Mes Infos</H1>
-<form action="traitement.php" method="post">
+<form action="bdd.php" method="post">
 <div class="grid">
     <div class="case"><input type="text" placeholder="nom" name="nom" class="form-input"></div>
     <div class="case"><input type="text" placeholder="prenom" name="prenom" class="form-input"></div>
     <div class="case"><input type="text" placeholder="email" name="email" class="form-input"></div>
     <div class="case"><input type="text" placeholder="n° tel" name="tel" class="form-input"></div>
-    <input type="submit" value="submit">
+    <input type="submit" class="button-submit" value="submit">
 </div>
 </form>
 </div>
