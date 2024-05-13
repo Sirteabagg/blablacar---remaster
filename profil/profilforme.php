@@ -10,9 +10,9 @@
 <body>
     <div class="container">
     <div class="menup">
-        <a href="visuinfo.php">
-            <div class="item titre">Mon Profil</div>
-        </a>
+        
+            <div class="item titre"><a href="visuinfo.php">Mon Profil</a></div>
+        
         <div class="item ID">
         <img src="../images/utilisateur.png" class="img-user">
         </div> 
