@@ -100,3 +100,7 @@ input[type="text"]::placeholder{
     width: max-content;
     margin-left: 2px;
 }
+
+.ui-datepicker {
+    font-size: 12px;
+  }

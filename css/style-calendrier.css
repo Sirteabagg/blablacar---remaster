@@ -1,0 +1,14 @@
+.ui-datepicker-calendar .ui-state-default {
+    background-color: #e5e5e5; /* Couleur de fond */
+    border: 1px solid #ccc; /* Bordure */
+    color: #333; /* Couleur du texte */
+}
+
+.ui-datepicker-calendar .ui-state-default:hover {
+    background-color: #ddd; /* Couleur de fond au survol */
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    background-color: #007bff; /* Couleur de fond de la case active */
+    color: #fff; /* Couleur du texte de la case active */
+}

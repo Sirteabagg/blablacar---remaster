@@ -57,7 +57,7 @@ main.desc{
 
 
 .trip-desc{
-    width: 100%;
+    /* width: 100%; */
 }
 
 .sch-trip{
@@ -114,5 +114,51 @@ main.desc{
 
 .info-user-container{
     display: grid;
-    grid-template-columns: 100px auto;
+    width: 100%;
+    grid-template-columns: 100px 100px;
+    gap: calc(100% - 200px);
+}
+
+.img-user{
+    width: 50px;
+    height: 50px;
+}
+
+.div-grid{
+    display: grid;
+    grid-template-columns: 50px auto;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-grid div{
+    font-size: 25px;
+}
+
+.passenger-button{
+    display: grid;
+    justify-content: flex-end;
+    grid-template-columns: auto 50px;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.passenger-button div{
+    justify-self: center;
+    align-items: center;
+}
+
+.pad-bot{
+    padding-bottom: 75px;
+}
+
+.reservation-button{
+    display: flex;
+    height: 30px;
+    width: 220px;
+    background-color: #138D75;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
