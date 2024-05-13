@@ -21,7 +21,7 @@ body{
     align-items: center;
     background-color:#2E4053;
     color:#138D75;
-    font-size:35px;
+    font-size:40px;
 }
 .ID{
     display: flex;
@@ -63,4 +63,9 @@ body{
 a{
     text-decoration: none;
     color: #138D75;
+}
+.portefeuille{
+    color: #D9D9D9;
+    font-size: 20px;
+        
 }

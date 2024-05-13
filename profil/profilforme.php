@@ -17,6 +17,7 @@
         <img src="../images/utilisateur.png" class="img-user">
         </div> 
     </div>
+    <div class="portefeuille"><H2></H2>Mon Portefeuille : 30€</div>
     <div class="menu">
         <a href="info.php"><div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div></a>
         <a href=""><div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div></a>
