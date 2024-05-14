@@ -1,3 +1,21 @@
+<?php
+$bdd = new PDO(
+    "mysql:host=127.0.0.1;dbname=blablaomnes;charset=utf8",
+    'root',
+    'root'
+);
+
+$requestTrip = $bdd->query("SELECT * FROM Trip t JOIN Driver d on t.idDriver = d.idDriver JOIN User u on d.email = u.email ");
+$trip = array();
+$driver = array();
+while ($donnees = $requestTrip->fetch()) {
+    if ($donnees["idTrip"] == $_GET["idTrip"]) {
+        $trip[] = $donnees;
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -5,7 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style-main-structure.css">
-    <link rel="stylesheet" href="styles/style-trip-description.css">
+    <link rel="stylesheet" href="../styles/style-trip-description.css">
 
     <title>Document</title>
 </head>
@@ -70,7 +88,7 @@
             <div class="pad-obj driver-container">
                 <div class="info-user-container">
                     <div>
-                        <div>Nom</div>
+                        <div><?php echo $trip[0]["prenom"]; ?></div>
                         <div class="grid-avis">
                             <div>
                                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1208.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
@@ -87,7 +105,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <div>5/5</div>
+                            <div><?php echo $trip[0]["notegenerale"]; ?>/5</div>
                         </div>
                     </div>
                     <div class="div-grid">
