@@ -3,7 +3,7 @@
 }
 
 body{
-    font-family: 'Nexa', 'sans-serif';
+    font-family: 'Nexa-Heavy', 'sans-serif';
 }
 
 .menup{
@@ -11,6 +11,8 @@ body{
     grid-template-columns: repeat(5,1fr);
     grid-template-rows:150px;
     grid-gap: 15px;
+    border-bottom: solid #D9D9D9;
+    padding-bottom: 10px;
 }
 
 .titre{
@@ -21,7 +23,7 @@ body{
     align-items: center;
     background-color:#2E4053;
     color:#138D75;
-    font-size:35px;
+    font-size:30px;
 }
 .ID{
     display: flex;
@@ -47,12 +49,15 @@ body{
 }
 
 .itemss{
+    display: flex;
+    align-items: center;
     background-color:white;
     color:#138D75;
     border-radius:10px;
     font-size:20px;    
     gap: 10px;
-    
+    height: 50px;
+    padding-left: 10px;
 }
 
 .grid-container{
@@ -62,4 +67,10 @@ body{
 
 a{
     text-decoration: none;
+    color: #138D75;
+}
+.portefeuille{
+    color: #D9D9D9;
+    font-size: 20px;
+        
 }
