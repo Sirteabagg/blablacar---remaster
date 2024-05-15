@@ -17,19 +17,19 @@
   </header>
 
     <div class="rectangle">
-        <div class="texte-grid titre1">Campus</div> 
+        <div class="texte-grid titreacceuil">Campus</div> 
         <div class="qqc"> </div>
         <div class="fleche ">&gt</div>             
     </div>
     
     <div class="rectangle">
-        <div class="texte-grid titre1">Liste Utilisateur</div> 
+        <div class="texte-grid titreacceuil">Liste Utilisateur</div> 
         <div class="qqc"> </div>
         <div class="fleche ">&gt</div>             
     </div>
  
     <div class="rectangle">
-        <div class="texte-grid titre1">Gestion de permis</div> 
+        <div class="texte-grid titreacceuil">Gestion de permis</div> 
         <div class="qqc"> </div>
         <div class="fleche ">&gt</div>             
     </div>

@@ -23,17 +23,14 @@
 
     
   <div class=" gauche">
-        <div class="titre22 titre">Campus</div>
+        <div class="titre22 titre">Liste Utilisateur</div>
     
-        <div class="truc1 selection">Ville</div> 
-        <div class="truc2 selection">Adresse</div> 
-        <div class="bouton button-submit">Ajouter</div> 
-        <div class="liste ">
-        <div class="liste titre1">Liste des campus</div> 
-        <div class="listecampus ">
-        <div class="ville titre1">Ville</div> 
-        <div class="adresse titre1">Adresse</div> 
-        <div class="adresse titre1"></div> 
+        <div class="liste "> 
+        <div class="listeutilisateur ">
+        <div class=" titre1">nom</div> 
+        <div class=" titre1">prenom</div> 
+        <div class=" titre1">email</div> 
+        <div class=" titre1"></div> 
 
         
         <?php
@@ -57,6 +54,8 @@ while ($donnees = $reponse->fetch())
 ?>
 <div class="ville1 titre1"><?php echo $donnees['nom']; ?></div> 
 <div class="adresse1 titre1"><?php echo $donnees['prenom']; ?></div>
+<div class="adresse1 titre1"><?php echo $donnees['email']; ?></div>
+
 <div class="selection"> supprimer</div> 
 
 <?php
@@ -66,8 +65,7 @@ $reponse->closeCursor();
 93/96 
 ?>
 
-        </div> 
-        </div> 
+   
   </div>
  
    
