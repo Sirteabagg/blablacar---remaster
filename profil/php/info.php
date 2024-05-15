@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/style-main-structure.css">
     <link rel="stylesheet" href="../styles/style-info.css">
-    <script src=""></script>
+    <script src="../scripts/script-modif-info.js" defer></script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -18,6 +22,7 @@
         <H1 class="titre">Mes Infos</H1>
         <form action="bdd.php" method="post">
             <div class="grid">
+
                 <div class="case"><input type="text" placeholder="nom" name="nom" class="form-input"></div>
                 <div class="case"><input type="text" placeholder="prenom" name="prenom" class="form-input"></div>
                 <div class="case"><input type="text" placeholder="email" name="email" class="form-input"></div>
@@ -27,8 +32,6 @@
         </form>
     </div>
 </body>
-
-
 <footer>
     <nav>
         <div class="nav-container">
