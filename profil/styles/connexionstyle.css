@@ -24,7 +24,7 @@ input[type="password"]::placeholder{
 }
 .img{
     position: relative;
-    top: 50px;
+    top: 70px;
 }
 
 .button-submit{

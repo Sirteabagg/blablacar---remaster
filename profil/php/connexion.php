@@ -37,7 +37,7 @@ if (strpos($systeme_exploitation, 'Darwin') !== false) {
     </form>
     <input type="submit" class="button-submit" value="Créer un compte">
     <div class="img">
-        <img src="../../images/logoblabla.png" width="275" height="400">
+        <img src="../../images/logoblabla.png" width="275" height="320">
     </div>
 </body>
 
