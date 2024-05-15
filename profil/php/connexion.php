@@ -35,7 +35,7 @@ if (strpos($systeme_exploitation, 'Darwin') !== false) {
         <input type="password" placeholder="Mot de passe" name="mdp" class="form-input">
         <input type="submit" class="button-submit" value="Se connecter">
     </form>
-    <input type="submit" class="button-submit" value="Créer un compte">
+    <a href="create.php"><input type="submit" class="button-submit" value="Créer un compte"></a>
     <div class="img">
         <img src="../../images/logoblabla.png" width="275" height="320">
     </div>
