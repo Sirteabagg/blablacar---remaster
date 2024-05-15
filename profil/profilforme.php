@@ -19,7 +19,7 @@
     <div class="menu">
         <a href="info.php"><div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div></a>
         <a href=""><div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div></a>
-        <a href=""><div class="itemss grid-container">Déconnexion<div>&gt</div></div></a>
+        <a href="connexion.php"><div class="itemss grid-container">Déconnexion<div>&gt</div></div></a>
     </div>             
     
     </div>
