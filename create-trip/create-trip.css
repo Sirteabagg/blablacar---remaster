@@ -46,6 +46,9 @@ nav {
     gap: 8px;
 }
 
+.centrer{
+    justify-content : center;
+}
 
 
 .modele-container{
