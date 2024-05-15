@@ -1,73 +1,86 @@
 <?php
 
 
-
-$connexion = new PDO(
-   "mysql:host=127.0.0.1;dbname=blablaomnes;charset=utf8",
-   'root',
-   'root'
-);
-
-// $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// $reponse = $connexion->query('SELECT * FROM User');
-// $donne = $reponse->fetch();
-
-// echo $donne["email"];
-// $reponse->closeCursor();
-
-// $reponse = $connexion->query('SELECT * FROM Trip');
-// $donne = $reponse->fetch();
-
-// echo $donne["idTrip"];
-// $reponse->closeCursor();
-
-// $reponse = $connexion->query('SELECT * FROM User');
-// $donne = $reponse->fetch();
-
-// echo $donne["email"];
-// $reponse->closeCursor();
+try {
+   // Connexion à la base de données avec PDO
+   $connexion = new PDO(
+      "mysql:host=127.0.0.1;dbname=blablaomnes;charset=utf8",
+      'root',
+      'root'
+   );
 
 
-// Requête SQL préparée
-// $chemin_image = '../images/utilisateur.png';
+   //    // Définir le mode d'erreur PDO à exception
+   //    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// if ($chemin_image) {
-//    // Lecture du contenu de l'image en tant que données binaires
-//    $contenu_image = file_get_contents($chemin_image);
+   //    // Données pour la mise à jour
+   //    $email = 'jean.dupont@edu.ece.fr';
+   //    $nouvelle_photo = '../../images/jean.jpeg'; // Chemin vers la nouvelle photo à ajouter
 
-//    // Requête SQL préparée pour insérer l'image
-//    $requete = $connexion->prepare("INSERT INTO User (email, nom, prenom,pdp) VALUES (:email,:nom, :prenom,:contenu)");
+   //    // Requête SQL pour mettre à jour la photo pour l'email spécifié
+   //    $sql = "UPDATE User SET pdp = :nouvelle_photo WHERE email = :email";
 
-//    // Liaison des valeurs des paramètres
-//    $requete->bindParam(':email', $email);
-//    $requete->bindParam(':nom', $nom);
-//    $requete->bindParam(':prenom', $prenom);
-//    $requete->bindParam(':contenu', $contenu, PDO::PARAM_LOB);
+   //    // Préparation de la requête
+   //    $stmt = $connexion->prepare($sql);
 
-//    // Assigner des valeurs aux paramètres
-//    $email = 'azdazd';
-//    $nom = 'zdadaz';
-//    $prenom = 'azdazd';
-//    $contenu = $contenu_image;
+   //    // Liaison des paramètres
+   //    $stmt->bindParam(':email', $email);
+   //    $stmt->bindParam(':nouvelle_photo', $nouvelle_photo);
 
-//    // Exécution de la requête
-//    $requete->execute();
+   //    // Exécution de la requête
+   //    $stmt->execute();
 
-//    echo "Image insérée avec succès !";
-// }
+   //    echo "Photo mise à jour avec succès pour l'email $email.";
 
 
-$requete = $connexion->query("SELECT * FROM User");
-$resultat = $requete->fetch();
+   // Requête SQL préparée
+   // }
+   /////////////////////////////////////
+   // RECUPERER L'IMAGE DEPUIS LA BDD //
+   /////////////////////////////////////
 
-// // Afficher l'image
-if ($resultat) {
-   $contenu_image = $resultat['pdp'];
-   $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
-   $encoded_image = base64_encode($contenu_image);
-   $image_data = "data:$type_mime;base64,$encoded_image";
-   echo "<img src=\"$image_data\" alt=\"Image\">";
-} else {
-   echo "Image introuvable.";
+   $requete = $connexion->query("SELECT * FROM User");
+
+   while ($resultat = $requete->fetch()) {
+      if ($resultat) {
+         $contenu_image = $resultat['pdp'];
+         $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+         $encoded_image = base64_encode($contenu_image);
+         $image_data = "data:$type_mime;base64,$encoded_image";
+         echo "<img src=\"$image_data\" alt=\"Image\">";
+      } else {
+         echo "Image introuvable.";
+      }
+   }
+   // // Afficher l'image
+
+
+
+   //    $chemin_image = '../../images/mamadou.jpeg';
+
+   if ($chemin_image) {
+      // Lecture du contenu de l'image en tant que données binaires
+      $contenu_image = file_get_contents($chemin_image);
+
+      $email = 'mamadou.amad@edu.ece.fr';
+
+      // Requête SQL préparée pour insérer l'image
+      $requete = $connexion->prepare("UPDATE User SET pdp = :contenu WHERE email = :email");
+
+      // Liaison des valeurs des paramètres
+      $requete->bindParam(':email', $email);
+      $requete->bindParam(':contenu', $contenu, PDO::PARAM_LOB);
+
+      // Assigner des valeurs aux paramètres
+      $contenu = $contenu_image;
+
+      // Exécution de la requête
+      $requete->execute();
+
+      echo "Image insérée avec succès !";
+   } else {
+      echo "proute";
+   }
+} catch (PDOException $e) {
+   echo "Erreur : " . $e->getMessage();
 }
