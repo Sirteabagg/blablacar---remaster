@@ -1,16 +1,26 @@
 <?php
+session_start();
+
+$host = $_SESSION["hostBdd"];
+$password = $_SESSION["passwordBdd"];
+
+
 $bdd = new PDO(
-    "mysql:host=127.0.0.1;dbname=blablaomnes;charset=utf8",
+    "mysql:host=$host;dbname=blablaomnes;charset=utf8",
     'root',
-    'root'
+    $password
 );
 
-$requestTrip = $bdd->query("SELECT * FROM Trip t JOIN Driver d on t.idDriver = d.idDriver JOIN User u on d.email = u.email ");
+
+
+$requestTrip = $bdd->query("SELECT * ,CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
+CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
+FROM Trip t JOIN Driver d on t.idDriver = d.idDriver JOIN `User` u on d.email = u.email  ");
 $trip = array();
 $driver = array();
 while ($donnees = $requestTrip->fetch()) {
     if ($donnees["idTrip"] == $_GET["idTrip"]) {
-        $trip[] = $donnees;
+        $trip = $donnees;
     }
 }
 ?>
@@ -22,8 +32,8 @@ while ($donnees = $requestTrip->fetch()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style-main-structure.css">
-    <link rel="stylesheet" href="../styles/style-trip-description.css">
+    <link rel="stylesheet" href="../../../css/style-main-structure.css">
+    <link rel="stylesheet" href="../../styles/style-trip-description.css">
 
     <title>Document</title>
 </head>
@@ -46,9 +56,11 @@ while ($donnees = $requestTrip->fetch()) {
     <main class="desc">
         <div class="boxes-shadow">
             <div class="trip-desc pad-obj">
-                <div>jour -- mois</div>
+                <div><?php
+                        $date = date_create($trip['date']);
+                        echo date_format($date, "D d M"); ?></div>
                 <div class="trip-schem">
-                    <div>10:10</div>
+                    <div><?php echo $trip["tDeparture"]; ?></div>
                     <div class="sch-trip">
                         <div class="point">
                             <div class="circle-bg">
@@ -58,22 +70,20 @@ while ($donnees = $requestTrip->fetch()) {
                         <div id="trait-vertical"></div>
                     </div>
                     <div>
-                        <div>address 1</div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis facere natus temporibus, nulla, vitae velit assumenda quis quam, explicabo a eaque odio. Dolorem quo expedita tempora itaque modi, laboriosam at?
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit laborum tempore esse aliquid, molestiae asperiores vero ullam, maxime veritatis dolorem ut tempora sit libero recusandae expedita quia. Impedit, iusto quam!
-                        </div>
+                        <div><?php echo $trip["addDep"]; ?></div>
+                        <div><?php echo $trip["departure"]; ?></div>
                     </div>
                 </div>
                 <div class="trip-schem">
-                    <div>10:10</div>
+                    <div><?php echo $trip["tArrival"]; ?></div>
                     <div class="point">
                         <div class="circle-bg">
                             <div class="circle-upper"></div>
                         </div>
                     </div>
                     <div>
-                        <div>address 1</div>
-                        <div>Ville</div>
+                        <div><?php echo $trip["addArr"]; ?></div>
+                        <div><?php echo $trip["arrival"]; ?></div>
                     </div>
                 </div>
             </div>
@@ -81,14 +91,14 @@ while ($donnees = $requestTrip->fetch()) {
         <div class="boxes-shadow">
             <div class="pad-obj price-container">
                 <div>montant totale pour 1 passager</div>
-                <div>0,--€</div>
+                <div class="price"><?php echo $trip["price"]; ?>€</div>
             </div>
         </div>
         <div class="boxes-shadow">
             <div class="pad-obj driver-container">
                 <div class="info-user-container">
                     <div>
-                        <div><?php echo $trip[0]["prenom"]; ?></div>
+                        <div><?php echo $trip["prenom"]; ?></div>
                         <div class="grid-avis">
                             <div>
                                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1208.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
@@ -105,32 +115,45 @@ while ($donnees = $requestTrip->fetch()) {
                                     </g>
                                 </svg>
                             </div>
-                            <div><?php echo $trip[0]["notegenerale"]; ?>/5</div>
+                            <div><?php echo $trip["notegenerale"]; ?>/5</div>
                         </div>
                     </div>
+                    <!-- mettre lien vers page profil de l'utilateur avec methode GET avec idDriver -->
+                    <?php echo "<a href='../../profil/php/visuinfo.php?idTrip=" . $_GET["idTrip"] . "&idDriver=" . $trip["idDriver"] . "'" ?>
+
                     <div class="div-grid">
-                        <img src="../images/utilisateur.png" class="img-user">
+                        <?php $contenu_image = $trip['pdp'];
+                        $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+                        $encoded_image = base64_encode($contenu_image);
+                        $image_data = "data:$type_mime;base64,$encoded_image";
+                        echo "<img src=\"$image_data\" class='img-user' alt=\"Image\">"; ?>
+                        <!-- <img src="../../images/utilisateur.png" class="img-user"> -->
                         <div class="">&gt;</div>
                     </div>
+                    </a>
                 </div>
-                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore rem qui illo distinctio repudiandae, quod delectus, facilis dolores expedita ducimus praesentium. Qui consequatur sed fugit dolores iste nam sunt nulla?</div>
+                <div><?php echo $trip["caption"]; ?></div>
             </div>
+            <div class="avis-container pad-obj">
+                <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nemo architecto doloribus? Optio fuga laborum commodi blanditiis architecto eos non sint quisquam? Officia voluptatum fugiat aperiam enim temporibus provident nesciunt!</div>
+
+            </div>
+
         </div>
         <div class="boxes-shadow pad-bot">
+            <!-- href mettre lien vers page avec tous les passagers -->
             <a href="trip-form.php" class="passenger-button">
                 <div>passagers</div>
                 <div>&gt;</div>
             </a>
         </div>
-        </div>
     </main>
     <footer>
         <div>
-            <a href="trip-form.php" class="reservation-button">
+            <a href="//" class="reservation-button">
                 Demande de réservation
             </a>
         </div>
-
     </footer>
 </body>
 

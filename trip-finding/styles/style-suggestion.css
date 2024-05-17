@@ -1,0 +1,25 @@
+#suggestions {
+    border: 1px solid #ccc;
+    max-width: 300px;
+    position: fixed; /* Utilisation du positionnement fixe */
+    background-color: #fff;
+    z-index: 1000;
+    margin-top: 5px; /* Optionnel : ajustez la marge en fonction de vos besoins */
+    width: max-content;
+    height: max-content;
+    display: block;
+  }
+  .suggestion-item {
+    position: fixed;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .input-auto-comp{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }

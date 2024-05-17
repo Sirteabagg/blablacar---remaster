@@ -45,22 +45,22 @@
     <nav>
         <div class="nav-container">
             <div class="nav-item">
-                <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" style="fill: white;">
+                <a href="../../trip-finding/php/trip-form.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="fill: white;">
                         <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                     </svg>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" style="fill: white;">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="fill: white;">
                         <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
                     </svg>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="#">
-                    <svg fill="#000000" height="25" width="25" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.77 202.77" xml:space="preserve" style="fill: white;">
+                    <svg fill="#000000" height="25px" width="25px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.77 202.77" xml:space="preserve" style="fill: white;">
                         <path d="M202.732,60.803c-0.007-0.063-0.021-0.124-0.028-0.187c-0.023-0.184-0.047-0.367-0.084-0.548
                         c-0.019-0.094-0.047-0.183-0.068-0.275c-0.036-0.148-0.069-0.297-0.114-0.442c-0.025-0.082-0.058-0.16-0.086-0.241
                         c-0.053-0.153-0.105-0.306-0.167-0.456c-0.018-0.044-0.041-0.085-0.061-0.129c-0.371-0.838-0.89-1.612-1.55-2.273L148.536,4.213
