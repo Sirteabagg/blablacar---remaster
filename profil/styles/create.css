@@ -3,10 +3,9 @@ body{
 }
 
 .titre{
-   color: #138D75;
-   font-size: 40px;
+    color: #138D75;
+    font-size: 40px;
 }
-
 .form-input {
     background-color: transparent;
     border: none;
@@ -22,11 +21,6 @@ body{
 input[type="password"]::placeholder{
     color:#138D75;
 }
-.img{
-    position: relative;
-    top: 70px;
-}
-
 .button-submit{
     border: none;
     border-radius: 10px;
