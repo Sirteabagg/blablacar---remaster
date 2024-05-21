@@ -19,8 +19,7 @@ if (strpos($systeme_exploitation, 'Darwin') !== false) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
-
-
+    
     try {
         // Connexion à la base de données avec PDO
         $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $password);
@@ -68,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <h1 class="titre">Bienvenue</h1>
-    <form action="verif-connexion.php" method="post">
+    <form action="connexion.php" method="post">
         <input type="text" placeholder="Email" name="email" class="form-input">
         <input type="password" placeholder="Mot de passe" name="mdp" class="form-input">
         <input type="submit" class="button-submit" value="Se connecter">
@@ -78,5 +77,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="../../images/logoblabla.png" width="275" height="320">
     </div>
 </body>
-
 </html>
