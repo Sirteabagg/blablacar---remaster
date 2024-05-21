@@ -34,7 +34,7 @@ main{
     grid-template: "pdp name-avis price"
                    "trip trip ."
                    "trip trip .";
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 50px 1fr 1fr;
     grid-template-columns: 50px 1fr 50px;
     gap: 10px;
     margin: 10px;
@@ -51,15 +51,19 @@ main{
 .img-user{
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }
 
 .trip-info{
     grid-area: trip;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns:100px auto 100px;
+    height: max-content;
 }
 
-
+.hour{
+    align-self: flex-start;
+}
 
 .circle-bg{
     display: flex;
@@ -80,7 +84,9 @@ main{
 
 .col{
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows:repeat(3,25px);
+    gap: 10px;
+    height: max-content;
 }
 
 .col-flex{

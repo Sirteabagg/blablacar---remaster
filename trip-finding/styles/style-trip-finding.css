@@ -95,7 +95,7 @@ input[type="text"]::placeholder{
 
 .form-container div{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     border-bottom: 2px solid #c8c8c8;
     width: max-content;
     margin-left: 2px;

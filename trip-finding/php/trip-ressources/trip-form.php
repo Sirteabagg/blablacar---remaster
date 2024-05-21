@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/style-main-structure.css">
-    <link rel="stylesheet" href="../styles/style-trip-finding.css">
-    <link rel="stylesheet" href="../../css/style-calendrier.css">
+    <link rel="stylesheet" href="../../../css/style-main-structure.css">
+    <link rel="stylesheet" href="../../styles/style-trip-finding.css">
+    <link rel="stylesheet" href="../../../css/style-calendrier.css">
+    <link rel="stylesheet" href="../../styles/style-suggestion.css">
 
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="../scripts/trip-form.js" defer></script>
+    <script src="../../scripts/trip-form.js" defer></script>
+    <script src="../../scripts/autocompletion.js" defer></script>
 
     <title>Document</title>
 </head>
@@ -40,7 +42,10 @@
 		C179.265,127.948,165.464,141.901,148.5,141.901z" />
                             </g>
                         </svg>
-                        <input type="text" name="departure" placeholder="Départ" class="form-input font-nexa ml-2">
+                        <div class="input-auto-comp">
+                            <input type="text" name="departure" placeholder="Départ" class="form-input autocomplete font-nexa ml-2">
+                            <div class="suggestions"></div>
+                        </div>
                     </div>
                     <div>
                         <svg fill="#2E4053" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve">
@@ -55,7 +60,10 @@
 		C179.265,127.948,165.464,141.901,148.5,141.901z" />
                             </g>
                         </svg>
-                        <input type="text" name="arrival" placeholder="Arrivée" class="form-input font-nexa ml-2">
+                        <div class="input-auto-comp">
+                            <input type="text" name="arrival" placeholder="Arrivée" class="form-input autocomplete font-nexa ml-2">
+                            <div class="suggestions"></div>
+                        </div>
                     </div>
                     <div>
                         <div>
@@ -110,7 +118,7 @@
         <nav>
             <div class="nav-container">
                 <div class="nav-item">
-                    <a href="#">
+                    <a href="../../trip-finding/php/trip-form.php">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" style="fill: white;">
                             <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                         </svg>
@@ -139,7 +147,7 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="#">
+                    <a href="../../../profil/php/profilforme.php">
                         <svg class="svg-icon" style="width: 25; height: 25;vertical-align: middle;fill: white;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 1024v-72.874521c0-149.917478 93.497315-353.841814 241.330575-402.948929l9.031614-2.998349 4.497524 8.117483a316.618401 316.618401 0 0 0 33.201237 48.485506l10.567354 12.688138-16.088705 4.387828c-118.178851 32.579628-201.986378 215.917734-206.88612 332.341454h872.519723c-4.899742-116.387154-99.457449-299.834957-217.6363-332.341454l-16.088705-4.387828 10.457658-12.578442a316.874358 316.874358 0 0 0 33.201237-48.485507l4.497524-8.117483 8.921918 2.888654c147.979521 49.107115 252.300146 252.994886 252.300147 402.948929V1024H0z m511.91334-365.652386a246.888491 246.888491 0 0 1-255.95667-255.95667V256.129989a246.888491 246.888491 0 0 1 255.95667-255.95667 246.888491 246.888491 0 0 1 255.956671 255.95667v146.260955a246.888491 246.888491 0 0 1-255.956671 255.95667z m182.826193-402.217625A182.826193 182.826193 0 1 0 329.087147 256.129989v146.260955a182.826193 182.826193 0 1 0 365.652386 0V256.129989z" />
                         </svg>

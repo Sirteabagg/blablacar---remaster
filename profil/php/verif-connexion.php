@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["email"], $_POST["mdp"])) {
         $email = $_POST["email"];
         $password = $_POST["mdp"];
-
         try {
             // Connexion à la base de données
             $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $passwordBdd);
@@ -19,11 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Requête SQL préparée
-            $requete = $connexion->query("SELECT u.email, u.password FROM `User` u");
+            $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u");
+            echo $password;
             while ($donnee = $requete->fetch()) {
+                echo $donnee["pwd"];
+                echo "<br>";
+                echo $donnee["email"];
                 if ($email == $donnee["email"]) {
-                    if ($password == $donnee["password"]) {
-                        header("Location: ../../trip-finding/trip-form.php");
+                    if ($password == $donnee["pwd"]) {
+                        $_SESSION["current-user-name"] = $donnee["nom"];
+                        $_SESSION["current-user-email"] = $donnee["email"];
+                        header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
                         exit;
                     } else {
                         header("Location: connexion.php");
@@ -31,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
+            header("Location: connexion.php");
+            exit;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
         }

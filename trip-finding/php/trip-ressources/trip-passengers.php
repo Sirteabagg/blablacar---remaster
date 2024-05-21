@@ -10,7 +10,7 @@ $bdd = new PDO(
     $password
 );
 
-$request = $bdd->query("SELECT ")
+//$request = $bdd->query("SELECT ")
 ?>
 
 
