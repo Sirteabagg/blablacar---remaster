@@ -11,7 +11,7 @@
     <h1 class="titre">Création</h1>
     <form action="bddcreate.php" method="post">
         <input type="text" placeholder="Email" name="email" class="form-input">
-        <input type="password" placeholder="Mot de passe" name="numtel" class="form-input">
+        <input type="password" placeholder="Mot de passe" name="mdp" class="form-input">
         <input type="submit" class="button-submit" value="Créer">
     </form>
 </body>

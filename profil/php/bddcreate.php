@@ -1,9 +1,9 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
-    if (isset($_POST["email"], $_POST["numtel"])) {
+    if (isset($_POST["email"], $_POST["mdp"])) {
         $email = $_POST["email"];
-        $numtel = $_POST["numtel"];
+        $mdp = $_POST["mdp"];
         
 
         try {
@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Requête SQL préparée
-            $requete = $connexion->prepare("INSERT INTO utilisateur (email, numerotel) VALUES ( :email, :numtel)");
+            $requete = $connexion->prepare("INSERT INTO utilisateur (email, mdp) VALUES ( :email, :mdp)");
 
             // Liaison des valeurs des paramètres
             $requete->bindParam(':email', $email);
-            $requete->bindParam(':numtel', $numtel);
+            $requete->bindParam(':mdp', $mdp);
             // Exécution de la requête
             $requete->execute();
 
@@ -34,5 +34,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-header("Location: connexion.php");
+header("Location: info.php");
 exit;

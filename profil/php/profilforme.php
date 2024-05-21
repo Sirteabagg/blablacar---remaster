@@ -31,7 +31,7 @@
                 <div class="itemss grid-container">Mes infos conducteur<div>&gt</div>
                 </div>
             </a>
-            <a href="">
+            <a href="connexion.php">
                 <div class="itemss grid-container">Déconnexion<div>&gt</div>
                 </div>
             </a>

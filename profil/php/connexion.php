@@ -14,7 +14,45 @@ if (strpos($systeme_exploitation, 'Darwin') !== false) {
         $_SESSION["hostBdd"] = "localhost";
     }
 }
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $mdp = $_POST['mdp'];
+
+
+    try {
+        // Connexion à la base de données avec PDO
+        $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $password);
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Préparer et exécuter la requête SQL
+        $stmt = $connexion->prepare("SELECT mdp FROM utilisateurs WHERE email = ?");
+        $stmt->execute([$email]);
+
+        // Vérifier si l'utilisateur existe
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $hashed_password = $row['mdp'];
+
+            // Vérifier le mot de passe
+            if (password_verify($mdp, $hashed_password)) {
+                $_SESSION['email'] = $email;
+                header("Location: trip-description.php");
+                exit();
+            } else {
+                echo "Mot de passe incorrect.";
+            }
+        } else {
+            echo "Utilisateur non trouvé.";
+        }
+
+    } catch (PDOException $e) {
+        die("Échec de la connexion : " . $e->getMessage());
+    }
+}
 ?>
+
 
 
 <!DOCTYPE html>
