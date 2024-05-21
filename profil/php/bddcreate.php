@@ -1,38 +1,49 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
-    if (isset($_POST["email"], $_POST["mdp"])) {
-        $email = $_POST["email"];
-        $mdp = $_POST["mdp"];
-        
+session_start();
+$host = $_SESSION["hostBdd"];
+$passwordBdd = $_SESSION["passwordBdd"];
 
-        try {
-            // Connexion à la base de données
-            $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $password);
+// Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
+if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
+    $email = $_POST["email"];
+    $nom = $_POST["nom"];
+    $prenom = $_POST["prenom"];
+    $mdp = $_POST["mdp"];
 
-            // Définir le mode d'erreur de PDO sur exception
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        // Connexion à la base de données
+        $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $passwordBdd);
 
-            // Requête SQL préparée
-            $requete = $connexion->prepare("INSERT INTO utilisateur (email, mdp) VALUES ( :email, :mdp)");
+        // Définir le mode d'erreur de PDO sur exception
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Liaison des valeurs des paramètres
-            $requete->bindParam(':email', $email);
-            $requete->bindParam(':mdp', $mdp);
-            // Exécution de la requête
-            $requete->execute();
+        // Requête SQL préparée
+        $requete = $connexion->prepare("INSERT INTO user (email, nom, prenom, pwd) VALUES ( :email, :nom, :prenom, :mdp)");
+        $requeteUser = $connexion->query("SELECT email FROM user");
 
-            echo "Données insérées avec succès !";
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
+        while ($donnee = $requeteUser->fetch()) {
+            if ($donnee["email"] == $email) {
+                header("Location: create.php");
+                exit;
+            }
         }
 
-        // Fermer la connexion
-        $connexion = null;
-    } else {
-        echo "Les champs 'nom' n'ont pas été soumis.";
+        // Liaison des valeurs des paramètres
+        $requete->bindParam(':email', $email);
+        $requete->bindParam(':nom', $nom);
+        $requete->bindParam(':prenom', $prenom);
+        $requete->bindParam(':mdp', $mdp);
+        // Exécution de la requête
+        $requete->execute();
+        header("Location: info.php");
+    } catch (PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
+        header("Location: create.php");
     }
-}
 
-header("Location: info.php");
+    // Fermer la connexion
+    $connexion = null;
+} else {
+    echo "Les champs 'nom' n'ont pas été soumis.";
+}
 exit;

@@ -16,7 +16,7 @@ if (isset($_GET["idDriver"], $_GET["idTrip"])) {
     $idTrip = $_GET["idTrip"];
     $request = $bdd->query("SELECT d.idDriver, u.email, u.password, u.prenom, u.pdp, u.notegenerale AS note FROM Driver d JOIN `User` u on d.email = u.email");
 } else {
-    $request = $bdd->query("SELECT u.email, u.password, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u");
+    $request = $bdd->query("SELECT u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u");
 }
 
 while ($donnee = $request->fetch()) {
