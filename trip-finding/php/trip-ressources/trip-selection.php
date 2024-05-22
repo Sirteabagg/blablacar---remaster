@@ -61,6 +61,8 @@ curl_setopt($curl_arr, CURLOPT_RETURNTRANSFER, true);
 $response_dep = curl_exec($curl_dep);
 $response_arr = curl_exec($curl_arr);
 
+
+
 // Vérification des erreurs CURL
 if (curl_errno($curl_dep) && curl_errno($curl_arr)) {
     echo 'Erreur CURL : ' . curl_error($curl_dep);
@@ -71,15 +73,16 @@ if (curl_errno($curl_dep) && curl_errno($curl_arr)) {
     $donnees_arr = json_decode($response_arr, true);
     // Vérifier si la réponse contient des données
     if (isset($donnees_dep['features'], $donnees_arr['features']) && !empty($donnees_dep['features']) && !empty($donnees_arr['features'])) {
-        // Extraire les coordonnées géographiques de la première entité (limit=1)
+
         $depcity = $donnees_dep["features"][0]["properties"]["city"];
         $arrcity = $donnees_arr["features"][0]["properties"]["city"];
         $geometry = $donnees_dep['features'][0]['geometry'];
-        $latitude_dep = $geometry['coordinates'][1]; // Latitude
-        $longitude_dep = $geometry['coordinates'][0]; // Longitude
+        $latitude_dep = $geometry['coordinates'][1];
+        $longitude_dep = $geometry['coordinates'][0];
         $geometry = $donnees_arr['features'][0]['geometry'];
-        $latitude_arr = $geometry['coordinates'][1]; // Latitude
-        $longitude_arr = $geometry['coordinates'][0]; // Longitude
+        $latitude_arr = $geometry['coordinates'][1];
+        $longitude_arr = $geometry['coordinates'][0];
+        $tab_coord = [[$longitude_dep, $latitude_dep], [$longitude_arr, $latitude_arr]];
     } else {
         echo "Aucune adresse trouvée.";
     }
@@ -120,32 +123,45 @@ curl_close($curl_arr);
     </header>
     <main>
         <?php
+        $tab = [["longDep", "latDep"], ["longArr", "latArr"]];
         foreach ($trips as $trip) {
-            $longitude_arr = $trip["longDep"];
-            $latitude_arr = $trip["latDep"];
-            $url_api_adresse = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248734c41a8117a44f6839360a0e5bbe9f9&start=$longitude_dep,$latitude_dep&end=$longitude_arr,$latitude_arr";
-            $curl = curl_init();
+            $i = 0;
+            $tab_distance = [];
 
-            curl_setopt($curl, CURLOPT_URL, $url_api_adresse);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            foreach ($tab as $index) {
+                $longitude_trip = $trip[$index[0]];
+                $latitude_trip = $trip[$index[1]];
 
-            $response = curl_exec($curl);
+                $longitude_user = $tab_coord[$i][0];
+                $latitude_user = $tab_coord[$i][1];
 
-            if (curl_errno($curl)) {
-                echo 'Erreur CURL : ' . curl_error($curl);
-            } else {
-                // Décoder la réponse JSON en un tableau associatif PHP
-                $donnees = json_decode($response, true);
-                if (isset($donnees["features"]) && !empty($donnees["features"])) {
-                    $distance = $donnees["features"][0]["properties"]["segments"][0]["distance"];
+                $url_api_adresse = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248734c41a8117a44f6839360a0e5bbe9f9&start=$longitude_user,$latitude_user&end=$longitude_trip,$latitude_trip";
+                $curl = curl_init();
+
+                curl_setopt($curl, CURLOPT_URL, $url_api_adresse);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+                $response = curl_exec($curl);
+
+                if (curl_errno($curl)) {
+                    echo 'Erreur CURL : ' . curl_error($curl);
+                } else {
+                    // Décoder la réponse JSON en un tableau associatif PHP
+                    $donnees = json_decode($response, true);
+                    if (isset($donnees["features"]) && !empty($donnees["features"])) {
+                        $distance = $donnees["features"][0]["properties"]["segments"][0]["distance"];
+                        $tab_distance[] = $distance;
+                    }
                 }
+
+                curl_close($curl);
+                $i = $i + 1;
             }
 
-            curl_close($curl);
-            if ($distance <= 30000) {
+            if ($tab_distance[0] <= 30000 && $tab_distance[1] <= 30000 && $trip["date"] == $date) {
                 echo '<a href="trip-description.php?idTrip=' . $trip["idTrip"] . '"><div class="trip-container">';
                 $contenu_image = $trip['pdp'];
-                $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+                $type_mime = 'image/jpeg';
                 $encoded_image = base64_encode($contenu_image);
                 $image_data = "data:$type_mime;base64,$encoded_image";
                 echo "<img src=\"$image_data\" class='img-user' alt=\"Image\">";
