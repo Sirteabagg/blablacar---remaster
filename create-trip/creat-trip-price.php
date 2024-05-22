@@ -1,3 +1,16 @@
+<?php
+    if (isset($_POST["date"], $_POST["heure"],$_POST["depart"], $_POST["arriver"], $_POST["nbpassager"])) {
+        $date = $_POST["date"];
+        $heure = $_POST["heure"];
+        $adressdep = $_POST["depart"];
+        $adressarr = $_POST["arriver"];
+        $nbpassager = $_POST["nbpassager"];
+    }
+    else {
+        echo "Les champs 'date', 'heure', 'arriver', 'depart', 'nbpassager' n'ont pas été soumis.";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +26,7 @@
     </header>
     <br><br>
     <main>
-    <form action="" method="post" >
+    <form action="create-trip-donnee.php" method="post" >
     <nav class="centrer modele-container">
         <span class="text1"></span>
         <h3 class="text2" >Prix (en €): <output id="respondprix"><output></h3>
@@ -22,6 +35,11 @@
             <input type="range" name="prix" id="Prix" placeholder="Prix" class="form-input ml-2" required="required" min="0" max="100" step="0.5">           
         </div>  
     </nav>
+    <input type="hidden" name="date" value="<?php echo $date;?>" >
+    <input type="hidden" name="heure" value="<?php echo $heure;?>" >
+    <input type="hidden" name="arriver" value="<?php echo $adressarr;?>" >
+    <input type="hidden" name="depart" value="<?php echo $adressdep;?>" >
+    <input type="hidden" name="nbpassager" value="<?php echo $nbpassager;?>" >
     <br><br>
         <input class="styled" type="submit" value="Validé" id="valideprix"></input>
     </form>

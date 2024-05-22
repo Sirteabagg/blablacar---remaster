@@ -40,6 +40,10 @@ nav {
     
 }
 
+.colorwhite{
+    color: white;
+}
+
 .centrerhorizontalement{
     display: flex;
     align-items: center;

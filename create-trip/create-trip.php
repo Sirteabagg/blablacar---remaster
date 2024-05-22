@@ -16,7 +16,7 @@
         <h1>Créer un trajet</h1>
     </header>
     <main>
-        <form method="post" action="create-trip-donnee.php">
+        <form method="post" action="creat-trip-price.php">
             <nav class="modele-container">
                 <p class="text1">Départ</p>
                 <span class="text2"></span>
