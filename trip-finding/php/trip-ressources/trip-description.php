@@ -4,6 +4,7 @@ session_start();
 $host = $_SESSION["hostBdd"];
 $password = $_SESSION["passwordBdd"];
 
+$email = $_SESSION["current-user-email"];
 
 $bdd = new PDO(
     "mysql:host=$host;dbname=blablaomnes;charset=utf8",
@@ -13,9 +14,10 @@ $bdd = new PDO(
 
 
 
-$requestTrip = $bdd->query("SELECT * ,CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
+$requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, passed, d.ville as depart, d.adresse as addDep, d2.ville as arrive, d2.adresse as addArr, u.pdp as pdp,
+u.prenom as prenom, u.notegenerale as notegenerale, u.caption as caption, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
-FROM Trip t JOIN Driver d on t.idDriver = d.idDriver JOIN `User` u on d.email = u.email  ");
+FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
 $trip = array();
 $driver = array();
 while ($donnees = $requestTrip->fetch()) {
@@ -23,6 +25,13 @@ while ($donnees = $requestTrip->fetch()) {
         $trip = $donnees;
     }
 }
+
+$requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email");
+
+$donnee = $requestPass->fetch();
+$idPass = $donnee["idPassenger"];
+
+
 ?>
 
 
@@ -71,7 +80,7 @@ while ($donnees = $requestTrip->fetch()) {
                     </div>
                     <div>
                         <div><?php echo $trip["addDep"]; ?></div>
-                        <div><?php echo $trip["departure"]; ?></div>
+                        <div><?php echo $trip["depart"]; ?></div>
                     </div>
                 </div>
                 <div class="trip-schem">
@@ -83,7 +92,7 @@ while ($donnees = $requestTrip->fetch()) {
                     </div>
                     <div>
                         <div><?php echo $trip["addArr"]; ?></div>
-                        <div><?php echo $trip["arrival"]; ?></div>
+                        <div><?php echo $trip["arrive"]; ?></div>
                     </div>
                 </div>
             </div>
@@ -119,7 +128,7 @@ while ($donnees = $requestTrip->fetch()) {
                         </div>
                     </div>
                     <!-- mettre lien vers page profil de l'utilateur avec methode GET avec idDriver -->
-                    <?php echo "<a href='../../profil/php/visuinfo.php?idTrip=" . $_GET["idTrip"] . "&idDriver=" . $trip["idDriver"] . "'" ?>
+                    <?php echo "<a href='../../../profil/php/visuinfo.php?idTrip=" . $_GET["idTrip"] . "&idDriver=" . $trip["idDriver"] . "'" ?>
 
                     <div class="div-grid">
                         <?php $contenu_image = $trip['pdp'];
@@ -150,9 +159,9 @@ while ($donnees = $requestTrip->fetch()) {
     </main>
     <footer>
         <div>
-            <a href="//" class="reservation-button">
-                Demande de réservation
-            </a>
+            <?php echo "<a href='trip-reservation.php?idpassenger=" . $idPass . "&idTrip=" . $trip['idTrip'] . "'  class='reservation-button'> Demande de réservation</a>" ?>
+
+
         </div>
     </footer>
 </body>

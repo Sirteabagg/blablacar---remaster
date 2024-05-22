@@ -112,7 +112,6 @@
                 </div>
             </form>
         </div>
-        <div id="proute"></div>
     </main>
     <footer>
         <nav>
