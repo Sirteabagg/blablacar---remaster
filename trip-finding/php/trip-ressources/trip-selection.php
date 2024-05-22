@@ -157,6 +157,7 @@ curl_close($curl_arr);
                 curl_close($curl);
                 $i = $i + 1;
             }
+            echo $date;
 
             if ($tab_distance[0] <= 30000 && $tab_distance[1] <= 30000 && $trip["date"] == $date) {
                 echo '<a href="trip-description.php?idTrip=' . $trip["idTrip"] . '"><div class="trip-container">';
