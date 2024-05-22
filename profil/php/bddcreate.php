@@ -35,6 +35,9 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
         $requete->bindParam(':mdp', $mdp);
         // Exécution de la requête
         $requete->execute();
+
+        $_SESSION["current-user-name"] = $donnee["nom"];
+        $_SESSION["current-user-email"] = $donnee["email"];
         header("Location: info.php");
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();

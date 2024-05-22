@@ -1,0 +1,79 @@
+body {
+    padding: 10px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.arrow {
+    color: #138D75;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.titre {
+    color: #138D75;
+    font-size: 43px;
+    text-align: left;
+}
+
+.menu {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    gap: 40px;
+    padding-top: 30px;
+}
+
+.itemss {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    color: #138D75;
+    border-radius: 10px;
+    font-size: 20px;
+    gap: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 50px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+a {
+    text-decoration: none;
+    color: #138D75;
+}
+
+.supp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fleche {
+    font-size: 24px;
+    transition: transform 0.3s ease-out;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding-left: 10px;
+}
+
+.grid-container.expanded .content {
+    max-height: 500px; /* Adjust this value based on the content size */
+}
+
+.grid-container.expanded .fleche {
+    transform: rotate(180deg); /* Rotate the arrow to point upwards */
+}
