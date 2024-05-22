@@ -35,3 +35,17 @@ input[type="password"]::placeholder{
     font-size: 15px;
     align-self: flex-start;
   }
+  .header-container {
+    display: flex;
+    align-items: center; /* Aligne verticalement les items au centre */
+    gap: 10px; /* Espace entre la flèche et le titre */
+    padding: 10px; /* Espacement interne */
+    color: #138D75; /* Bordure en bas */
+    border-radius: 10px;
+}
+
+.arrow {
+    font-size: 24px; /* Taille de la flèche */
+    cursor: pointer;
+    color: #138D75; /* Changer le curseur pour indiquer la cliquabilité */
+}

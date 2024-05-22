@@ -5,38 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/style-main-structure.css">
     <link rel="stylesheet" href="../styles/prefform.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../scripts/prefform.js" defer></script>
     <title>Document</title>
     
 </head>
 <body>    
         <div class="header-container">
-        <div class="arrow">&lt;</div>
+        <a href="profilforme.php"><div class="arrow">&lt;</div></a>
         <h1 class="titre">Conducteur</h1>
     </div>
     <div class="menu">
-        <div class="itemss grid-container" onclick="toggleExpand(this)">
-            <div class="supp">Infos véhicule</div>
+        <div class="itemss">Infos véhicule
             <div class="fleche">&#9660;</div>
             <div class="content">
-                <p>Informations supplémentaires sur le véhicule...</p>
-            </div>
+                <form action="bdd.php" method="post">
+                <div class="grid">
+
+                <div class="case"><input type="text" placeholder="marque" name="marque" class="form-input"></div>
+                <div class="case"><input type="text" placeholder="modèle" name="modèle" class="form-input"></div>
+                <div class="case"><input type="text" placeholder="couleur" name="couleur" class="form-input"></div>
+                <div class="case"><input type="text" placeholder="immatriculation" name="immat" class="form-input"></div>
+                <input type="submit" class="button-submit" value="Modifier">
+                </div>
+                </form>
+                </div>
         </div>
-        <div class="itemss grid-container">
+        <div class="itemss">Préférences de voyage
+            <div class="fleche2">&#9660;</div>
+            <div class="content2">
+                <form action="bdd.php" method="post">
+                <div class="grid">
+                
+                <div class="case"><label for="pref1">Discussion :</label><input type="text" placeholder="Je suis discret" name="pref1" class="form-input"></div>
+                <div class="case"><label for="pref2">Cigarette :</label><input type="text" placeholder="Non" name="pref2" class="form-input"></div>
+                <div class="case"><label for="pref3">Musique :</label><input type="text" placeholder="Tout le long" name="pref3" class="form-input"></div>
+                <div class="case"><label for="pref4">Animaux :</label><input type="text" placeholder="Oui" name="pref4" class="form-input"></div>
+                <input type="submit" class="button-submit" value="Modifier">
+                </div>
+                </form>
+                </div>
+        </div>
+        
+        <div class="itemss">
             <div>N°Permis</div>
             <div>&gt;</div>
         </div>
-        <div class="itemss grid-container">
+        <div class="itemss">
             <div>Photo permis de conduire</div>
             <div>&gt;</div>
         </div>
-        <div class="itemss grid-container">
-            <div>Préférences de voyage</div>
-            <div>&gt;</div>
-        </div>
+        
     </div>
-
-    <script src="prefform.js"></script>
 </body>
+    
+
 <footer>
     <nav>
         <div class="nav-container">
