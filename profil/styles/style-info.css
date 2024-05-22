@@ -1,9 +1,14 @@
-.grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Une seule colonne */
-    grid-template-rows: repeat(3, 1fr); /* Trois lignes égales */
-    align-items: left; /* Aligner les éléments verticalement */
-  }
+.header-container {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+.arrow {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
   
   .titre {
     padding-left: 70px;
@@ -11,7 +16,12 @@
     font-size: 43px;
     text-align:left ; /* Centrer le texte horizontalement */
   }
-  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Une seule colonne */
+    grid-template-rows: repeat(3, 1fr); /* Trois lignes égales */
+    align-items: left; /* Aligner les éléments verticalement */
+  }
   .case {
     text-align: center;
     padding: 15px;
