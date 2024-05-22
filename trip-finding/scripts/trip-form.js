@@ -20,3 +20,21 @@ $(document).ready(function() {
     $('#datepicker').datepicker($.datepicker.regional["fr"]);
 });
 
+$('#myForm').on('submit', function(event) {
+  event.preventDefault(); // Empêche l'envoi du formulaire immédiatement
+
+  // Récupère l'entrée de date au format dd MM yy
+  var dateInput = $('#datepicker').val();
+
+  // Utilise moment.js pour convertir le format de la date
+  var formattedDate = moment(dateInput, 'DD MMM YYYY').format('YYYY-MM-DD');
+  console.log(formattedDate);
+
+
+  // Change la valeur de l'entrée de date au nouveau format
+  $('#datepicker').val(formattedDate);
+
+  // Soumet le formulaire
+  this.submit();
+});
+
