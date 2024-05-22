@@ -27,14 +27,13 @@ $('#myForm').on('submit', function(event) {
   var dateInput = $('#datepicker').val();
 
   // Utilise moment.js pour convertir le format de la date
-  var formattedDate = moment(dateInput, 'DD MMM YYYY').format('YYYY-MM-DD');
-  console.log(formattedDate);
+  if (moment(dateInput, 'DD MMM YYYY', true).isValid()) {
+    var formattedDate = moment(dateInput, 'DD MMM YYYY').format('YYYY-MM-DD');
+    $('#datepicker').val(formattedDate);
+    console.log("okok");
+  }
 
 
-  // Change la valeur de l'entrée de date au nouveau format
-  $('#datepicker').val(formattedDate);
-
-  // Soumet le formulaire
   this.submit();
 });
 
