@@ -51,7 +51,7 @@ while ($donnee = $request->fetch()) {
     <header>
         <div class="title-description">
             <?php if (isset($_GET["idDriver"], $_GET["idTrip"])) {
-                echo "<a href=../../trip-finding/php/trip-description.php?idTrip=" . $idTrip;
+                echo "<a href=../../trip-finding/php/trip-ressources/trip-description.php?idTrip=" . $idTrip;
             } else {
                 echo "<a href=profilforme.php";
             }
