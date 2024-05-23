@@ -14,9 +14,13 @@
 <body class="page-type">
 
 <div class=" droite">
+        <a href="..\admin\page_campus.php">
         <div class=" titre">Campus</div> 
+        </a>
+        <a href="..\admin\page_utilisateur.php">
         <div class=" titre">Liste Utilisateur</div>
-        <div class=" titre">Gestion de permis</div>
+        </a>
+        <div class=" titrechoisi">Gestion de permis</div>
         
                     
   </div>
@@ -48,16 +52,16 @@ catch (Exception $e)
 die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM utilisateur');
+$reponse = $bdd->query('SELECT * FROM driver');
 // On affiche chaque entr´ee une `a une
 while ($donnees = $reponse->fetch())
 {
 ?>
-<div class="ville1 titre1"><?php echo $donnees['nom']; ?></div> 
-<div class="adresse1 titre1"><?php echo $donnees['prenom']; ?></div>
+<div class="ville1 titre1"><?php echo $donnees['registration']; ?></div> 
+<div class="adresse1 titre1"><?php echo $donnees['iban']; ?></div>
 <div class="adresse1 titre1"><?php echo $donnees['email']; ?></div>
-<div class="selection"> télécharger</div> 
-<div class="selection"> supprimer</div> 
+<input type="submit" value="télécharger" class="selection titre1">
+<input type="submit" value="supprimer" class="selection titre1">
 
 <?php
 }

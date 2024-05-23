@@ -14,9 +14,14 @@
 <body class="page-type">
 
 <div class=" droite">
+        <a href="..\admin\page_campus.php">
         <div class=" titre">Campus</div> 
-        <div class=" titre">Liste Utilisateur</div>
+        </a>
+        <div class=" titrechoisi">Liste Utilisateur</div>
+        
+        <a href="..\admin\page_permis.php">
         <div class=" titre">Gestion de permis</div>
+        </a>
         
                     
   </div>
@@ -47,7 +52,7 @@ catch (Exception $e)
 die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM utilisateur');
+$reponse = $bdd->query('SELECT * FROM user');
 // On affiche chaque entr´ee une `a une
 while ($donnees = $reponse->fetch())
 {
@@ -56,7 +61,7 @@ while ($donnees = $reponse->fetch())
 <div class="adresse1 titre1"><?php echo $donnees['prenom']; ?></div>
 <div class="adresse1 titre1"><?php echo $donnees['email']; ?></div>
 
-<div class="selection"> supprimer</div> 
+<input type="submit" value="supprimer" class="selection titre1">
 
 <?php
 }

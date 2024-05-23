@@ -16,24 +16,31 @@
     <h2 class="titre">Administrateur</h2>
   </header>
 
+  <a href="..\admin\page_campus.php">
     <div class="rectangle">
-        <div class="texte-grid titreacceuil">Campus</div> 
-        <div class="qqc"> </div>
-        <div class="fleche ">&gt</div>             
+        
+            <div class="texte-grid titreacceuil">Campus</div>  
+            <div class="qqc"></div>
+            <div>&gt</div>
+        
     </div>
-    
+    </a>
+   
+    <a href="..\admin\page_utilisateur.php">
     <div class="rectangle">
         <div class="texte-grid titreacceuil">Liste Utilisateur</div> 
         <div class="qqc"> </div>
         <div class="fleche ">&gt</div>             
     </div>
- 
+    </a>
+
+    <a href="..\admin\page_permis.php">
     <div class="rectangle">
         <div class="texte-grid titreacceuil">Gestion de permis</div> 
         <div class="qqc"> </div>
         <div class="fleche ">&gt</div>             
     </div>
-  
+    </a>
 
 </body>
 
