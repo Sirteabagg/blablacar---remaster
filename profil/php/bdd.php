@@ -1,62 +1,88 @@
 <?php
 session_start();
 
+// Récupérer les informations de la session
 $host = $_SESSION["hostBdd"];
 $password = $_SESSION["passwordBdd"];
+$email = $_SESSION["current-user-email"];
 
-$systeme_exploitation = PHP_OS;
+try {
+    // Connexion à la base de données
+    $bdd = new PDO(
+        "mysql:host=$host;dbname=blablaomnes;charset=utf8",
+        'root',
+        $password
+    );
 
-if (strpos($systeme_exploitation, 'Darwin') !== false) {
-    if (!isset($_SESSION["passwordBdd"], $_SESSION["hostBdd"])) {
-        $_SESSION["passwordBdd"] = "root";
-        $_SESSION["hostBdd"] = "127.0.0.1";
+    // Si le formulaire est soumis, mettre à jour les informations utilisateur
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $tel = $_POST['tel'];
+
+        // Préparation de la requête de mise à jour
+        $stmt = $bdd->prepare("UPDATE User SET nom = :nom, prenom = :prenom, tel = :tel WHERE email = :email");
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':tel', $tel);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        // Rediriger vers la page profilform.php après la mise à jour
+        header("Location: profilform.php");
+        exit(); // Assurez-vous de sortir pour éviter l'exécution ultérieure du script
     }
-} elseif (strpos($systeme_exploitation, 'WIN') !== false) {
-    if (!isset($_SESSION["passwordBdd"], $_SESSION["hostBdd"])) {
-        $_SESSION["passwordBdd"] = "";
-        $_SESSION["hostBdd"] = "localhost";
+
+    // Préparation et exécution de la requête pour récupérer les informations utilisateur
+    $stmt = $bdd->prepare("SELECT nom, prenom, email, tel FROM User WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    // Récupération des données utilisateur
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        throw new Exception("Utilisateur non trouvé");
     }
+} catch (Exception $e) {
+    die("Erreur : " . $e->getMessage());
 }
+?>
 
-// Vérifie si des données ont été soumises via la méthode POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
-    if (isset($_POST["nom"], $_POST["prenom"], $_POST["email"], $_POST["tel"])) {
-        $nom = $_POST["nom"];
-        $prenom = $_POST["prenom"];
-        $email = $_POST["email"];
-        $tel = $_POST["tel"];
+<!DOCTYPE html>
+<html lang="fr">
 
-        try {
-            // Connexion à la base de données
-            $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $password);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style-main-structure.css">
+    <link rel="stylesheet" href="../styles/style-info.css">
+    <script src="../scripts/script-modif-info.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Mes Infos</title>
+</head>
 
-            // Définir le mode d'erreur de PDO sur exception
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+<body>
+    <div class="container">
+        <h1 class="titre">Mes Infos</h1>
+        <form action="" method="post">
+            <div class="grid">
+                <div class="case">
+                    <input type="text" placeholder="nom" name="nom" class="form-input" value="<?php echo htmlspecialchars($user['nom'] ?? ''); ?>">
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="prenom" name="prenom" class="form-input" value="<?php echo htmlspecialchars($user['prenom'] ?? ''); ?>">
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="email" name="email" class="form-input" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" readonly>
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="n° tel" name="tel" class="form-input" value="<?php echo htmlspecialchars($user['tel'] ?? ''); ?>">
+                </div>
+                <input type="submit" class="button-submit" value="submit">
+            </div>
+        </form>
+    </div>
+</body>
 
-            // Requête SQL préparée
-            $requete = $connexion->prepare("INSERT INTO utilisateur (email, nom,  prenom, numerotel) VALUES ( :email, :nom, :prenom, :tel)");
-
-            // Liaison des valeurs des paramètres
-            $requete->bindParam(':nom', $nom);
-            $requete->bindParam(':prenom', $prenom);
-            $requete->bindParam(':email', $email);
-            $requete->bindParam(':tel', $tel);
-
-            // Exécution de la requête
-            $requete->execute();
-
-            echo "Données insérées avec succès !";
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
-
-        // Fermer la connexion
-        $connexion = null;
-    } else {
-        echo "Les champs 'nom', 'prenom', 'email', 'tel' n'ont pas été soumis.";
-    }
-}
-
-header("Location: profilforme.php");
-exit;
+</html>
