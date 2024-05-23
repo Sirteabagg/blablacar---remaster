@@ -64,8 +64,11 @@ try {
 </head>
 
 <body>
+    <div class="header-container">
+        <a href="profilforme.php"><div class="arrow">&lt;</div></a>
+        <h1 class="titre">Conducteur</h1></div>
     <div class="container">
-        <h1 class="titre">Mes Infos</h1>
+        
         <form action="" method="post">
             <div class="grid">
                 <div class="case">
@@ -80,7 +83,7 @@ try {
                 <div class="case">
                     <input type="text" placeholder="numerotel" name="numerotel" class="form-input" value="<?php echo htmlspecialchars($user['numerotel'] ?? ''); ?>">
                 </div>
-                <input type="submit" class="button-submit" value="submit">
+                <input type="submit" class="button-submit" value="Sauvegarder">
             </div>
         </form>
     </div>

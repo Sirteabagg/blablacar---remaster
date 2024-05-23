@@ -1,3 +1,58 @@
+<?php
+session_start();
+
+// Récupérer les informations de la session
+$host = $_SESSION["hostBdd"];
+$password = $_SESSION["passwordBdd"];
+$email = $_SESSION["current-user-email"];
+
+try {
+    // Connexion à la base de données
+    $bdd = new PDO(
+        "mysql:host=$host;dbname=blablaomnes;charset=utf8",
+        'root',
+        $password
+    );
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Si le formulaire est soumis, mettre à jour les préférences de voyage de l'utilisateur
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $pref1 = $_POST['pref1'];
+        $pref2 = $_POST['pref2'];
+        $pref3 = $_POST['pref3'];
+        $pref4 = $_POST['pref4'];
+
+        // Préparation de la requête de mise à jour
+        $stmt = $bdd->prepare("UPDATE User SET pref1 = :pref1, pref2 = :pref2, pref3 = :pref3, pref4 = :pref4 WHERE email = :email");
+        $stmt->bindParam(':pref1', $pref1);
+        $stmt->bindParam(':pref2', $pref2);
+        $stmt->bindParam(':pref3', $pref3);
+        $stmt->bindParam(':pref4', $pref4);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        // Rediriger vers la page profilforme.php après la mise à jour
+        header("Location: prefform.php");
+        exit(); // Assurez-vous de sortir pour éviter l'exécution ultérieure du script
+    }
+
+    // Préparation et exécution de la requête pour récupérer les préférences de voyage de l'utilisateur
+    $stmt = $bdd->prepare("SELECT pref1, pref2, pref3, pref4 FROM User WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    // Récupération des préférences de voyage de l'utilisateur
+    $preferences = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$preferences) {
+        throw new Exception("Préférences de voyage non trouvées pour cet utilisateur");
+    }
+} catch (Exception $e) {
+    die("Erreur : " . $e->getMessage());
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +77,11 @@
                 <form action="bdd.php" method="post">
                 <div class="grid">
 
-                <div class="case"><input type="text" placeholder="marque" name="marque" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="modèle" name="modèle" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="couleur" name="couleur" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="immatriculation" name="immat" class="form-input"></div>
-                <input type="submit" class="button-submit" value="Modifier">
+                <div class="case"><label for="marque">Marque :</label><input type="text" placeholder="Peugeot" name="marque" class="form-input"></div>
+                <div class="case"><label for="modèle">Modèle :</label><input type="text" placeholder="3008" name="modèle" class="form-input"></div>
+                <div class="case"><label for="couleur">Couleur :</label><input type="text" placeholder="Blanc" name="couleur" class="form-input"></div>
+                <div class="case"><label for="immat">Immatriculation :</label><input type="text" placeholder="FN-911-HK" name="immat" class="form-input"></div>
+                <input type="submit" class="button-submit" value="Sauvegarder">
                 </div>
                 </form>
                 </div>
@@ -37,11 +92,11 @@
                 <form action="bdd.php" method="post">
                 <div class="grid">
                 
-                <div class="case"><label for="pref1">Discussion :</label><input type="text" placeholder="Je suis discret" name="pref1" class="form-input"></div>
-                <div class="case"><label for="pref2">Cigarette :</label><input type="text" placeholder="Non" name="pref2" class="form-input"></div>
-                <div class="case"><label for="pref3">Musique :</label><input type="text" placeholder="Tout le long" name="pref3" class="form-input"></div>
-                <div class="case"><label for="pref4">Animaux :</label><input type="text" placeholder="Oui" name="pref4" class="form-input"></div>
-                <input type="submit" class="button-submit" value="Modifier">
+                <div class="case"><label for="pref1">Discussion :</label><input type="text" placeholder="Je suis discret" name="pref1" class="form-input" value="<?php echo htmlspecialchars($preferences['pref1'] ?? ''); ?>"></div>
+                <div class="case"><label for="pref2">Cigarette :</label><input type="text" placeholder="Non" name="pref2" class="form-input" value="<?php echo htmlspecialchars($preferecnes['pref2'] ?? ''); ?>"></div>
+                <div class="case"><label for="pref3">Musique :</label><input type="text" placeholder="Tout le long" name="pref3" class="form-input" value="<?php echo htmlspecialchars($preferences['pref3'] ?? ''); ?>"></div>
+                <div class="case"><label for="pref4">Animaux :</label><input type="text" placeholder="Oui" name="pref4" class="form-input" value="<?php echo htmlspecialchars($preferences['pref4'] ?? ''); ?>"></div>
+                <input type="submit" class="button-submit" value="Sauvegarder">
                 </div>
                 </form>
                 </div>
