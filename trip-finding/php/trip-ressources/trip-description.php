@@ -14,7 +14,7 @@ $bdd = new PDO(
 
 
 
-$requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, passed, d.ville as depart, d.adresse as addDep, d2.ville as arrive, d2.adresse as addArr, u.pdp as pdp,
+$requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, passed, d.ville as depart, d.adresse as addDep, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.adresse as addArr, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, u.caption as caption, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
 FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
@@ -64,6 +64,7 @@ $idPass = $donnee["idPassenger"];
     </header>
     <main class="desc">
         <div class="boxes-shadow">
+            <?php echo "<a href='leaflet.php?longdep=" . $trip["longDep"] . "&latdep=" . $trip["latDep"] . "&longarr=" . $trip["longArr"] . "&latarr=" . $trip["latArr"] . "&idTrip=" . $trip["idTrip"] . "'>" ?>
             <div class="trip-desc pad-obj">
                 <div><?php
                         $date = date_create($trip['date']);
@@ -96,6 +97,8 @@ $idPass = $donnee["idPassenger"];
                     </div>
                 </div>
             </div>
+            <?php echo "</a>"; ?>
+
         </div>
         <div class="boxes-shadow">
             <div class="pad-obj price-container">
