@@ -112,3 +112,10 @@ body{
 a{
   text-decoration: none;
 }
+
+form{
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
