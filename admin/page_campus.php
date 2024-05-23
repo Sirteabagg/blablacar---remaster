@@ -27,15 +27,17 @@
     
   <div class=" gauche">
         <div class="titre22 titre">Campus</div>
-    
+        <form method="post" action="ecrire_en_php.php">
         <div class="">
-        <input type="text" name="departure" placeholder="Ville" class="truc1 selection">
+        <input type="text" name="Ville" placeholder="Ville" class="truc1 selection">
         </div>
         <div class="">
-            <input type="text" name="departure" placeholder="Adresse" class="truc2 selection">
+            <input type="text" name="Adresse" placeholder="Adresse" class="truc2 selection">
       </div> 
         <div class="">
-        <input type="submit" value="Ajouter" class="bouton button-submit">
+        <input type="submit" name="quelquechose" value="Ajouter" class="bouton button-submit">
+
+        </form>
         </div> 
         <div class="liste ">
         <div class="liste titre1">Liste des campus</div> 
@@ -64,9 +66,11 @@ $reponse = $bdd->query('SELECT * FROM campus');
 while ($donnees = $reponse->fetch())
 {
 ?>
-<div class="ville1 titre1"><?php echo $donnees['city']; ?></div> 
-<div class="adresse1 titre1"><?php echo $donnees['address']; ?></div>
-<div class="selection"> supprimer</div> 
+<form method="post" action="effacer_donne.php">
+<div class="ville1 titre1" name="Ville"><?php echo $donnees['city']; ?></div> 
+<div class="adresse1 titre1" name="Adresse"><?php echo $donnees['address']; ?></div>
+<input type="submit" value="supprimer" class="selection titre1">
+</form>
 
 <?php
 }
