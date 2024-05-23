@@ -24,13 +24,13 @@ body{
   
     padding-top: 15px;
     display: grid ;
-    gap: 10px;
     grid-column: repeat(4,1fr);  
 }
 .itemss{
     background-color: #D9D9D9;
     color: #138D75;
     border-radius: 10px;
+    margin-bottom: 10px
 }
 .grid {
     display: grid;
