@@ -217,24 +217,18 @@ try {
     <div class="itemss">
             <div>N°Permis</div>
             <div>&gt;</div>
-            <input type="text">
+            <div class="case"><label for="pref1">N° :</label><input type="text" placeholder="Je suis discret" name="pref1" value="<?php echo htmlspecialchars($preferences['pref1'] ?? ''); ?>"></div>
         </div>
     
     <div class="menu">
         <form action="" method="post" enctype="multipart/form-data">
             <div class="itemss">
-                <label for="pdp">Choisir une photo :</label>
+                <label for="pdp">Photo permis de conduire :</label>
                 <input type="file" name="pdp">
-            </div>
-            <div class="itemss">
                 <input type="submit" name="upload" value="Uploader">
                 <input type="submit" name="delete" value="Supprimer">
             </div>
         </form>
-    </div>
-        <div class="itemss">
-            <div>Photo permis de conduire</div>
-            <div>&gt;</div>
-        </div>
+    </div> 
 </body>
 </html>

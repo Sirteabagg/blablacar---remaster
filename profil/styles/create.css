@@ -2,13 +2,11 @@ body{
     padding: 40px;
 }
 
-.titre{
-    color: #138D75;
-    font-size: 40px;
-}
+
 .form-input {
     background-color: transparent;
     border: none;
+
     width: 250px;
     height: 60px;
     font-size: 30px;
@@ -42,10 +40,24 @@ input[type="password"]::placeholder{
     padding: 10px; /* Espacement interne */
     color: #138D75; /* Bordure en bas */
     border-radius: 10px;
-}
-
+  }
 .arrow {
     font-size: 24px; /* Taille de la flèche */
     cursor: pointer;
     color: #138D75; /* Changer le curseur pour indiquer la cliquabilité */
 }
+.grid {
+    
+    display: grid;
+    grid-template-columns: 1fr; /* Une seule colonne */
+    grid-template-rows: repeat(3, 1fr); /* Trois lignes égales */
+    align-items: left; /* Aligner les éléments verticalement */
+  }
+  .case {
+    text-align: center;
+  }
+  .header-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+  }
