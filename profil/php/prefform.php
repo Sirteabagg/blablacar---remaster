@@ -89,6 +89,33 @@ try {
             exit();
         }
 
+        // Mise à jour du numéro de permis
+        if (isset($_POST['idpermis'])) {
+            $idpermis = $_POST['idpermis'];
+
+            // Vérifiez si une ligne existe pour cet email dans la table permis
+            $stmt = $bdd->prepare("SELECT email FROM permis WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $permis = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($permis) {
+                // Mettre à jour le numéro de permis existant
+                $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE email = :email");
+            } else {
+                // Insérer une nouvelle ligne pour le numéro de permis
+                $stmt = $bdd->prepare("INSERT INTO permis (email, idpermis) VALUES (:email, :idpermis)");
+            }
+
+            $stmt->bindParam(':idpermis', $idpermis);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+
+            // Rediriger vers la page prefform.php après la mise à jour
+            header("Location: prefform.php");
+            exit();
+        }
+
         // Upload, modification et suppression de la photo de profil
         if (isset($_FILES['pdp']) && $_FILES['pdp']['error'] == UPLOAD_ERR_OK) {
             // Upload de la photo
@@ -102,7 +129,6 @@ try {
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
 
             if ($user) {
                 // Mettre à jour la photo de profil de l'utilisateur existant
@@ -161,12 +187,43 @@ try {
             'places' => ''
         ];
     }
+
+    // Récupération du numéro de permis de l'utilisateur
+    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $permis = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$permis) {
+        // Si l'utilisateur n'a pas encore de numéro de permis, définir une valeur par défaut
+        $permis = [
+            'idpermis' => ''
+        ];
+    }
+            // Upload de la photo du permis
+        if (isset($_FILES['photopermis']) && $_FILES['photopermis']['error'] === UPLOAD_ERR_OK) {
+            // Chemin temporaire du fichier téléchargé
+            $tmpFilePath = $_FILES['photopermis']['tmp_name'];
+
+            // Lire le contenu du fichier
+            $permisContent = file_get_contents($tmpFilePath);
+
+            // Insérer ou mettre à jour les données dans la base de données
+            $stmt = $bdd->prepare("INSERT INTO permis (email, photopermis) VALUES (:email, :photopermis) ON DUPLICATE KEY UPDATE photopermis = :photopermis");
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':photopermis', $permisContent, PDO::PARAM_LOB);
+            $stmt->execute();
+
+            // Redirection ou autres actions après l'envoi réussi
+            header("Location: prefform.php");
+            exit();
+        }
+
+    
 } catch (Exception $e) {
     die("Erreur : " . $e->getMessage());
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -215,20 +272,23 @@ try {
         </div>
     </div>
     <div class="itemss">
-            <div>N°Permis</div>
-            <div>&gt;</div>
-            <div class="case"><label for="pref1">N° :</label><input type="text" placeholder="Je suis discret" name="pref1" value="<?php echo htmlspecialchars($preferences['pref1'] ?? ''); ?>"></div>
-        </div>
-    
-    <div class="menu">
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="itemss">
-                <label for="pdp">Photo permis de conduire :</label>
-                <input type="file" name="pdp">
-                <input type="submit" name="upload" value="Uploader">
-                <input type="submit" name="delete" value="Supprimer">
-            </div>
+    <form action="" method="post">
+        <div>N°Permis</div>
+        <div>&gt;</div>
+        <div class="case"><label for="idpermis">N° :</label><input type="text" placeholder="12345678" name="idpermis" value="<?php echo htmlspecialchars($permis['idpermis'] ?? ''); ?>"></div>
+        <input type="submit" class="button-submit" value="Sauvegarder">
         </form>
+    </div>
+    <div class="menu">
+        
+            <div class="itemss">
+            <form action="" method="post" enctype="multipart/form-data">
+                <label for="photopermis">Photo permis de conduire :</label>
+                <input type="file" name="photopermis">
+                <input type="submit" name="upload" value="Uploader">
+                </form>
+            </div>
+        
     </div> 
 </body>
 </html>
