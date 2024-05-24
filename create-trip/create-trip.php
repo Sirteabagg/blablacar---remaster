@@ -28,7 +28,7 @@
                     campus OMNES
                 </span>
                 <div class="select">
-                    <input type="text" name="depart" placeholder="Départ" class="form-input " required="required">           
+                    <input type="text" name="depart" id="depart" placeholder="Départ" class="form-input " required="required">           
                 </div>  
             </nav>
             <br><br>
@@ -37,7 +37,15 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="text" name="arriver" placeholder="Arrivée" class="form-input ml-2" required="required">           
+                    <select name="arriver" id="arriver" required="required" class="form-input ml-2">
+                        <option value="43 Quai de Grenelle, 75015 Paris">Campus Paris</option>
+                        <option value="25 Rue de l'Université, 69007 Lyon">Campus Lyon</option>
+                        <option value="30 Rue Joseph Bonnet, 33100 Bordeaux">Campus Bordeaux</option>
+                        <option value="12 Av. du Lac d'Annecy, 73381 Le Bourget-du-Lac Cedex">Campus Chambéry</option>
+                        <option value="1 Bd Maréchal Foch, 21200 Beaune">Campus Beaune</option>
+                        <option value="31 Rue Mgr Duchesne, 35000 Rennes">Campus Rennes</option>
+                        <option value="105 Bd de Paris, 13002 Marseille">Campus Marseille</option>
+                    </select>           
                 </div>  
             </nav>
             <br><br>
