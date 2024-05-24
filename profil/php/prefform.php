@@ -19,8 +19,9 @@ try {
     );
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Si le formulaire est soumis, mettre à jour les préférences de voyage de l'utilisateur
+    // Si le formulaire est soumis
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Mise à jour des préférences de voyage de l'utilisateur
         if (isset($_POST['pref1'])) {
             $pref1 = $_POST['pref1'];
             $pref2 = $_POST['pref2'];
@@ -53,7 +54,7 @@ try {
             exit();
         }
 
-        // Si le formulaire des informations du véhicule est soumis, mettre à jour les informations du véhicule
+        // Mise à jour des informations du véhicule
         if (isset($_POST['brand'])) {
             $brand = $_POST['brand'];
             $model = $_POST['model'];
@@ -87,14 +88,51 @@ try {
             header("Location: prefform.php");
             exit();
         }
+
+        // Upload, modification et suppression de la photo de profil
+        if (isset($_FILES['pdp']) && $_FILES['pdp']['error'] == UPLOAD_ERR_OK) {
+            // Upload de la photo
+            $fileTmpPath = $_FILES['pdp']['tmp_name'];
+            $fp = fopen($fileTmpPath, 'rb');
+            $content = fread($fp, filesize($fileTmpPath));
+            fclose($fp);
+
+            // Vérifiez si une ligne existe pour cet email dans la table user
+            $stmt = $bdd->prepare("SELECT email FROM user WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+
+            if ($user) {
+                // Mettre à jour la photo de profil de l'utilisateur existant
+                $stmt = $bdd->prepare("UPDATE user SET pdp = :pdp WHERE email = :email");
+            } else {
+                // Insérer une nouvelle ligne pour l'utilisateur
+                $stmt = $bdd->prepare("INSERT INTO user (email, pdp) VALUES (:email, :pdp)");
+            }
+
+            $stmt->bindParam(':pdp', $content, PDO::PARAM_LOB);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+
+            header("Location: prefform.php");
+            exit();
+        } elseif (isset($_POST['delete'])) {
+            // Supprimer la photo
+            $stmt = $bdd->prepare("UPDATE user SET pdp = NULL WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+
+            header("Location: prefform.php");
+            exit();
+        }
     }
 
-    // Préparation et exécution de la requête pour récupérer les préférences de voyage de l'utilisateur
+    // Récupération des préférences de voyage de l'utilisateur
     $stmt = $bdd->prepare("SELECT pref1, pref2, pref3, pref4 FROM preferences WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-
-    // Récupération des préférences de voyage de l'utilisateur
     $preferences = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$preferences) {
@@ -107,12 +145,10 @@ try {
         ];
     }
 
-    // Préparation et exécution de la requête pour récupérer les informations du véhicule de l'utilisateur
+    // Récupération des informations du véhicule de l'utilisateur
     $stmt = $bdd->prepare("SELECT brand, model, color, immatriculation, places FROM car WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-
-    // Récupération des informations du véhicule de l'utilisateur
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$car) {
@@ -129,6 +165,7 @@ try {
     die("Erreur : " . $e->getMessage());
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -168,9 +205,9 @@ try {
                 <form action="" method="post">
                     <div class="grid">
                         <div class="case"><label for="pref1">Discussion :</label><input type="text" placeholder="Je suis discret" name="pref1" value="<?php echo htmlspecialchars($preferences['pref1'] ?? ''); ?>"></div>
-                        <div class="case"><label for="pref2">Musique :</label><input type="text" placeholder="Rock" name="pref2" class="form-input" value="<?php echo htmlspecialchars($preferences['pref2'] ?? ''); ?>"></div>
-                        <div class="case"><label for="pref3">Température :</label><input type="text" placeholder="22°C" name="pref3" class="form-input" value="<?php echo htmlspecialchars($preferences['pref3'] ?? ''); ?>"></div>
-                        <div class="case"><label for="pref4">Arrêts :</label><input type="text" placeholder="Pas d'arrêts" name="pref4" class="form-input" value="<?php echo htmlspecialchars($preferences['pref4'] ?? ''); ?>"></div>
+                        <div class="case"><label for="pref2">Cigarette :</label><input type="text" placeholder="Non" name="pref2" value="<?php echo htmlspecialchars($preferences['pref2'] ?? ''); ?>"></div>
+                        <div class="case"><label for="pref3">Musique :</label><input type="text" placeholder="Oui" name="pref3"  value="<?php echo htmlspecialchars($preferences['pref3'] ?? ''); ?>"></div>
+                        <div class="case"><label for="pref4">Animaux :</label><input type="text" placeholder="Non" name="pref4" value="<?php echo htmlspecialchars($preferences['pref4'] ?? ''); ?>"></div>
                         <input type="submit" class="button-submit" value="Sauvegarder">
                     </div>
                 </form>
@@ -180,7 +217,21 @@ try {
     <div class="itemss">
             <div>N°Permis</div>
             <div>&gt;</div>
+            <input type="text">
         </div>
+    
+    <div class="menu">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="itemss">
+                <label for="pdp">Choisir une photo :</label>
+                <input type="file" name="pdp">
+            </div>
+            <div class="itemss">
+                <input type="submit" name="upload" value="Uploader">
+                <input type="submit" name="delete" value="Supprimer">
+            </div>
+        </form>
+    </div>
         <div class="itemss">
             <div>Photo permis de conduire</div>
             <div>&gt;</div>
