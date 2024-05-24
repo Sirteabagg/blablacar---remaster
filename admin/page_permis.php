@@ -51,7 +51,7 @@ catch (Exception $e)
 die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM driver');
+$reponse = $bdd->query('SELECT * FROM permis');
 // On affiche chaque entr´ee une `a une
 while ($donnees = $reponse->fetch())
 {
@@ -60,7 +60,7 @@ while ($donnees = $reponse->fetch())
 
 <form method="post" action="effacer_permis.php" class="listepermis ">
      
-            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["email"].'">';?>
+            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["iduser"].'">';?>
            <input type="submit" name="boutonpermis" value="information" class="selection titre1">
            <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
            <input type="submit" name="boutonpermis" value="supprimer" class="selection titre1">
