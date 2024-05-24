@@ -16,19 +16,19 @@
         <h1>Créer un trajet</h1>
     </header>
     <main>
-        <form action="">
+        <form method="post" action="creat-trip-price.php">
             <nav class="modele-container">
                 <p class="text1">Départ</p>
                 <span class="text2"></span>
                 <span class="text3 centrerhorizontalement">    
                     <label class="switch">
-	                    <input type="checkbox" />
+	                    <input type="checkbox" id="Campus"/>
 	                    <span></span>
                     </label>
                     campus OMNES
                 </span>
                 <div class="select">
-                    <input type="text" name="depart" placeholder="Départ" class="form-input ">           
+                    <input type="text" name="depart" placeholder="Départ" class="form-input " required="required">           
                 </div>  
             </nav>
             <br><br>
@@ -37,7 +37,7 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="text" name="arriver" placeholder="Arrivée" class="form-input ml-2">           
+                    <input type="text" name="arriver" placeholder="Arrivée" class="form-input ml-2" required="required">           
                 </div>  
             </nav>
             <br><br>
@@ -46,7 +46,7 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="text" name="date" id="datepicker" placeholder="Date" class="form-input ml-2">           
+                    <input type="text" name="date" id="datepicker" placeholder="Date" class="form-input ml-2" required="required">           
                 </div>  
             </nav>
             <br><br>
@@ -55,11 +55,20 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="text" name="heure" placeholder="Heure de départ" class="form-input ml-2">           
+                    <input type="time" name="heure" placeholder="Heure de départ" class="form-input ml-2" required="required">           
                 </div>  
             </nav>
             <br><br>
-            <button class="styled" type="button">Validé</button>
+            <nav class="modele-container">
+                <p class="text1">Nombre de passager</p>
+                <span class="text2"></span>
+                <span class="text3"></span>
+                <div class="select">
+                    <input type="number" name="nbpassager" placeholder="Nombre de passager" class="form-input ml-2" required="required" min="1">           
+                </div>  
+            </nav>
+            <br><br>
+            <input class="styled" type="submit" value="Validé" id="valide"></input>
         </form>
 </main>
 
