@@ -1,9 +1,57 @@
 <?php
 session_start();
+
+// Récupérer les informations de la session
+$host = $_SESSION["hostBdd"];
+$password = $_SESSION["passwordBdd"];
+$email = $_SESSION["current-user-email"];
+
+try {
+    // Connexion à la base de données
+    $bdd = new PDO(
+        "mysql:host=$host;dbname=blablaomnes;charset=utf8",
+        'root',
+        $password
+    );
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Si le formulaire est soumis, mettre à jour les informations utilisateur
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $numerotel = $_POST['numerotel'];
+
+        // Préparation de la requête de mise à jour
+        $stmt = $bdd->prepare("UPDATE User SET nom = :nom, prenom = :prenom, numerotel = :numerotel WHERE email = :email");
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':numerotel', $numerotel);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        // Rediriger vers la page profilform.php après la mise à jour
+        header("Location: profilforme.php");
+        exit(); // Assurez-vous de sortir pour éviter l'exécution ultérieure du script
+    }
+
+    // Préparation et exécution de la requête pour récupérer les informations utilisateur
+    $stmt = $bdd->prepare("SELECT nom, prenom, email, numerotel FROM User WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    // Récupération des données utilisateur
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        throw new Exception("Utilisateur non trouvé");
+    }
+} catch (Exception $e) {
+    die("Erreur : " . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -11,23 +59,31 @@ session_start();
     <link rel="stylesheet" href="../../css/style-main-structure.css">
     <link rel="stylesheet" href="../styles/style-info.css">
     <script src="../scripts/script-modif-info.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <title>Document</title>
+    <title>Mes Infos</title>
 </head>
 
 <body>
+    <div class="header-container">
+        <a href="profilforme.php"><div class="arrow">&lt;</div></a>
+        <h1 class="titre">Utilisateur</h1></div>
     <div class="container">
-        <H1 class="titre">Mes Infos</H1>
-        <form action="bdd.php" method="post">
+        
+        <form action="" method="post">
             <div class="grid">
-
-                <div class="case"><input type="text" placeholder="nom" name="nom" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="prenom" name="prenom" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="email" name="email" class="form-input"></div>
-                <div class="case"><input type="text" placeholder="n° tel" name="tel" class="form-input"></div>
-                <input type="submit" class="button-submit" value="submit">
+                <div class="case">
+                    <input type="text" placeholder="nom" name="nom" class="form-input" value="<?php echo htmlspecialchars($user['nom'] ?? ''); ?>">
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="prenom" name="prenom" class="form-input" value="<?php echo htmlspecialchars($user['prenom'] ?? ''); ?>">
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="email" name="email" class="form-input" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" readonly>
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="numerotel" name="numerotel" class="form-input" value="<?php echo htmlspecialchars($user['numerotel'] ?? ''); ?>">
+                </div>
+                <input type="submit" class="button-submit" value="Sauvegarder">
             </div>
         </form>
     </div>
@@ -36,22 +92,22 @@ session_start();
     <nav>
         <div class="nav-container">
             <div class="nav-item">
-                <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" style="fill: white;">
+                <a href="../../trip-finding/php/trip-ressources/trip-form.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="fill: white;">
                         <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                     </svg>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" style="fill: white;">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="fill: white;">
                         <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
                     </svg>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="#">
-                    <svg fill="#000000" height="25" width="25" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.77 202.77" xml:space="preserve" style="fill: white;">
+                    <svg fill="#000000" height="25px" width="25px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.77 202.77" xml:space="preserve" style="fill: white;">
                         <path d="M202.732,60.803c-0.007-0.063-0.021-0.124-0.028-0.187c-0.023-0.184-0.047-0.367-0.084-0.548
                         c-0.019-0.094-0.047-0.183-0.068-0.275c-0.036-0.148-0.069-0.297-0.114-0.442c-0.025-0.082-0.058-0.16-0.086-0.241
                         c-0.053-0.153-0.105-0.306-0.167-0.456c-0.018-0.044-0.041-0.085-0.061-0.129c-0.371-0.838-0.89-1.612-1.55-2.273L148.536,4.213
@@ -75,4 +131,5 @@ session_start();
     </nav>
 </footer>
 
+</html>
 </html>

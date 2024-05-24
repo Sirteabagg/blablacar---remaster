@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <script src="../../scripts/trip-form.js" defer></script>
     <script src="../../scripts/autocompletion.js" defer></script>
@@ -27,7 +28,7 @@
             <h1>BlaBla OMNES</h1>
         </div>
         <div class="main-container">
-            <form method="post" action="trip-selection.php">
+            <form method="post" action="trip-selection.php" id="myForm">
                 <div class="form-container">
                     <div>
                         <svg fill="#2E4053" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve">
@@ -112,7 +113,6 @@
                 </div>
             </form>
         </div>
-        <div id="proute"></div>
     </main>
     <footer>
         <nav>
