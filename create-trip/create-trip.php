@@ -36,7 +36,7 @@
                 <p class="text1">Arrivée</p>
                 <span class="text2"></span>
                 <span class="text3"></span>
-                <div class="select" id="divar">
+                <div class="select">
                     <select name="arriver" id="arriver" required="required" class="form-input ml-2">
                         <option value="43 Quai de Grenelle, 75015 Paris">Campus Paris</option>
                         <option value="25 Rue de l'Université, 69007 Lyon">Campus Lyon</option>
