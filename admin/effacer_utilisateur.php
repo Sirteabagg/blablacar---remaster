@@ -6,15 +6,15 @@ charset=utf8', 'root', '');
 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-if (isset($_POST["Ville"], $_POST["Adresse"])) {
-  $Ville = $_POST["Ville"];
-  $Adresse = $_POST["Adresse"];
+if (isset($_POST["email"])) {
+  $email = $_POST["email"];
 
-  $reponse = $bdd->query("DELETE FROM campus WHERE city = '$Ville'");
+
+  $reponse = $bdd->query("DELETE FROM user WHERE email = '$email'");
   // On affiche chaque entr´ee une `a une
   $donnees = $reponse->execute();
 
-  header("Location: ../admin/page_campus.php");
+  header("Location: ../admin/page_utilisateur.php");
   exit;
 }
 

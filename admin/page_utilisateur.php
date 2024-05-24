@@ -31,11 +31,13 @@
         <div class="titre22 titre">Liste Utilisateur</div>
     
         <div class="liste "> 
-        <div class="listeutilisateur ">
-        <div class=" titre1">nom</div> 
-        <div class=" titre1">prenom</div> 
-        <div class=" titre1">email</div> 
-        <div class=" titre1"></div> 
+          <div class="listeutilisateur ">
+            <div class=" titre1">nom</div> 
+            <div class=" titre1">prenom</div> 
+            <div class=" titre1">email</div> 
+            <div class=" titre1"></div> 
+
+        </div>
 
         
         <?php
@@ -57,11 +59,19 @@ $reponse = $bdd->query('SELECT * FROM user');
 while ($donnees = $reponse->fetch())
 {
 ?>
-<div class="ville1 titre1"><?php echo $donnees['nom']; ?></div> 
-<div class="adresse1 titre1"><?php echo $donnees['prenom']; ?></div>
-<div class="adresse1 titre1"><?php echo $donnees['email']; ?></div>
 
-<input type="submit" value="supprimer" class="selection titre1">
+
+
+<form method="post" action="effacer_utilisateur.php" class="listeutilisateur ">
+     
+            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="nom" readonly="readonly" value="'.$donnees["nom"].'">
+            <input type="text" class="adresse1 titre1 input_campus" name="prenom" readonly="readonly" value="'.$donnees["prenom"].'">
+            <input type="text" class="adresse1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["email"].'">';
+            ?>
+           
+            <input type="submit" value="bannir" class="selection titre1">
+     
+</form>
 
 <?php
 }
@@ -71,7 +81,7 @@ $reponse->closeCursor();
 ?>
 
    
-  </div>
+  
  
    
   

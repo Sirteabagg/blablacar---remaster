@@ -106,7 +106,7 @@ body{
 
 .listepermis{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 a{
@@ -118,4 +118,15 @@ form{
   margin: 0;
   padding: 0;
   display: inline;
+}
+
+.campus{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.input_campus{
+  background-color: transparent;
+  border: none;
+  color: #D9D9D9;
 }
