@@ -39,12 +39,13 @@
 
         </form>
         </div> 
-        <div class="liste ">
-        <div class="liste titre1">Liste des campus</div> 
-        <div class="listecampus ">
-        <div class="ville titre1">Ville</div> 
-        <div class="adresse titre1">Adresse</div> 
-        <div class="adresse titre1"></div> 
+        <div class="liste">
+            <div class="liste titre1">Liste des campus</div> 
+                  <div class="listecampus ">
+                        <div class="ville titre1">Ville</div> 
+                        <div class="adresse titre1">Adresse</div> 
+                        <div class="adresse titre1"></div> 
+                  </div> 
 
         
         <?php
@@ -66,11 +67,15 @@ $reponse = $bdd->query('SELECT * FROM campus');
 while ($donnees = $reponse->fetch())
 {
 ?>
-<form method="post" action="effacer_donne.php">
-<div class="ville1 titre1" name="Ville"><?php echo $donnees['city']; ?></div> 
-<div class="adresse1 titre1" name="Adresse"><?php echo $donnees['address']; ?></div>
-<input type="submit" value="supprimer" class="selection titre1">
+<form method="post" action="effacer_donne.php" class="listecampus ">
+     
+            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="Ville" readonly="readonly" value="'.$donnees["city"].'">
+            <input type="text" class="adresse1 titre1 input_campus" name="Adresse" readonly="readonly" value="'.$donnees["address"].'">';?>
+           
+            <input type="submit" value="supprimer" class="selection titre1">
+     
 </form>
+
 
 <?php
 }
@@ -79,12 +84,11 @@ $reponse->closeCursor();
 93/96 
 ?>
 
-        </div> 
+        
         </div> 
   </div>
  
    
-  
 
 </body>
 

@@ -31,12 +31,11 @@
     
         <div class="liste "> 
         <div class="listepermis ">
-        <div class=" titre1">nom</div> 
-        <div class=" titre1">prenom</div> 
         <div class=" titre1">email</div> 
+        <div class=" titre1">information</div> 
         <div class=" titre1">permis</div> 
         <div class=" titre1"></div> 
-
+        </div>
         
         <?php
 // Sous WAMP (Windows)
@@ -57,12 +56,16 @@ $reponse = $bdd->query('SELECT * FROM driver');
 while ($donnees = $reponse->fetch())
 {
 ?>
-<div class="ville1 titre1"><?php echo $donnees['registration']; ?></div> 
-<div class="adresse1 titre1"><?php echo $donnees['iban']; ?></div>
-<div class="adresse1 titre1"><?php echo $donnees['email']; ?></div>
-<input type="submit" value="télécharger" class="selection titre1">
-<input type="submit" value="supprimer" class="selection titre1">
 
+
+<form method="post" action="effacer_permis.php" class="listepermis ">
+     
+            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["email"].'">';?>
+           <input type="submit" name="boutonpermis" value="information" class="selection titre1">
+           <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
+           <input type="submit" name="boutonpermis" value="supprimer" class="selection titre1">
+     
+</form>
 <?php
 }
 //On termine le traitement de la requ^ete
@@ -71,7 +74,7 @@ $reponse->closeCursor();
 ?>
 
    
-  </div>
+
  
    
   
