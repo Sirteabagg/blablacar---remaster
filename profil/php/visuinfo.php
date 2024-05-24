@@ -14,22 +14,13 @@ $bdd = new PDO(
 if (isset($_GET["idDriver"], $_GET["idTrip"])) {
     $idDriver = $_GET["idDriver"];
     $idTrip = $_GET["idTrip"];
-    $request = $bdd->query("SELECT d.idDriver, u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM Driver d JOIN `user` u on d.email = u.email");
-} else {
-    $request = $bdd->query("SELECT u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u");
+    $request = $bdd->query("SELECT d.idDriver, u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM Driver d JOIN `user` u on d.email = u.email WHERE d.idDriver = $idDriver");
+} else if (isset($_GET["idPassenger"])) {
+    $idPass = $_GET["idPassenger"];
+    $request = $bdd->query("SELECT u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u JOIN Passenger p on u.email = p.email WHERE idPassenger = $idPass");
 }
 
-while ($donnee = $request->fetch()) {
-    if (isset($_GET["idDriver"])) {
-        if ($donnee["idDriver"] == $idDriver) {
-            $user = $donnee;
-        }
-    } else {
-        if ($donnee["email"] == $_SESSION["current-user-email"]) {
-            $user = $donnee;
-        }
-    }
-}
+$user = $request->fetch();
 
 ?>
 

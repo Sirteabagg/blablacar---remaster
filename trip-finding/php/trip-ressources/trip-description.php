@@ -26,10 +26,10 @@ while ($donnees = $requestTrip->fetch()) {
     }
 }
 
-$requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email");
 
-$donnee = $requestPass->fetch();
-$idPass = $donnee["idPassenger"];
+$requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email WHERE u.email = '$email'");
+$idPass = $requestPass->fetch()["idPassenger"];
+
 
 
 ?>
@@ -154,15 +154,16 @@ $idPass = $donnee["idPassenger"];
         </div>
         <div class="boxes-shadow pad-bot">
             <!-- href mettre lien vers page avec tous les passagers -->
-            <a href="trip-form.php" class="passenger-button">
-                <div>passagers</div>
+            <?php echo "<a href='description-passengers.php?idTrip=" . $trip['idTrip'] . "'
+            <div>passagers</div>
                 <div>&gt;</div>
-            </a>
+            </a>";
+            ?>
         </div>
     </main>
     <footer>
         <div>
-            <?php echo "<a href='trip-reservation.php?idpassenger=" . $idPass . "&idTrip=" . $trip['idTrip'] . "'  class='reservation-button'> Demande de réservation</a>" ?>
+            <?php echo "<a href='trip-reservation-traitement.php?idPassenger=" . $idPass . "&idTrip=" . $trip['idTrip'] . "&idDriver=" . $trip['idDriver'] . "'  class='reservation-button'> Demande de réservation</a>" ?>
 
 
         </div>
