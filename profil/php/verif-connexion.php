@@ -16,27 +16,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Définir le mode d'erreur de PDO sur exception
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u WHERE u.email = '$email' AND u.pwd = '$password'");
 
             // Requête SQL préparée
-            $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u");
-            echo $password;
+            try {
+                $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u WHERE u.email = '$email' AND u.pwd = '$password'");
+                if (!empty($requete->fetch()["email"])) {
+                    $user = $requete->fetch()["email"];
+                    $_SESSION["current-user-name"] = $user["nom"];
+                    $_SESSION["current-user-email"] = $user["email"];
+                    header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+                } else {
+                    header("Location: connexion.php");
+                }
+            } catch (PDOException $e) {
+            }
+
             while ($donnee = $requete->fetch()) {
                 echo $donnee["pwd"];
                 echo "<br>";
                 echo $donnee["email"];
                 if ($email == $donnee["email"]) {
                     if ($password == $donnee["pwd"]) {
-                        $_SESSION["current-user-name"] = $donnee["nom"];
-                        $_SESSION["current-user-email"] = $donnee["email"];
-                        header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+
+                        //header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
                         exit;
                     } else {
-                        header("Location: connexion.php");
+                        //header("Location: connexion.php");
                         exit;
                     }
                 }
             }
-            header("Location: connexion.php");
+            //header("Location: connexion.php");
             exit;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
