@@ -1,0 +1,43 @@
+body{
+    padding: 40px;
+}
+
+.titre{
+   color: #138D75;
+   font-size: 40px;
+}
+
+.form-input {
+    background-color: transparent;
+    border: none;
+    width: 250px;
+    height: 60px;
+    font-size: 30px;
+    color: #138D75;
+  }
+  
+  input[type="text"]::placeholder{
+    color:#138D75;
+}
+input[type="password"]::placeholder{
+    color:#138D75;
+}
+.img{
+    position: relative;
+    top: 70px;
+}
+
+.button-submit{
+    border: none;
+    border-radius: 10px;
+    background-color: #138D75;
+    height: 30px;
+    width: 130px;
+    margin: 2px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+    color: #D9D9D9;
+    font-size: 15px;
+    align-self: flex-start;
+  }

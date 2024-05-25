@@ -24,6 +24,7 @@ main{
     background-color: #D9D9D9;
     justify-self: center;
     text-align: center;
+    align-items: center;
     margin: 20px;
     border-radius: 10px; 
     border: 2px solid black; 
@@ -100,3 +101,7 @@ input[type="text"]::placeholder{
     width: max-content;
     margin-left: 2px;
 }
+
+.ui-datepicker {
+    font-size: 12px;
+  }

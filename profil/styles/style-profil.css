@@ -1,15 +1,20 @@
+.container{
+    padding: 10px;
+}
+
+body{
+    font-family: 'Nexa-Heavy', 'sans-serif';
+}
+
 .menup{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows:150px;
     grid-gap: 15px;
+    border-bottom: solid #D9D9D9;
+    padding-bottom: 10px;
 }
-.item{
-    background-color:white;
-    grid-column:5fr;
-    border-radius:10px;
-    grid-column:1/6;
-}
+
 .titre{
     grid-column:1/4;
     grid-row:1/2;
@@ -30,5 +35,42 @@
     align-self: center;
     justify-content: center;
     align-items: center;
-    
+}
+.img-user{
+    height: 142px;
+    width: 142px;
+}
+
+.menu{
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+    gap: 40px;
+    padding-top: 30px;
+}
+
+.itemss{
+    display: flex;
+    align-items: center;
+    background-color:white;
+    color:#138D75;
+    border-radius:10px;
+    font-size:20px;    
+    gap: 10px;
+    height: 50px;
+    padding-left: 10px;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto 50px;
+}
+
+a{
+    text-decoration: none;
+    color: #138D75;
+}
+.portefeuille{
+    color: #D9D9D9;
+    font-size: 20px;
+        
 }
