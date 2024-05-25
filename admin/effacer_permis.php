@@ -57,11 +57,49 @@ if (isset($_POST["boutonpermis"])) {
     // Requête SQL pour mettre à jour la photo pour l'email spécifié
     $sql = "SELECT photopermis FROM permis WHERE iduser = :email";
 
+
+      // Exécution de la requête
+      $stmt->execute();
+      $imageData = array();
+      while ($donnees = $stmt->fetch()) {
+        
+            $trip = $donnees;
+        
+      }
+      $contenu_image = $trip['photopermis'];
+      $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+      $encoded_image = base64_encode($contenu_image);
+      $imageData = "data:$type_mime;base64,$encoded_image";
+      
+      echo "<img src=\"$imageData\" class='img-user' alt=\"Image\">";
+      
+      ?>
+      <form method="post" action="page_permis.php" class="listepermis ">
+     
+           <input type="submit" name="boutonpermis" value="retour" class="selection titre1">
+          
+     
+    </form>
+    <?php
+
+    
+    }
+    if ($boutonpermis1 == "valider") {
+        
+      $email = $_POST["email"];
+      $reponse = $bdd->query("UPDATE permis SET validation = 1 WHERE iduser = '$email'");
+      $donnees = $reponse->execute();
+      header("Location: ../admin/page_permis.php");
+      exit;
+
+    }
+
     // Préparation de la requête
     $stmt = $bdd->prepare($sql);
 
     // Liaison des paramètres
     $stmt->bindParam(':email', $email);
+
 
 
     // Exécution de la requête
