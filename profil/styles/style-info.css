@@ -76,3 +76,14 @@ a{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.confirmButton{
+  margin-top: 55px;
+}
