@@ -130,3 +130,14 @@ form{
   border: none;
   color: #D9D9D9;
 }
+
+.img-user{
+  width: 500px;
+  height: 500px;
+  
+}
+
+p{
+  background-color: #2E4053;
+  color: #D9D9D9;
+}
