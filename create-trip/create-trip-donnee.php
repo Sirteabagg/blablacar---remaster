@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Requête SQL préparée
-            $requete = $connexion->prepare("INSERT INTO trajet (dates, heure, adressedep, adressearr, nbpassage, nbplacedis, prix) VALUES (:dates, :heure, :adressdep, :adressarr, :nbplace, :nbplacedis, :prix)");
+            $requete = $connexion->prepare("INSERT INTO TripInfo (dates, time, idDep, idArr, nbpasseger, nbplacedis, prix) VALUES (:dates, :heure, :adressdep, :adressarr, :nbplace, :nbplacedis, :prix)");
 
             // Liaison des valeurs des paramètres
             $requete->bindParam(':dates', $date);
