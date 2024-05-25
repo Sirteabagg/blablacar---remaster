@@ -13,6 +13,7 @@
 <div class="header-container">
         <a href="connexion.php"><div class="arrow">&lt;</div></a>
         <h1 class="titre">Création</h1>
+</div>
 <div class="grid"> 
     <form action="bddcreate.php" method="post">
         <div class="case">
