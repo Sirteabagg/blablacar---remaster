@@ -90,6 +90,7 @@ try {
                 <input type="submit" class="button-submit" value="Sauvegarder">
             </div>
         </form>
+        <a href="test-crop.php"><button class="button-submit">modifier ma photo de profil</button></a>
         <button class="confirmButton button-submit">Supprimer mon compte</button>
     </div>
 </body>

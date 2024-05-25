@@ -68,6 +68,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,43 +76,41 @@ try {
     <link rel="stylesheet" href="../styles/style-profil.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
         <a href="visuinfo.php">
             <div class="menup">
                 <div class="item titre">Mon Profil</div>
-            </a>
-            <div class="item ID">
-                <?php
-                if ($user && !empty($user['pdp'])) {
-                    // Convertir les données BLOB en base64 pour les afficher dans une balise img
-                    $base64 = base64_encode($user['pdp']);
-                    $mime = finfo_buffer(finfo_open(), $user['pdp'], FILEINFO_MIME_TYPE);
-                    echo '<img src="data:' . $mime . ';base64,' . $base64 . '" class="img-user">';
-                } else {
-                    echo '<img src="../../images/utilisateur.png" class="img-user">';
-                }
-                ?>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <input type="file" name="pdp">
-                    <input type="submit" name="upload" value="Uploader">
-                    <input type="submit" name="delete" value="Supprimer">
-                </form>
+                <div class="item ID">
+                    <?php
+                    if ($user && !empty($user['pdp'])) {
+                        // Convertir les données BLOB en base64 pour les afficher dans une balise img
+                        $base64 = base64_encode($user['pdp']);
+                        $mime = finfo_buffer(finfo_open(), $user['pdp'], FILEINFO_MIME_TYPE);
+                        echo '<img src="data:' . $mime . ';base64,' . $base64 . '" class="img-user">';
+                    } else {
+                        echo '<img src="../../images/utilisateur.png" class="img-user">';
+                    }
+                    ?>
+                </div>
             </div>
-        </div>
-        
+        </a>
         <div class="portefeuille">
             <h4>Mon Portefeuille : 30€</h4>
         </div>
         <div class="menu">
             <a href="info.php">
-                <div class="itemss grid-container">Mes infos personnelles<div>&gt</div></div>
+                <div class="itemss grid-container">Mes infos personnelles<div>&gt</div>
+                </div>
             </a>
             <a href="prefform.php">
-                <div class="itemss grid-container">Mes infos conducteur<div>&gt</div></div>
+                <div class="itemss grid-container">Mes infos conducteur<div>&gt</div>
+                </div>
             </a>
             <a href="connexion.php">
-                <div class="itemss grid-container">Déconnexion<div>&gt</div></div>
+                <div class="itemss grid-container">Déconnexion<div>&gt</div>
+                </div>
             </a>
         </div>
     </div>

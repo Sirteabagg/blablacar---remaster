@@ -84,6 +84,14 @@ a{
 
 }
 
+a{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .confirmButton{
   margin-top: 55px;
+  margin-bottom: 70px;
+
 }
