@@ -1,23 +1,32 @@
 <?php
 
-$bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
-charset=utf8', 'root', '');
-// Définir le mode d'erreur de PDO sur exception
-$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+require "../php/config.php";
 
 
 if (isset($_POST["email"])) {
   $email = $_POST["email"];
 
+  $reponseDr = $bdd->query("SELECT idDriver FROM Driver WHERE email='$email'");
+  $userDriver = $reponseDr->fetch();
+  $userDriver = $userDriver["idDriver"];
 
-  $reponse = $bdd->query("DELETE FROM user WHERE email = '$email'");
+  if ($userDriver) {
+    $deleteDriver = $bdd->prepare("DELETE FROM Driver WHERE idDriver = $userDriver");
+    $deleteDriver->execute();
+  }
+
+  $reponsePa = $bdd->query("SELECT idPassenger FROM Passenger WHERE email='$email'");
+  $userPass = $reponseDr->fetch();
+  $userPass = $userPass["idPassenger"];
+  if ($userPass) {
+    $deletePass = $bdd->prepare("DELETE FROM Passenger WHERE idDriver = $userDriver");
+    $deletePass->execute();
+  }
+
+  $reponse = $bdd->prepare("DELETE FROM user WHERE email = '$email'");
   // On affiche chaque entr´ee une `a une
-  $donnees = $reponse->execute();
+  $reponse->execute();
 
   header("Location: ../admin/page_utilisateur.php");
   exit;
 }
-
-
-
-?>
