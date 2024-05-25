@@ -8,10 +8,7 @@
   font-size: 24px;
   margin-right: 10px;
 }
-
-  
-
-  .grid {
+.grid {
     
     display: grid;
     grid-template-columns: 1fr; /* Une seule colonne */
