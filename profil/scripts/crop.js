@@ -52,7 +52,7 @@ document.getElementById('cropButton').addEventListener('click', () => {
         .then(response => response.text())
         .then(data => {
             console.log(data);
-            alert('Image uploaded successfully!');
+            window.location.href = 'profilforme.php';
         })
         .catch((error) => {
             console.error('Error:', error);
