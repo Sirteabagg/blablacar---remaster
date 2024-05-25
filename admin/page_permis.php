@@ -51,7 +51,7 @@ catch (Exception $e)
 die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM permis');
+$reponse = $bdd->query('SELECT * FROM permis WHERE validation = 0');
 // On affiche chaque entr´ee une `a une
 while ($donnees = $reponse->fetch())
 {
@@ -63,7 +63,7 @@ while ($donnees = $reponse->fetch())
             <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["iduser"].'">';?>
            <input type="submit" name="boutonpermis" value="information" class="selection titre1">
            <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
-           <input type="submit" name="boutonpermis" value="supprimer" class="selection titre1">
+           <input type="submit" name="boutonpermis" value="valider" class="selection titre1">
      
 </form>
 <?php

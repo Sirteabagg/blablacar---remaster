@@ -81,15 +81,26 @@ while ($donnees = $stmt->fetch()){
       $imageData = "data:$type_mime;base64,$encoded_image";
       
       echo "<img src=\"$imageData\" class='img-user' alt=\"Image\">";
-    
+      
+      ?>
+      <form method="post" action="page_permis.php" class="listepermis ">
+     
+           <input type="submit" name="boutonpermis" value="retour" class="selection titre1">
+          
+     
+    </form>
+    <?php
 
     
     }
-    if ($boutonpermis1 == "supprimer") {
+    if ($boutonpermis1 == "valider") {
         
       $email = $_POST["email"];
-      $reponse = $bdd->query("DELETE FROM permis WHERE iduser = '$email'");
+      $reponse = $bdd->query("UPDATE permis SET validation = 1 WHERE iduser = '$email'");
       $donnees = $reponse->execute();
+      header("Location: ../admin/page_permis.php");
+      exit;
+
     }
 
     

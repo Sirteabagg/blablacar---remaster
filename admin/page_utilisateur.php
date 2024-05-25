@@ -36,6 +36,7 @@
             <div class=" titre1">prenom</div> 
             <div class=" titre1">email</div> 
             <div class=" titre1"></div> 
+            <div class=" titre1"></div>
 
         </div>
 
@@ -68,8 +69,8 @@ while ($donnees = $reponse->fetch())
             <input type="text" class="adresse1 titre1 input_campus" name="prenom" readonly="readonly" value="'.$donnees["prenom"].'">
             <input type="text" class="adresse1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["email"].'">';
             ?>
-           
-            <input type="submit" value="bannir" class="selection titre1">
+            <input type="submit" name="boutonpermis" value="information" class="selection titre1">
+            <input type="submit" name="boutonpermis" value="bannir" class="selection titre1">
      
 </form>
 
