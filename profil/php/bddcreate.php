@@ -12,6 +12,8 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
     $prenom = $_POST["prenom"];
     $mdp = $_POST["mdp"];
 
+    $mdp_crypted = password_hash($mdp, PASSWORD_DEFAULT);
+
     try {
 
         // Requête SQL préparée
@@ -29,7 +31,7 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
         $requete->bindParam(':email', $email);
         $requete->bindParam(':nom', $nom);
         $requete->bindParam(':prenom', $prenom);
-        $requete->bindParam(':mdp', $mdp);
+        $requete->bindParam(':mdp', $mdp_crypted);
         // Exécution de la requête
         $requete->execute();
 
