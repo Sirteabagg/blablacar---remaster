@@ -43,6 +43,7 @@
     <br><br>
         <input class="styled" type="submit" value="Validé" id="valideprix"></input>
     </form>
+    <?php include "../trip-finding/php/trip-ressources/leaflet.php";?>
     <main>
 </body>
 </html>

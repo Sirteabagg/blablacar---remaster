@@ -18,6 +18,14 @@ header{
     justify-content: center;
 }
 
+#depart2{
+    display : none;
+}
+
+#arriver2{
+    display : none;
+}
+
 main {
     display: flex;
     align-items: center;
