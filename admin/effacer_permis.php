@@ -12,25 +12,46 @@ if (isset($_POST["boutonpermis"])) {
     
     if ($boutonpermis1 == "information") {
       $email = $_POST["email"];
-     
-      $nouvelle_photo = '../../images/petit_singe.jpg'; // Chemin vers la nouvelle photo à ajouter
-
       // Requête SQL pour mettre à jour la photo pour l'email spécifié
-      $sql = "UPDATE permis SET photopermis = :nouvelle_photo WHERE iduser = :email";
+    
+      $sql = "SELECT * FROM user WHERE email =  :email";
 
       // Préparation de la requête
       $stmt = $bdd->prepare($sql);
 
       // Liaison des paramètres
       $stmt->bindParam(':email', $email);
-      $stmt->bindParam(':nouvelle_photo', $nouvelle_photo);
+    
 
       // Exécution de la requête
       $stmt->execute();
-
-      echo "Photo mise à jour avec succès pour l'email $email.";
+// On affiche chaque entr´ee une `a une
+while ($donnees = $stmt->fetch()){
       
+      
+        ?>
+        <p>
+        Nom : <?php echo  $donnees['nom'] ; ?>,<br>
+        Prenom : <?php echo $donnees['prenom']; ?>,<br>
+        email : <?php echo $donnees['email']; ?><br>
+        numerotel : <?php echo  $donnees['numerotel'] ; ?>,<br>
+        notegenerale : <?php echo $donnees['notegenerale']; ?>,<br>
+        caption : <?php echo $donnees['caption']; ?><br>
+        </p>
+        <?php
     }
+    ?>
+    <form method="post" action="page_permis.php" class="listepermis ">
+     
+           <input type="submit" name="boutonpermis" value="retour" class="selection titre1">
+          
+     
+    </form>
+    <?php
+    }
+
+
+
     if ($boutonpermis1 == "télécharger") {
       $email = $_POST["email"];
      
