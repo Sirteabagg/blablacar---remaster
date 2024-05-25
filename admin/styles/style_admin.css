@@ -150,3 +150,8 @@ p{
   user-select: none; /* Empêche la sélection de texte */
   pointer-events: none; /* Empêche l'interaction avec la souris */
 }
+
+.img-user{
+  width: 250px;
+  height: 250px;
+}
