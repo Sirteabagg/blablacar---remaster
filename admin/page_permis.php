@@ -39,55 +39,26 @@ $reponse = $bdd->query('SELECT * FROM permis');
     <div class=" gauche">
         <div class="titre22 titre">Gestion de permis</div>
 
-
-$reponse = $bdd->query('SELECT * FROM permis WHERE validation = 0');
-// On affiche chaque entr´ee une `a une
-while ($donnees = $reponse->fetch())
-{
-?>
-
-
-<form method="post" action="effacer_permis.php" class="listepermis ">
-     
-            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["iduser"].'">';?>
-           <input type="submit" name="boutonpermis" value="information" class="selection titre1">
-           <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
-           <input type="submit" name="boutonpermis" value="valider" class="selection titre1">
-     
-</form>
-<?php
-}
-//On termine le traitement de la requ^ete
-$reponse->closeCursor();
-93/96 
-?>
-=======
-        <div class="liste ">
-            <div class="listepermis ">
-                <div class=" titre1">email</div>
-                <div class=" titre1">information</div>
-                <div class=" titre1">permis</div>
-                <div class=" titre1"></div>
-            </div>
+        <?php
+        $reponse = $bdd->query('SELECT * FROM permis WHERE validation = 0');
+        // On affiche chaque entr´ee une `a une
+        while ($donnees = $reponse->fetch()) {
+        ?>
 
 
+            <form method="post" action="effacer_permis.php" class="listepermis ">
 
+                <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="' . $donnees["iduser"] . '">'; ?>
+                <input type="submit" name="boutonpermis" value="information" class="selection titre1">
+                <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
+                <input type="submit" name="boutonpermis" value="valider" class="selection titre1">
 
-            <?php while ($donnees = $reponse->fetch()) { ?>
-                <form method="post" action="effacer_permis.php" class="listepermis ">
-
-                    <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="email" readonly="readonly" value="' . $donnees["iduser"] . '">'; ?>
-                    <input type="submit" name="boutonpermis" value="information" class="selection titre1">
-                    <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
-                    <input type="submit" name="boutonpermis" value="supprimer" class="selection titre1">
-
-                </form>
-            <?php
-            }
-            //On termine le traitement de la requ^ete
-            $reponse->closeCursor();
-            ?>
-
+            </form>
+        <?php
+        }
+        //On termine le traitement de la requ^ete
+        $reponse->closeCursor();
+        ?>
 
 </body>
 

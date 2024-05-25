@@ -38,32 +38,6 @@ $reponse = $bdd->query('SELECT * FROM user');
 
   <div class=" gauche">
 
-        <div class="titre22 titre">Liste Utilisateur</div>
-    
-        <div class="liste "> 
-          <div class="listeutilisateur ">
-            <div class=" titre1">nom</div> 
-            <div class=" titre1">prenom</div> 
-            <div class=" titre1">email</div> 
-            <div class=" titre1"></div> 
-            <div class=" titre1"></div>
-
-        </div>
-
-        
-        <?php
-// Sous WAMP (Windows)
-$bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
-charset=utf8', 'root', '');
-try
-{
-$bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
-charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-die('Erreur : ' . $e->getMessage());
-}
 
     <div class="titre22 titre">Liste Utilisateur</div>
 
@@ -83,7 +57,9 @@ die('Erreur : ' . $e->getMessage());
           <input type="text" class="adresse1 titre1 input_campus non-selectable" name="email" readonly="readonly" value="' . $donnees["email"] . '" >';
           ?>
 
-          <input type="submit" value="bannir" class="selection titre1">
+          <input type="submit" name="boutonpermis" value="information" class="selection titre1">
+          <input type="submit" name="boutonpermis" value="bannir" class="selection titre1">
+
 
         </form>
 
@@ -92,25 +68,6 @@ die('Erreur : ' . $e->getMessage());
       //On termine le traitement de la requ^ete
       $reponse->closeCursor();
       ?>
-
-
-
-
-
-
-<form method="post" action="effacer_utilisateur.php" class="listeutilisateur ">
-     
-            <?php echo ' <input type="text" class="ville1 titre1 input_campus" name="nom" readonly="readonly" value="'.$donnees["nom"].'">
-            <input type="text" class="adresse1 titre1 input_campus" name="prenom" readonly="readonly" value="'.$donnees["prenom"].'">
-            <input type="text" class="adresse1 titre1 input_campus" name="email" readonly="readonly" value="'.$donnees["email"].'">';
-            ?>
-            <input type="submit" name="boutonpermis" value="information" class="selection titre1">
-            <input type="submit" name="boutonpermis" value="bannir" class="selection titre1">
-     
-</form>
-
-
-
 
 </body>
 
