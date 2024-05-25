@@ -1,14 +1,10 @@
 <?php
+
+require "../../php/config.php";
+
 session_start();
 
-$host = $_SESSION["hostBdd"];
-$passwordBdd = $_SESSION["passwordBdd"];
-
-$bdd = new PDO(
-    "mysql:host=$host;dbname=blablaomnes;charset=utf8",
-    'root',
-    $passwordBdd
-);
+$userEmail = $_SESSION["current-user-email"];
 
 
 if (isset($_GET["idDriver"], $_GET["idTrip"])) {
@@ -18,6 +14,8 @@ if (isset($_GET["idDriver"], $_GET["idTrip"])) {
 } else if (isset($_GET["idPassenger"])) {
     $idPass = $_GET["idPassenger"];
     $request = $bdd->query("SELECT u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u JOIN Passenger p on u.email = p.email WHERE idPassenger = $idPass");
+} else {
+    $request = $bdd->query("SELECT u.email, u.pwd, u.prenom, u.pdp, u.notegenerale AS note FROM `User` u WHERE u.email = '$userEmail'");
 }
 
 $user = $request->fetch();

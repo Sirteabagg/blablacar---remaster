@@ -1,16 +1,9 @@
 <?php
 session_start();
 
-$host = $_SESSION["hostBdd"];
-$password = $_SESSION["passwordBdd"];
+require "../../../php/config.php";
 
 $email = $_SESSION["current-user-email"];
-
-$bdd = new PDO(
-    "mysql:host=$host;dbname=blablaomnes;charset=utf8",
-    'root',
-    $password
-);
 
 
 
@@ -18,6 +11,7 @@ $requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, pa
 u.prenom as prenom, u.notegenerale as notegenerale, u.caption as caption, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
 FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
+
 $trip = array();
 $driver = array();
 while ($donnees = $requestTrip->fetch()) {
@@ -25,7 +19,9 @@ while ($donnees = $requestTrip->fetch()) {
         $trip = $donnees;
     }
 }
-
+$driver = $trip["idDriver"];
+$requestCar = $bdd->query("SELECT color, model, brand FROM Driver d JOIN Car c ON d.registration = c.registration WHERE d.idDriver = $driver");
+$car = $requestCar->fetch();
 
 $requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email WHERE u.email = '$email'");
 $idPass = $requestPass->fetch()["idPassenger"];
@@ -143,29 +139,26 @@ $idPass = $requestPass->fetch()["idPassenger"];
                         <div class="">&gt;</div>
                     </div>
                     </a>
+
                 </div>
                 <div><?php echo $trip["caption"]; ?></div>
             </div>
-            <div class="avis-container pad-obj">
-                <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nemo architecto doloribus? Optio fuga laborum commodi blanditiis architecto eos non sint quisquam? Officia voluptatum fugiat aperiam enim temporibus provident nesciunt!</div>
-
-            </div>
-
         </div>
-        <div class="boxes-shadow pad-bot">
+        <div class="boxes-shadow">
             <!-- href mettre lien vers page avec tous les passagers -->
-            <?php echo "<a href='description-passengers.php?idTrip=" . $trip['idTrip'] . "'
-            <div>passagers</div>
-                <div>&gt;</div>
+            <?php echo "<a href='description-passengers.php?idTrip=" . $trip["idTrip"] . "' class='extreme'>
+                <div>passagers</div>
+                <div class='fleche'>&gt;</div>
             </a>";
             ?>
+        </div>
+        <div class="boxes-shadow pad-bot">
+            voiture : model
         </div>
     </main>
     <footer>
         <div>
             <?php echo "<a href='trip-reservation-traitement.php?idPassenger=" . $idPass . "&idTrip=" . $trip['idTrip'] . "&idDriver=" . $trip['idDriver'] . "'  class='reservation-button'> Demande de réservation</a>" ?>
-
-
         </div>
     </footer>
 </body>
