@@ -59,7 +59,7 @@ try {
             $brand = $_POST['brand'];
             $model = $_POST['model'];
             $color = $_POST['color'];
-            $immatriculation = $_POST['immatriculation'];
+            $registration = $_POST['registration'];
             $places = $_POST['places'];
 
             // Vérifiez si une ligne existe pour cet email dans les véhicules
@@ -70,16 +70,16 @@ try {
 
             if ($car) {
                 // Mettre à jour les informations du véhicule existant
-                $stmt = $bdd->prepare("UPDATE car SET brand = :brand, model = :model, color = :color, immatriculation = :immatriculation, places = :places WHERE email = :email");
+                $stmt = $bdd->prepare("UPDATE car SET brand = :brand, model = :model, color = :color, registration = :registration, places = :places WHERE email = :email");
             } else {
                 // Insérer une nouvelle ligne pour le véhicule
-                $stmt = $bdd->prepare("INSERT INTO car (email, brand, model, color, immatriculation, places) VALUES (:email, :brand, :model, :color, :immatriculation, :places)");
+                $stmt = $bdd->prepare("INSERT INTO car (email, brand, model, color, registration, places) VALUES (:email, :brand, :model, :color, :registration, :places)");
             }
 
             $stmt->bindParam(':brand', $brand);
             $stmt->bindParam(':model', $model);
             $stmt->bindParam(':color', $color);
-            $stmt->bindParam(':immatriculation', $immatriculation);
+            $stmt->bindParam(':registration', $registration);
             $stmt->bindParam(':places', $places);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
@@ -163,7 +163,7 @@ try {
     }
 
     // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, immatriculation, places FROM car WHERE email = :email");
+    $stmt = $bdd->prepare("SELECT brand, model, color, registration, places FROM car WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -174,7 +174,7 @@ try {
             'brand' => '',
             'model' => '',
             'color' => '',
-            'immatriculation' => '',
+            'registration' => '',
             'places' => ''
         ];
     }
@@ -222,7 +222,7 @@ try {
                         <div class="case"><label for="brand">Marque :</label><input type="text" placeholder="Peugeot" name="brand" class="form-input" value="<?php echo htmlspecialchars($car['brand'] ?? ''); ?>"></div>
                         <div class="case"><label for="model">Modèle :</label><input type="text" placeholder="3008" name="model" class="form-input" value="<?php echo htmlspecialchars($car['model'] ?? ''); ?>"></div>
                         <div class="case"><label for="color">Couleur :</label><input type="text" placeholder="Blanc" name="color" class="form-input" value="<?php echo htmlspecialchars($car['color'] ?? ''); ?>"></div>
-                        <div class="case"><label for="immatriculation">Immatriculation :</label><input type="text" placeholder="FN-911-HK" name="immatriculation" class="form-input" value="<?php echo htmlspecialchars($car['immatriculation'] ?? ''); ?>"></div>
+                        <div class="case"><label for="registration">Immatriculation :</label><input type="text" placeholder="FN-911-HK" name="registration" class="form-input" value="<?php echo htmlspecialchars($car['registration'] ?? ''); ?>"></div>
                         <div class="case"><label for="places">Places :</label><input type="number" inputmode="numeric" placeholder="1" name="places" class="form-input" value="<?php echo htmlspecialchars($car['places'] ?? ''); ?>"></div>
                         <input type="submit" class="button-submit" value="Sauvegarder">
                     </div>
