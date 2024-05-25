@@ -44,7 +44,7 @@
                             </g>
                         </svg>
                         <div class="input-auto-comp">
-                            <input type="text" name="departure" placeholder="Départ" class="form-input autocomplete font-nexa ml-2">
+                            <input type="text" name="departure" placeholder="Départ" class="form-input autocomplete font-nexa ml-2" required>
                             <div class="suggestions"></div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             </g>
                         </svg>
                         <div class="input-auto-comp">
-                            <input type="text" name="arrival" placeholder="Arrivée" class="form-input autocomplete font-nexa ml-2">
+                            <input type="text" name="arrival" placeholder="Arrivée" class="form-input autocomplete font-nexa ml-2" required>
                             <div class="suggestions"></div>
                         </div>
                     </div>
@@ -100,14 +100,14 @@
                                 </g>
                             </svg>
 
-                            <input type="text" name="date" placeholder="Aujourd'hui" class="form-input font-nexa custom-date-input" id="datepicker">
+                            <input type="text" name="date" placeholder="Aujourd'hui" class="form-input font-nexa custom-date-input" id="datepicker" required>
                         </div>
                     </div>
                     <div>
                         <svg fill="#2E4053" width="50px" height="50px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16 15.503A5.041 5.041 0 1 0 16 5.42a5.041 5.041 0 0 0 0 10.083zm0 2.215c-6.703 0-11 3.699-11 5.5v3.363h22v-3.363c0-2.178-4.068-5.5-11-5.5z" />
                         </svg>
-                        <input type="number" name="passengers" inputmode="numeric" placeholder="1" value="1" class="form-input font-nexa ml-2">
+                        <input type="number" name="passengers" inputmode="numeric" placeholder="1" value="1" class="form-input font-nexa ml-2" required>
                     </div>
                     <input type="submit" value="Rechercher" class="bouton-submit font-nexa">
                 </div>
