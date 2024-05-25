@@ -1,5 +1,11 @@
 <?php
 
+
+if (isset($_POST["Ville"], $_POST["Adresse"])) {
+    $Ville = $_POST["Ville"];
+    $Adresse = $_POST["Adresse"];
+}
+
 try {
     // Connexion à la base de données
     $bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
@@ -9,30 +15,24 @@ charset=utf8', 'root', '');
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Requête SQL préparée
-    $requete = $bdd->prepare("INSERT INTO utilisateur (email, nom, prenom,numerotel) VALUES (:valeur1, :valeur2,:valeur3,:valeur4)");
+    $requete = $bdd->prepare("INSERT INTO campus (city, address) VALUES (:valeur1, :valeur2)");
 
     // Liaison des valeurs des paramètres
-    $requete->bindParam(':valeur1', $valeur1);
-    $requete->bindParam(':valeur2', $valeur2);
-    $requete->bindParam(':valeur3', $valeur3);
-    $requete->bindParam(':valeur4', $valeur4);
-   
-
-    // Assigner des valeurs aux paramètres
-    $valeur1 = 'aaa@aaa';
-    $valeur2 = 'Koci';
-    $valeur3 = 'Val';
-    $valeur4 = '066666';
-   
+    $requete->bindParam(':valeur1', $Ville);
+    $requete->bindParam(':valeur2', $Adresse);
+ 
 
     // Exécution de la requête
     $requete->execute();
 
-    echo "Données insérées avec succès !";
+
 } catch(PDOException $e) {
     echo "Erreur : " . $e->getMessage();
 }
 
 // Fermer la connexion
 $connexion = null;
+
+header("Location: ../admin/page_campus.php");
+exit;
 ?>

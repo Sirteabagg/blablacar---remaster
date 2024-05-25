@@ -9,3 +9,33 @@ $(document).ready(function() {
         }
     });
 });
+
+
+document.getElementById('Campus').addEventListener('click', (event) => {
+    var check = document.getElementById("Campus");
+    var select = document.getElementById("depart1");
+    var input = document.getElementById("depart2");
+
+    if (check.checked == true) {
+        select.style.display = "none";
+        input.style.display = "block";
+    }else{
+        select.style.display = "block";
+        input.style.display = "none";
+    }
+})
+
+document.getElementById('Campus').addEventListener('click', (event) => {
+    var check = document.getElementById("Campus");
+    var select = document.getElementById("arriver1");
+    var input = document.getElementById("arriver2")
+
+    if (check.checked == false) {
+        select.style.display = "block";
+        input.style.display = "none";
+    }else{
+        select.style.display = "none";
+        input.style.display = "block";
+    }
+
+})

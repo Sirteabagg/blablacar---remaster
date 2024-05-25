@@ -18,6 +18,14 @@ header{
     justify-content: center;
 }
 
+#depart2{
+    display : none;
+}
+
+#arriver2{
+    display : none;
+}
+
 main {
     display: flex;
     align-items: center;
@@ -40,12 +48,19 @@ nav {
     
 }
 
+.colorwhite{
+    color: white;
+}
+
 .centrerhorizontalement{
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+.centrer{
+    justify-content : center;
+}
 
 
 .modele-container{

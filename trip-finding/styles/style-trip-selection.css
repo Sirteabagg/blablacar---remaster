@@ -138,3 +138,8 @@ main a{
     display: flex;
     justify-content: end;
 }
+
+.title div{
+    display: flex;
+    align-items: center;
+}
