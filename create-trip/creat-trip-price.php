@@ -1,17 +1,17 @@
 <?php
     
-    if (isset($_POST["date"], $_POST["heure"],$_POST["depart1"], $_POST["arriver1"],$_POST["depart2"], $_POST["arriver2"], $_POST["nbpassager"])) {
+    if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"], $_POST["depart2"], $_POST["arriver2"], $_POST["nbpassager"])) {
         if($_POST["depart1"]==NULL){
+            $adressdep = $_POST["depart2"];
+            $adressarr = $_POST["arriver2"];
+            echo "l'arriver est ". $adressarr ."<br>";
+            echo "l'depart est ". $adressdep ."<br>";
+        }
+        else{
             $adressdep = $_POST["depart1"];
             $adressarr = $_POST["arriver1"];
             echo "l'arriver est". $adressarr ."<br>";
             echo "l'depart est". $adressdep ."<br>";
-        }
-        else{
-            $adressdep = $_POST["depart2"];
-            $adressarr = $_POST["arriver2"];
-            echo "l'depart est". $adressarr ."<br>";
-            echo "l'arriver est". $adressdep ."<br>";
         }
         $date = $_POST["date"];
         $heure = $_POST["heure"];
@@ -21,6 +21,9 @@
 
         $adressdep = strtr($adressdep, ' ', '+');
         $adressarr = strtr($adressarr, ' ', '+');
+
+        echo "l'arr est". $adressarr ."<br>";
+        echo "l'ar est". $adressdep ."<br>";
 
 
         $url_api_adresse_dep = "https://api-adresse.data.gouv.fr/search/?q=$adressdep&limit=1";
@@ -41,6 +44,8 @@
         $response_dep = curl_exec($curl_dep);
         $response_arr = curl_exec($curl_arr);
 
+        echo $response_arr;
+
 
 
         // Vérification des erreurs CURL
@@ -52,9 +57,12 @@
             $donnees_dep = json_decode($response_dep, true);
             $donnees_arr = json_decode($response_arr, true);
             // Vérifier si la réponse contient des données
+            echo "<br> <br>".$donnees_dep['features'].;
+            echo "<br> <br>".$donnees_arr['features'].;
             if (isset($donnees_dep['features'], $donnees_arr['features']) && !empty($donnees_dep['features']) && !empty($donnees_arr['features'])) {
 
                 $depcity = $donnees_dep["features"][0]["properties"]["city"];
+                echo $depcity;
                 $arrcity = $donnees_arr["features"][0]["properties"]["city"];
                 $geometry = $donnees_dep['features'][0]['geometry'];
                 $latitude_dep = $geometry['coordinates'][1];
