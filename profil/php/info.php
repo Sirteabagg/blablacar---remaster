@@ -138,20 +138,20 @@ try {
 
         <form action="" method="post">
             <input type="hidden" name="update_password" value="1">
-            <div class="case">
-                <div>
+            <div class="grid">
+                <div class="case">
                     <label for="current_password">Mot de passe actuel :</label>
-                    <input type="password" id="current_password" name="current_password" required>
+                    <input type="password" class="form-input" id="current_password" name="current_password" required>
                 </div>
-                <div>
+                <div class="case">
                     <label for="new_password">Nouveau mot de passe :</label>
-                    <input type="password" id="new_password" name="new_password" required>
+                    <input type="password" class="form-input" id="new_password" name="new_password" required>
                 </div>
-                <div>
+                <div class="case">
                     <label for="confirm_password">Nouveau mot de passe :</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <input type="password" class="form-input" id="confirm_password" name="confirm_password" required>
                 </div>
-                <input type="submit" value="Modifier le mot de passe">
+                <input type="submit" class="button-submit" value="Modifier le mot de passe">
             </div>
         </form>
 
