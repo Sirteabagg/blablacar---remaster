@@ -1,0 +1,11 @@
+a{
+    text-decoration: none;
+    color: #D9D9D9;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
