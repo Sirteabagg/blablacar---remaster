@@ -36,10 +36,14 @@ body{
     justify-content: center;
     align-items: center;
 }
-.img-user{
-    height: 142px;
-    width: 142px;
+
+.img-user {
+    width: 100%;
+    height: auto;
+    
+    border-radius: 50%;
 }
+
 
 .menu{
     display: grid;

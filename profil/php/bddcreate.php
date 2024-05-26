@@ -1,52 +1,59 @@
 <?php
-session_start();
-$host = $_SESSION["hostBdd"];
-$passwordBdd = $_SESSION["passwordBdd"];
+require "../../php/config.php";
 
-// Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
+session_start();
+
+
+
+// Vérifie si les champs "email", "nom", "prenom" et "mdp" ont été soumis
 if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
     $email = $_POST["email"];
     $nom = $_POST["nom"];
     $prenom = $_POST["prenom"];
     $mdp = $_POST["mdp"];
 
+    $mdp_crypted = password_hash($mdp, PASSWORD_DEFAULT);
+
     try {
-        // Connexion à la base de données
-        $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $passwordBdd);
 
-        // Définir le mode d'erreur de PDO sur exception
-        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Vérifier si l'utilisateur existe déjà
+        $requeteUser = $bdd->prepare("SELECT email FROM user WHERE email = :email");
+        $requeteUser->bindParam(':email', $email);
+        $requeteUser->execute();
 
-        // Requête SQL préparée
-        $requete = $connexion->prepare("INSERT INTO user (email, nom, prenom, pwd) VALUES ( :email, :nom, :prenom, :mdp)");
-        $requeteUser = $connexion->query("SELECT email FROM user");
 
-        while ($donnee = $requeteUser->fetch()) {
-            if ($donnee["email"] == $email) {
-                header("Location: create.php");
-                exit;
-            }
+        if ($requeteUser->rowCount() > 0) {
+            header("Location: create.php");
+            exit;
         }
+
+        // Requête SQL préparée pour l'insertion
+        $requete = $bdd->prepare("INSERT INTO user (email, nom, prenom, pwd) VALUES (:email, :nom, :prenom, :mdp)");
 
         // Liaison des valeurs des paramètres
         $requete->bindParam(':email', $email);
         $requete->bindParam(':nom', $nom);
         $requete->bindParam(':prenom', $prenom);
-        $requete->bindParam(':mdp', $mdp);
+
+        $requete->bindParam(':mdp', $mdp_crypted);
+
         // Exécution de la requête
         $requete->execute();
 
         $_SESSION["current-user-name"] = $donnee["nom"];
         $_SESSION["current-user-email"] = $donnee["email"];
-        header("Location: info.php");
+        header("Location: connexion.php");
+      
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
         header("Location: create.php");
+        exit;
     }
 
     // Fermer la connexion
-    $connexion = null;
+    $bdd = null;
 } else {
-    echo "Les champs 'nom' n'ont pas été soumis.";
+    echo "Les champs 'email', 'nom', 'prenom' et 'mdp' n'ont pas été soumis.";
+    exit;
 }
-exit;
+

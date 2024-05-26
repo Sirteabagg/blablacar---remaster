@@ -1,8 +1,11 @@
 <?php
 
+
+
+require "../../php/config.php";
+
 session_start();
-$host = $_SESSION["hostBdd"];
-$passwordBdd = $_SESSION["passwordBdd"];
+
 
 // Vérifie si des données ont été soumises via la méthode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,57 +13,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["email"], $_POST["mdp"])) {
         $email = $_POST["email"];
         $password = $_POST["mdp"];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         try {
-            // Connexion à la base de données
-            $connexion = new PDO('mysql:host=' . $host . ';dbname=blablaomnes; charset=utf8', 'root', $passwordBdd);
 
-            // Définir le mode d'erreur de PDO sur exception
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u WHERE u.email = '$email' AND u.pwd = '$password'");
+            $request = $bdd->query("SELECT email, nom, pwd FROM User WHERE email = '$email'");
+            $user = $request->fetch();
 
-            // Requête SQL préparée
-            try {
-                $requete = $connexion->query("SELECT u.email AS email, u.pwd as pwd, u.nom as nom FROM `User` u WHERE u.email = '$email' AND u.pwd = '$password'");
-                if (!empty($requete->fetch()["email"])) {
-                    $user = $requete->fetch()["email"];
+            if (!empty($user)) {
+                if (password_verify($password, $user["pwd"])) {
+
                     $_SESSION["current-user-name"] = $user["nom"];
                     $_SESSION["current-user-email"] = $user["email"];
-                    header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+
+                    if ($user["nom"] == "admin") {
+                        header("Location: ../../admin/admin_acceuil.php");
+                    } else {
+                        header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+                    }
                 } else {
                     header("Location: connexion.php");
                 }
-            } catch (PDOException $e) {
+            } else {
+                header("Location: connexion.php");
             }
-
-            while ($donnee = $requete->fetch()) {
-                echo $donnee["pwd"];
-                echo "<br>";
-                echo $donnee["email"];
-                if ($email == $donnee["email"]) {
-                    if ($password == $donnee["pwd"]) {
-
-                        //header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
-                        exit;
-                    } else {
-                        //header("Location: connexion.php");
-                        exit;
-                    }
-                }
-            }
-            //header("Location: connexion.php");
-            exit;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
         }
 
         // Fermer la connexion
         $connexion = null;
+        exit;
     } else {
         echo "Les champs 'nom', 'prenom', 'email', 'tel' n'ont pas été soumis.";
     }
 }
-
-
-?>
-
-<p>test</p>
