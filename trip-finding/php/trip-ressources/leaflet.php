@@ -1,6 +1,6 @@
-
 <?php
-require "../../php/config.php"
+require "../../../php/config.php";
+require "../../../php/url.php";
 
 if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], $_GET["idTrip"])) {
     $longdep = $_GET["longdep"];
@@ -23,7 +23,7 @@ if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style-main-structure.css">
- 
+
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/trip-finding/styles/style-trip-description.css">
 
 
@@ -84,36 +84,6 @@ if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], 
     }).addTo(map);
 </script>";
     ?>
-
-    <!-- <script>
-        //     var map = L.map('map').setView([28.2380, 83.9956], 11);
-        //     mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
-        //     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        //         attribution: 'Leaflet &copy; ' + mapLink + ', contribution',
-        //         maxZoom: 18
-        //     }).addTo(map);
-
-        //     // Créer l'itinéraire dès que la carte est prête
-        //     L.Routing.control({
-        //         waypoints: [
-        //             L.latLng(28.2380, 83.9956),
-        //             L.latLng(28.2639, 83.9721) // Définissez ici vos coordonnées de destination
-        //         ]
-        //     }).on('routesfound', function(e) {
-        //         var routes = e.routes;
-        //         console.log(routes);
-
-        //         // e.routes[0].coordinates.forEach(function(coord, index) {
-        //         //     setTimeout(function() {
-        //         //         marker.setLatLng([coord.lat, coord.lng]);
-        //         //     }, 100 * index)
-        //         // })
-        //         totalDistance = (e.routes[0].summary.totalDistance) / 1000;
-        //         console.log('Distance totale: ' + totalDistance);
-        //     }).addTo(map);
-        // 
-    </script> -->
-
 
 </body>
 

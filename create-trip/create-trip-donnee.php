@@ -8,7 +8,7 @@ $email = $_SESSION["current-user-email"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
 
-    if (isset($_POST["date"], $_POST["heure"], $_POST["depart"], $_POST["arriver"], $_POST["nbpassager"], $_POST["prix"], $_POST["depCamp"])) {
+    if (isset($_POST["date"], $_POST["heure"], $_POST["depart"], $_POST["arriver"], $_POST["nbpassager"], $_POST["prix"], $_POST["depCamp"], $_POST["temps"])) {
         $date = $_POST["date"];
         $heure = $_POST["heure"];
         $adressdep = $_POST["depart"];
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nbpassager = $_POST["nbpassager"];
         $prix = $_POST["prix"];
         $passed = 0;
-
+        $temps = $_POST["temps"];
 
 
 
