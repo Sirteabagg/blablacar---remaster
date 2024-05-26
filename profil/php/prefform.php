@@ -161,8 +161,10 @@ try {
         ];
     }
 
+  
+
        // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration = c.registration WHERE idDriver = :idDriver");
+    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM car c JOIN driver d ON c.registration=d.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
