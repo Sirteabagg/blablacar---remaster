@@ -1,15 +1,6 @@
 <?php
 session_start();
-
-$host = $_SESSION["hostBdd"];
-$password = $_SESSION["passwordBdd"];
-
-
-$bdd = new PDO(
-    "mysql:host=$host;dbname=blablaomnes;charset=utf8",
-    'root',
-    $password
-);
+require "../../../php/config.php";
 
 $requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, passed, d.ville as depart, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
@@ -35,6 +26,8 @@ if (isset($_POST["departure"], $_POST["arrival"], $_POST["date"], $_POST["passen
 } else {
     echo "rien";
 }
+
+//requetePass
 
 $depart = str_replace(' ', '+', $depart);
 $arrivee = str_replace(' ', '+', $arrivee);

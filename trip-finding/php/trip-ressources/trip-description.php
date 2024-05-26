@@ -19,13 +19,13 @@ while ($donnees = $requestTrip->fetch()) {
         $trip = $donnees;
     }
 }
+
 $driver = $trip["idDriver"];
 $requestCar = $bdd->query("SELECT color, model, brand FROM Driver d JOIN Car c ON d.registration = c.registration WHERE d.idDriver = $driver");
 $car = $requestCar->fetch();
 
 $requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email WHERE u.email = '$email'");
-$idPass = $requestPass->fetch()["idPassenger"];
-
+$idPass = $requestPass->fetch()["idPassenger"];;
 
 
 ?>
