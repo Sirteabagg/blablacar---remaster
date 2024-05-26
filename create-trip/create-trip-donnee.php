@@ -1,5 +1,7 @@
 <?php
 require "../php/config.php";
+session_start();
+$email = $_SESSION["current-user-email"];
 // Vérifie si des données ont été soumises via la méthode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
@@ -13,13 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $prix = $_POST["prix"];
         $passed = 0;
 
-        echo $adressdep;
 
 
 
-
-
-        $requeteIdDriver = $bdd->query("SELECT idDriver FROM Driver d JOIN user u on u.email = d.email");
+        $requeteIdDriver = $bdd->query("SELECT idDriver FROM Driver d JOIN user u on u.email = d.email WHERE d.email = '$email'");
         $idDriver = $requeteIdDriver->fetch()["idDriver"];
 
         try {

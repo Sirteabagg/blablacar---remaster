@@ -151,7 +151,7 @@ curl_close($curl_arr);
                 $i = $i + 1;
             }
 
-            if ($tab_distance[0] <= 30000 && $tab_distance[1] <= 30000 && $trip["date"] == $date) {
+            if ($tab_distance[0] <= 30000 && $tab_distance[1] <= 30000 && $trip["dates"] == $date) {
                 echo '<a href="trip-description.php?idTrip=' . $trip["idTrip"] . '&nbPass=' . $_POST["passengers"] . '"><div class="trip-container">';
                 $contenu_image = $trip['pdp'];
                 $type_mime = 'image/jpeg';
