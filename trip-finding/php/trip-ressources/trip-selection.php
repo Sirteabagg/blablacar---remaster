@@ -2,11 +2,21 @@
 session_start();
 require "../../../php/config.php";
 
+$email = $_SESSION["current-user-email"];
+
 $requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.dates, price, passed, d.ville as depart, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
 FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
 
+$checkPass = $bdd->query("SELECT COUNT(*) as here FROM Passenger p JOIN `User` u on p.email = u.email WHERE u.email = '$email'");
+$emailHere = $checkPass->fetch()["here"];
+
+if ($emailHere == 0) {
+    $ajoutPass = $bdd->prepare("INSERT INTO Passenger (email) VALUES (:email)");
+    $ajoutPass->bindParam(":email", $email);
+    $ajoutPass->execute();
+}
 
 $trips = array();
 $driver = array();
