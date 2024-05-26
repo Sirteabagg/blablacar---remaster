@@ -12,12 +12,7 @@ if (isset($_SESSION["hostBdd"], $_SESSION["passwordBdd"], $_SESSION["current-use
 
 try {
     // Connexion à la base de données
-    $bdd = new PDO(
-        "mysql:host=$host;dbname=blablaomnes;charset=utf8",
-        'root',
-        $password
-    );
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require "../../php/config.php";
 
     // Si le formulaire est soumis
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -92,7 +87,6 @@ try {
 
             // Vérifiez si une ligne existe pour cet email dans les permis
             $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
-            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -100,17 +94,15 @@ try {
             if ($permis) {
                 // Mettre à jour le permis existant
                 $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
-                $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour le permis
-                $validation = 0;
-                $stmt = $bdd->prepare("INSERT INTO permis (iduser, validation) VALUES (:email, :validation)");
-                $stmt->bindParam(':validation', $validation);
+                $stmt = $bdd->prepare("INSERT INTO permis (iduser) VALUES (:email)");
             }
 
             $stmt->bindParam(':idpermis', $idpermis);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
+
 
             // Rediriger vers la page prefform.php après la mise à jour
             header("Location: prefform.php");
@@ -131,7 +123,6 @@ try {
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($permis) {
                 // Mettre à jour la photo de permis existante
-                $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
                 $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour la photo de permis
@@ -240,6 +231,13 @@ try {
             </div>
         </div>
         <div class="itemss">
+            <form action="" method="post" enctype="multipart/form-data">
+                <label for="photopermis">Photo permis de conduire :</label>
+                <input type="file" name="photopermis">
+                <input type="submit" name="upload" value="Uploader">
+            </form>
+        </div>
+        <div class="itemss">
             <form action="" method="post">
                 <div>N°Permis</div>
                 <div>&gt;</div>
@@ -247,13 +245,7 @@ try {
                 <input type="submit" class="button-submit" value="Sauvegarder">
             </form>
         </div>
-        <div class="itemss">
-            <form action="" method="post" enctype="multipart/form-data">
-                <label for="photopermis">Photo permis de conduire :</label>
-                <input type="file" name="photopermis">
-                <input type="submit" name="upload" value="Uploader">
-            </form>
-        </div>
+
     </div>
 </body>
 

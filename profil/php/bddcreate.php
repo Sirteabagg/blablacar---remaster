@@ -4,7 +4,8 @@ require "../../php/config.php";
 session_start();
 
 // Fonction de validation de l'email
-function validate_email($email) {
+function validate_email($email)
+{
     $pattern = '/^[a-zA-Z0-9._%+-]+@(edu\.ece\.fr|omnesintervenant\.fr)$/';
     return preg_match($pattern, $email);
 }
@@ -21,7 +22,7 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
         header("Location: create.php");
         exit;
     }
-    
+
 
     $mdp_crypted = password_hash($mdp, PASSWORD_DEFAULT);
 
@@ -52,7 +53,6 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
         $_SESSION["current-user-email"] = $email;
         header("Location: connexion.php");
         exit;
-
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
         header("Location: create.php");
@@ -65,4 +65,3 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
     echo "Les champs 'email', 'nom', 'prenom' et 'mdp' n'ont pas été soumis.";
     exit;
 }
-?>
