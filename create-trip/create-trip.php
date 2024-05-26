@@ -26,6 +26,8 @@ if ($emailHere == 0) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <script src="../trip-finding/scripts/autocompletion.js" defer></script>
     <title>Creer un trajet</title>
 </head>
@@ -35,7 +37,7 @@ if ($emailHere == 0) {
         <h1>Créer un trajet</h1>
     </header>
     <main>
-        <form method="post" action="creat-trip-price.php">
+        <form method="post" id="myForm" action="creat-trip-price.php">
             <nav class="modele-container">
                 <p class="text1">Départ</p>
                 <span class="text2"></span>
