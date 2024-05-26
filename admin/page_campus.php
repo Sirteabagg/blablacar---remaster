@@ -13,7 +13,9 @@ $reponse = $bdd->query("SELECT * FROM campus");
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="../css/style-main-structure.css">
       <link rel="stylesheet" href="styles/style_admin.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+      <script src="../trip-finding/scripts/autocompletion.js" defer></script>
 
       <title>Document</title>
 </head>
@@ -39,7 +41,8 @@ $reponse = $bdd->query("SELECT * FROM campus");
                         <input type="text" name="Ville" placeholder="Ville" class="truc1 selection">
                   </div>
                   <div class="">
-                        <input type="text" name="Adresse" placeholder="Adresse" class="truc2 selection">
+                        <input type="text" name="Adresse" placeholder="Adresse" class="truc2 selection autocomplete">
+                        <div class="suggestions"></div>
                   </div>
                   <div class="">
                         <input type="submit" name="quelquechose" value="Ajouter" class="bouton button-submit">

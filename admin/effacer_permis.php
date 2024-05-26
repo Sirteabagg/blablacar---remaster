@@ -129,6 +129,7 @@ if (isset($_POST["boutonpermis"])) {
 
     // Exécution de la requête
     $requete->execute();
+
     header("Location: ../admin/page_permis.php");
     exit;
   }
