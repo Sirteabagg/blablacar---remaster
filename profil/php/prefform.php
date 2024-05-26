@@ -92,12 +92,14 @@ try {
 
             // Vérifiez si une ligne existe pour cet email dans les permis
             $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
+            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($permis) {
                 // Mettre à jour le permis existant
+                $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
                 $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour le permis
@@ -129,6 +131,7 @@ try {
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($permis) {
                 // Mettre à jour la photo de permis existante
+                $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
                 $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour la photo de permis
@@ -163,24 +166,16 @@ try {
         ];
     }
 
+
+
     // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration=c.registration WHERE idDriver =:idDriver");
+    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM car c JOIN driver d ON c.registration=d.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$car) {
-        // Si l'utilisateur n'a pas encore d'informations de véhicule, définir des valeurs par défaut
-        $car = [
-            'brand' => '',
-            'model' => '',
-            'color' => '',
-            'registration' => '',
-            'places' => ''
-        ];
-    }
-
     // Récupération du numéro de permis de l'utilisateur
+    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
