@@ -41,7 +41,7 @@ form{
     flex-direction: column;
 }
 
-nav {
+form nav {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +64,6 @@ nav {
 
 
 .modele-container{
-    
     display: grid;
     background-color: white;
     justify-content : space-around;
@@ -111,16 +110,6 @@ nav {
 }
 
 
-footer{
-    display: flex;
-    align-items: center;
-    width: max-content;
-    position: fixed;
-    background-color: #138D75;
-    height: 50px;
-    width: 100%;
-    bottom: 0;
-}
 footer nav{
     width: 100%;
 }
@@ -195,6 +184,7 @@ footer nav{
       rgba(0, 0, 0, 0.2) 30%,
       rgba(0, 0, 0, 0)
     );
+    margin-bottom: 75px;
 }
 
 .styled:hover {

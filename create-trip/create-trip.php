@@ -1,4 +1,15 @@
-<?php require "../php/config.php"; ?>
+<?php require "../php/config.php";
+session_start();
+$email = $_SESSION["current-user-email"];
+
+$checkDriver = $bdd->query("SELECT COUNT(*) as here FROM Driver d JOIN `User` u on d.email = u.email WHERE u.email = '$email'");
+$emailHere = $checkDriver->fetch()["here"];
+if ($emailHere == 0) {
+    header("Location: non-driver-redirection.php");
+    exit;
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="create-trip.js" defer></script>
     <link rel="stylesheet" href="create-trip.css">
+    <link rel="stylesheet" href="../css/style-main-structure.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
@@ -105,7 +117,7 @@
             <input class="styled" type="submit" value="Validé" id="valide"></input>
         </form>
     </main>
-
+    <?php require "../php/footer.php"; ?>
 </body>
 
 </html>
