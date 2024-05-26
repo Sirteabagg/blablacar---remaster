@@ -52,6 +52,7 @@ $reponse = $bdd->query('SELECT * FROM permis');
                 <input type="submit" name="boutonpermis" value="information" class="selection titre1">
                 <input type="submit" name="boutonpermis" value="télécharger" class="selection titre1">
                 <input type="submit" name="boutonpermis" value="valider" class="selection titre1">
+                <input type="submit" name="boutonpermis" value="supprimer" class="selection titre1">
 
             </form>
         <?php

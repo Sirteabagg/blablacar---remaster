@@ -36,6 +36,11 @@ if (isset($_POST["boutonpermis"])) {
         caption : <?php echo $donnees['caption']; ?><br>
       </p>
     <?php
+    $contenu_image = $donnees['pdp'];
+    $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+    $encoded_image = base64_encode($contenu_image);
+    $image_data = "data:$type_mime;base64,$encoded_image";
+    echo "<img src=\"$image_data\" class='img-user' alt=\"Image\">";
     }
     ?>
     <form method="post" action="page_permis.php" class="listepermis ">
@@ -126,6 +131,16 @@ if (isset($_POST["boutonpermis"])) {
     $requete->execute();
 
     header("Location: ../admin/page_permis.php");
+    exit;
+  }
+  if ($boutonpermis1 == "supprimer") {
+
+    $email = $_POST["email"];
+    $reponse = $bdd->query("DELETE FROM premis WHERE email = '$email'");
+    $donnees = $reponse->execute();
+    
+
+    header("Location: ../admin/php/page_permis.php");
     exit;
   }
 }
