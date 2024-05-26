@@ -1,5 +1,5 @@
 <?php
-require "../../../connexion.php";
+require "../../php/config.php";
 
 
 if (isset($_POST["action"], $_POST["idpass"], $_POST["idTrip"])) {
