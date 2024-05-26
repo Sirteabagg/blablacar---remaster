@@ -20,12 +20,14 @@ try {
         $nom = $_POST['nom'];
         $prenom = $_POST['prenom'];
         $numerotel = $_POST['numerotel'];
+        $caption = $_POST['caption'];
 
         // Préparation de la requête de mise à jour
-        $stmt = $bdd->prepare("UPDATE User SET nom = :nom, prenom = :prenom, numerotel = :numerotel WHERE email = :email");
+        $stmt = $bdd->prepare("UPDATE User SET nom = :nom, prenom = :prenom, numerotel = :numerotel, caption = :caption WHERE email = :email");
         $stmt->bindParam(':nom', $nom);
         $stmt->bindParam(':prenom', $prenom);
         $stmt->bindParam(':numerotel', $numerotel);
+        $stmt->bindParam(':caption', $caption);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
@@ -35,7 +37,7 @@ try {
     }
 
     // Préparation et exécution de la requête pour récupérer les informations utilisateur
-    $stmt = $bdd->prepare("SELECT nom, prenom, email, numerotel FROM User WHERE email = :email");
+    $stmt = $bdd->prepare("SELECT nom, prenom, email, numerotel, caption FROM User WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
@@ -86,6 +88,9 @@ try {
                 </div>
                 <div class="case">
                     <input type="text" placeholder="numerotel" name="numerotel" class="form-input" value="<?php echo htmlspecialchars($user['numerotel'] ?? ''); ?>">
+                </div>
+                <div class="case">
+                    <input type="text" placeholder="Légende" name="caption" class="form-input caption" value="<?php echo htmlspecialchars($user['caption'] ?? ''); ?>">
                 </div>
                 <input type="submit" class="button-submit" value="Sauvegarder">
             </div>

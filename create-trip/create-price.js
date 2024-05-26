@@ -9,3 +9,4 @@ selectElement.addEventListener('input', (event) => {
   const result = document.querySelector('#respondprix');
   result.innerHTML  = selectElement.value;
 });
+
