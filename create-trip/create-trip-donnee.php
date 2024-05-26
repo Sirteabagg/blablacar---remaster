@@ -1,53 +1,57 @@
+<!-- page qui permet de transmettre les donnees de la page create trip à la base de donnee  -->
+
 <?php
+require "../php/config.php";
+session_start();
+$email = $_SESSION["current-user-email"];
 // Vérifie si des données ont été soumises via la méthode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifie si les champs "nom", "prenom", "email" et "tel" ont été soumis
-    var_dump($_POST);
-    if (isset($_POST["date"], $_POST["heure"],$_POST["depart"], $_POST["arriver"], $_POST["nbpassager"], $_POST["prix"])) {
+
+    if (isset($_POST["date"], $_POST["heure"], $_POST["depart"], $_POST["arriver"], $_POST["nbpassager"], $_POST["prix"], $_POST["depCamp"])) {
         $date = $_POST["date"];
         $heure = $_POST["heure"];
         $adressdep = $_POST["depart"];
         $adressarr = $_POST["arriver"];
         $nbpassager = $_POST["nbpassager"];
         $prix = $_POST["prix"];
- 
-            try {
-            // Connexion à la base de données
-            $connexion = new PDO('mysql:host=localhost;dbname=blablaomnes; charset=utf8', 'root', '');
+        $passed = 0;
 
-            // Définir le mode d'erreur de PDO sur exception
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
+
+        $requeteIdDriver = $bdd->query("SELECT idDriver FROM Driver d JOIN user u on u.email = d.email WHERE d.email = '$email'");
+        $idDriver = $requeteIdDriver->fetch()["idDriver"];
+
+        try {
+            // $ajoutDep =
             // Requête SQL préparée
-            $requete = $connexion->prepare("INSERT INTO TripInfo (dates, time, idDep, idArr, nbpasseger, nbplacedis, prix) VALUES (:dates, :heure, :adressdep, :adressarr, :nbplace, :nbplacedis, :prix)");
+            $requete = $bdd->prepare("INSERT INTO TripInfo (dates, timeDepart, idDep, idArr, idDriver, passed, price) VALUES (:dates, :heure, :adressdep, :adressarr, :idDriver, :passed, :prix)");
 
             // Liaison des valeurs des paramètres
-            $requete->bindParam(':dates', $date);
+            $requete->bindParam(':dates', $date, PDO::PARAM_STR);
             $requete->bindParam(':heure', $heure);
             $requete->bindParam(':adressdep', $adressdep);
             $requete->bindParam(':adressarr', $adressarr);
-            $requete->bindParam(':nbplace', $nbpassager);
-            $requete->bindParam(':nbplacedis', $nbpassager);
+            //$requete->bindParam(':nbplace', $nbpassager);
             $requete->bindParam(':prix', $prix);
+            $requete->bindParam(':idDriver', $idDriver);
+            $requete->bindParam(':passed', $passed);
 
             // Exécution de la requête
             $requete->execute();
 
             echo "Données insérées avec succès !";
-            } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
-            }
+        }
 
         // Fermer la connexion
-        $connexion = null;
-        
+        $bdd = null;
+
         header("Location: congrat-page.php");
         exit;
-    }
-     else {
+    } else {
         echo "Les champs 'date', 'heure', 'arriver', 'depart', 'nbpassager' n'ont pas été soumis.";
     }
 }
-
-
-?>

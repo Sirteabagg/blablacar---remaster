@@ -12,12 +12,7 @@ if (isset($_SESSION["hostBdd"], $_SESSION["passwordBdd"], $_SESSION["current-use
 
 try {
     // Connexion à la base de données
-    $bdd = new PDO(
-        "mysql:host=$host;dbname=blablaomnes;charset=utf8",
-        'root',
-        $password
-    );
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require "../../php/config.php";
 
     // Si le formulaire est soumis
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -68,10 +63,10 @@ try {
             $requetedriver->execute();
             $donnee = $requetedriver->fetch(PDO::FETCH_ASSOC);
 
-            if($donnee){
-                $driver=$donnee['idDriver'];
-                $car=$donnee['registration'];                
-                if(!$car){
+            if ($donnee) {
+                $driver = $donnee['idDriver'];
+                $car = $donnee['registration'];
+                if (!$car) {
                     $stmt = $bdd->prepare("INSERT INTO car (registration, color, model, brand, places) VALUES (:registration, :color, :model, :brand, :places)");
                     $stmt->bindParam(':brand', $brand);
                     $stmt->bindParam(':model', $model);
@@ -79,18 +74,28 @@ try {
                     $stmt->bindParam(':registration', $registration);
                     $stmt->bindParam(':places', $places);
                     $stmt->execute();
-                    $ajoutvoiture=$bdd->prepare("UPDATE driver SET registration='$registration' WHERE idDriver=$driver");
+                    $ajoutvoiture = $bdd->prepare("UPDATE driver SET registration='$registration' WHERE idDriver=$driver");
                     $ajoutvoiture->execute();
+
                     //recupere les données de véhicule                    
                 } 
                                
             }            
+
+                
+                header("Location: prefform.php");
+                exit();
+            
+
         }
 
         if (isset($_POST['idpermis'])) {
             $idpermis = $_POST['idpermis'];
-           
-            // Vérifie si une ligne existe pour cet email dans les permis
+
+
+
+            // Vérifiez si une ligne existe pour cet email dans les permis
+
             $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
@@ -101,14 +106,18 @@ try {
                 $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour le permis
-                $stmt = $bdd->prepare("INSERT INTO permis (iduser, idpermis) VALUES (:email, :idpermis)");
+                $stmt = $bdd->prepare("INSERT INTO permis (iduser) VALUES (:email)");
             }
 
             $stmt->bindParam(':idpermis', $idpermis);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
-            // Rediriger vers la page APRES la mise à jour
+
+      
+
+            // Rediriger vers la page prefform.php après la mise à jour
+
             header("Location: prefform.php");
             exit();
         }
@@ -120,18 +129,21 @@ try {
             // Lire le contenu du fichier
             $permisContent = file_get_contents($tmpFilePath);
 
-            // Vérifiez si une ligne existe pour cet email dans la table permis (avec iduser=email)
-            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
+
+            // Vérifiez si une ligne existe pour cet email dans la table permis
+            $stmt = $bdd->prepare("SELECT iduser FROM permis WHERE iduser = :email");
+
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
-
             if ($permis) {
                 // Mettre à jour la photo de permis existante
                 $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour la photo de permis
-                $stmt = $bdd->prepare("INSERT INTO permis (iduser, photopermis) VALUES (:email, :photopermis)");
+                $validation = 0;
+                $stmt = $bdd->prepare("INSERT INTO permis (iduser, photopermis, validation) VALUES (:email, :photopermis, :validation)");
+                $stmt->bindParam(':validation', $validation);
             }
 
             $stmt->bindParam(':photopermis', $permisContent, PDO::PARAM_LOB);
@@ -160,15 +172,18 @@ try {
         ];
     }
 
-  
 
-       // Récupération des informations du véhicule de l'utilisateur ?
+
+
+    // Récupération des informations du véhicule de l'utilisateur
+
     $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM car c JOIN driver d ON c.registration=d.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Récupération du numéro de permis de l'utilisateur
+    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
@@ -233,6 +248,13 @@ try {
             </div>
         </div>
         <div class="itemss">
+            <form action="" method="post" enctype="multipart/form-data">
+                <label for="photopermis">Photo permis de conduire :</label>
+                <input type="file" name="photopermis">
+                <input type="submit" name="upload" value="Uploader">
+            </form>
+        </div>
+        <div class="itemss">
             <form action="" method="post">
                 <div>N°Permis</div>
                 <div>&gt;</div>
@@ -240,13 +262,7 @@ try {
                 <input type="submit" class="button-submit" value="Sauvegarder">
             </form>
         </div>
-        <div class="itemss">
-            <form action="" method="post" enctype="multipart/form-data">
-                <label for="photopermis">Photo permis de conduire :</label>
-                <input type="file" name="photopermis">
-                <input type="submit" name="upload" value="Uploader">
-            </form>
-        </div>
+
     </div>
 </body>
 

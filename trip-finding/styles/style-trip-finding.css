@@ -13,7 +13,7 @@ body{
 
 main{
     display: grid;
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
 }
 
 
@@ -105,3 +105,15 @@ input[type="text"]::placeholder{
 .ui-datepicker {
     font-size: 12px;
   }
+
+.balise_pour_hugo{
+    text-align: center;
+    align-items: center;
+    margin-top: 24px;
+    color: #D9D9D9;
+}
+
+.titrehugo{
+    color: #D9D9D9;
+    text-align: center;
+}

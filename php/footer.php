@@ -1,4 +1,4 @@
-<?php require "config.php" ?>
+<?php define('BASE_URL', '/MesSites/projet-web-blabla-omnes-groupe-4g') ?>
 
 <footer>
     <nav>
@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="nav-item">
-                <a href="#">
+                <a href="<?php echo BASE_URL; ?>/trajet/php/my-trip.php">
                     <svg fill="#000000" height="25" width="25" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.77 202.77" xml:space="preserve" style="fill: white;">
                         <path d="M202.732,60.803c-0.007-0.063-0.021-0.124-0.028-0.187c-0.023-0.184-0.047-0.367-0.084-0.548
                         c-0.019-0.094-0.047-0.183-0.068-0.275c-0.036-0.148-0.069-0.297-0.114-0.442c-0.025-0.082-0.058-0.16-0.086-0.241

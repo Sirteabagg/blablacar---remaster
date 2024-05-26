@@ -1,3 +1,5 @@
+
+<!-- cette page permet d'effacer les données d'un utilisateur -->
 <?php
 
 require "../php/config.php";
@@ -8,6 +10,7 @@ require "../php/config.php";
 if (isset($_POST["boutonpermis"])) {
   $boutonpermis = $_POST["boutonpermis"];
 
+  // si le bouton est banni alors,  d'effacer les données d'un utilisateur 
   if ($boutonpermis == "bannir") {
 
     if (isset($_POST["email"])) {
@@ -40,6 +43,7 @@ if (isset($_POST["boutonpermis"])) {
       exit;
     }
   }
+  // si l'admin veut voir les info de la personne 
   if ($boutonpermis == "information") {
     $email = $_POST["email"];
     // Requête SQL pour mettre à jour la photo pour l'email spécifié
@@ -69,10 +73,30 @@ if (isset($_POST["boutonpermis"])) {
       notegenerale : <?php echo $donnees['notegenerale']; ?>,<br>
       caption : <?php echo $donnees['caption']; ?><br>
     </p>
+    
 <?php
+
+// code pour mettre le photo 
+    $contenu_image = $donnees['pdp'];
+    $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+    $encoded_image = base64_encode($contenu_image);
+    $image_data = "data:$type_mime;base64,$encoded_image";
+    echo "<img src=\"$image_data\" class='img-user' alt=\"Image\">";
   }
 }
+
+
+              
+
+
 ?>
+
+
+
+
+
+
+
 <form method="post" action="page_utilisateur.php" class="listepermis ">
 
   <input type="submit" name="boutonpermis" value="retour" class="selection titre1">

@@ -3,11 +3,12 @@ session_start();
 
 require "../../../php/config.php";
 
+
 $email = $_SESSION["current-user-email"];
 
 
 
-$requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.date, price, passed, d.ville as depart, d.adresse as addDep, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.adresse as addArr, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
+$requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.dates, price, passed, d.ville as depart, d.adresse as addDep, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.adresse as addArr, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, u.caption as caption, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
 FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
@@ -46,16 +47,20 @@ $idPass = $requestPass->fetch()["idPassenger"];;
 <body>
     <header>
         <div class="title-description">
-            <a href="trip-selection.php">
-                <div class="retour">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="25px" height="25px" viewBox="0 0 1280.000000 640.000000" preserveAspectRatio="xMidYMid meet" fill="#138D75">
-                        <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#138D75" stroke="none">
-                            <path d="M3310 5925 c-36 -8 -92 -28 -125 -45 -33 -16 -352 -240 -710 -498 -357 -257 -1010 -726 -1450 -1041 -536 -384 -822 -596 -866 -640 -193 -194 -210 -498 -40 -724 48 -65 2884 -2387 2978 -2439 216 -119 480 -82 655 93 111 111 164 239 162 394 -1 133 -35 235 -113 338 -22 29 -331 289 -814 685 l-778 637 5078 5 5078 5 59 22 c241 91 391 319 372 563 -18 233 -162 415 -393 498 -45 16 -369 17 -5132 22 l-5084 5 794 570 c445 319 818 594 849 625 176 177 206 470 70 678 -74 114 -185 200 -306 237 -72 23 -207 28 -284 10z" />
-                        </g>
-                    </svg>
-
-                </div>
-            </a>
+            <?php if (isset($_GET["mytrip"])) {
+                echo '<a href="../../../trajet/php/my-trip.php">';
+            } else {
+                echo '<a href="trip-form.php">';
+            }
+            ?>
+            <div class="retour">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="25px" height="25px" viewBox="0 0 1280.000000 640.000000" preserveAspectRatio="xMidYMid meet" fill="#138D75">
+                    <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)" fill="#138D75" stroke="none">
+                        <path d="M3310 5925 c-36 -8 -92 -28 -125 -45 -33 -16 -352 -240 -710 -498 -357 -257 -1010 -726 -1450 -1041 -536 -384 -822 -596 -866 -640 -193 -194 -210 -498 -40 -724 48 -65 2884 -2387 2978 -2439 216 -119 480 -82 655 93 111 111 164 239 162 394 -1 133 -35 235 -113 338 -22 29 -331 289 -814 685 l-778 637 5078 5 5078 5 59 22 c241 91 391 319 372 563 -18 233 -162 415 -393 498 -45 16 -369 17 -5132 22 l-5084 5 794 570 c445 319 818 594 849 625 176 177 206 470 70 678 -74 114 -185 200 -306 237 -72 23 -207 28 -284 10z" />
+                    </g>
+                </svg>
+            </div>
+            <?php echo "</a>" ?>
         </div>
     </header>
     <main class="desc">
@@ -63,7 +68,7 @@ $idPass = $requestPass->fetch()["idPassenger"];;
             <?php echo "<a href='leaflet.php?longdep=" . $trip["longDep"] . "&latdep=" . $trip["latDep"] . "&longarr=" . $trip["longArr"] . "&latarr=" . $trip["latArr"] . "&idTrip=" . $trip["idTrip"] . "'>" ?>
             <div class="trip-desc pad-obj">
                 <div><?php
-                        $date = date_create($trip['date']);
+                        $date = date_create($trip['dates']);
                         echo date_format($date, "D d M"); ?></div>
                 <div class="trip-schem">
                     <div><?php echo $trip["tDeparture"]; ?></div>

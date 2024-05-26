@@ -41,6 +41,8 @@ $user = $request->fetch();
         <div class="title-description">
             <?php if (isset($_GET["idDriver"], $_GET["idTrip"])) {
                 echo "<a href=../../trip-finding/php/trip-ressources/trip-description.php?idTrip=" . $idTrip;
+            } else if (isset($_GET["idPass"], $_GET["idTrip"])) {
+                echo "<a href=../../trip-finding/php/trip-ressources/description-passengers.php?idTrip=" . $_GET["idTrip"];
             } else {
                 echo "<a href=profilforme.php";
             }

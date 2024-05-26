@@ -1,0 +1,63 @@
+header{
+  background-color: #2E4053;
+  font-family: 'Nexa-Heavy', 'sans-serif';
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  position: fixed;
+  background-color: #3D5670;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+}
+
+main{
+  background-color: #2E4053;
+  font-family: 'Nexa-Heavy', 'sans-serif';
+  display: flex;
+  text-align: center;
+  
+}
+
+h1{
+  text-align: center;
+  color: #138D75;
+}
+
+h2{
+  text-align: center;
+  color: #D9D9D9;
+}
+
+.titre{
+  color: #138D75;
+  text-align: center;
+}
+
+.trip-container{
+  display: grid;
+  grid-template: "pdp name-avis price"
+                 "trip trip ."
+                 "trip trip .";
+  grid-template-rows: 50px 1fr 1fr;
+  grid-template-columns: 50px 1fr 50px;
+  gap: 10px;
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+  height: 200px;
+  background-color: #D9D9D9;
+  border-radius: 10px;
+  justify-self: center;
+  box-shadow: 0 0 5px 1px black ;
+  color: #138D75;
+}
+
+.main-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}

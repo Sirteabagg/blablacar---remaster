@@ -1,3 +1,5 @@
+<!-- cette page est la page des campus de l'admin, on peut en ajouter et en supprimer  -->
+
 <?php
 require "../php/config.php";
 
@@ -13,13 +15,16 @@ $reponse = $bdd->query("SELECT * FROM campus");
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="../css/style-main-structure.css">
       <link rel="stylesheet" href="styles/style_admin.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+      <script src="../trip-finding/scripts/autocompletion.js" defer></script>
 
       <title>Document</title>
 </head>
 
 <body class="page-type">
 
+<!-- menu de l'admin  -->
       <div class=" droite">
             <div class=" titrechoisi">Campus</div>
             <a href="..\admin\page_utilisateur.php">
@@ -31,7 +36,7 @@ $reponse = $bdd->query("SELECT * FROM campus");
 
       </div>
 
-
+<!-- ajouter des campus  -->
       <div class=" gauche">
             <div class="titre22 titre">Campus</div>
             <form method="post" action="ecrire_en_php.php">
@@ -39,7 +44,8 @@ $reponse = $bdd->query("SELECT * FROM campus");
                         <input type="text" name="Ville" placeholder="Ville" class="truc1 selection">
                   </div>
                   <div class="">
-                        <input type="text" name="Adresse" placeholder="Adresse" class="truc2 selection">
+                        <input type="text" name="Adresse" placeholder="Adresse" class="truc2 selection autocomplete">
+                        <div class="suggestions"></div>
                   </div>
                   <div class="">
                         <input type="submit" name="quelquechose" value="Ajouter" class="bouton button-submit">
@@ -56,7 +62,7 @@ $reponse = $bdd->query("SELECT * FROM campus");
 
 
 
-
+            <!-- supprime les campus de la base de donnéé , et affiche les campus de la base de donnee -->
 
             <?php while ($donnees = $reponse->fetch()) { ?>
 
