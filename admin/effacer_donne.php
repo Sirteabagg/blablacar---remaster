@@ -1,3 +1,5 @@
+
+<!-- cette pages permet de supprimer les campus de la base de donnee -->
 <?php
 
 require "../php/config.php";

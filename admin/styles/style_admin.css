@@ -5,6 +5,7 @@ body{
   padding: 0;
 }
 
+/* différent titre pour les pages */
 .titre{
   color:#138D75;
   padding: 5%;
@@ -30,6 +31,7 @@ body{
   margin: 5%;
 }
 
+/* pour la page d'acceuil */
 .rectangle{
   display: grid;
   grid-template: "texte-grid qqc fleche";
@@ -52,6 +54,7 @@ body{
   grid-template-columns: 1fr 3fr;
 }
 
+/* shéma général des pages */
 .droite{
   position: fixed;
   background-color: #3D5670;
@@ -98,6 +101,7 @@ body{
   margin-left: 45%;
 }
 
+/* différent grid pour la disposition des pages */
 .listecampus{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr ;
@@ -114,6 +118,7 @@ body{
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+/* mise en page particulière, élement particulier en liens avec toute les pages */
 a{
   text-decoration: none;
 }

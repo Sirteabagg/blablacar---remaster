@@ -1,3 +1,7 @@
+
+<!-- cette page permet d'écrire les campus dans le base de donnee pour les admin  -->
+
+
 <?php
 
 

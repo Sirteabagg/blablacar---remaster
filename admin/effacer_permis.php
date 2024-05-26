@@ -1,3 +1,6 @@
+
+<!-- Cette pages récupère les donnée des différents boutons de la page permis  -->
+
 <?php
 
 require "../php/config.php";
@@ -6,7 +9,7 @@ require "../php/config.php";
 if (isset($_POST["boutonpermis"])) {
   $boutonpermis1 = $_POST["boutonpermis"];
 
-
+// cette partie permet de lire les info de l'utilisateur
   if ($boutonpermis1 == "information") {
     $email = $_POST["email"];
     // Requête SQL pour mettre à jour la photo pour l'email spécifié
@@ -53,7 +56,7 @@ if (isset($_POST["boutonpermis"])) {
   }
 
 
-
+// cette partie permet de lire les le permis du conducteur
   if ($boutonpermis1 == "télécharger") {
     $email = $_POST["email"];
 
@@ -90,6 +93,7 @@ if (isset($_POST["boutonpermis"])) {
 
       $trip = $donnees;
     }
+    // code pour mettre le photo 
     $imageData = array();
     $contenu_image = $trip['photopermis'];
     $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
@@ -109,6 +113,7 @@ if (isset($_POST["boutonpermis"])) {
 
 
   }
+  // cette partie permet de valider le permis du conducteur
   if ($boutonpermis1 == "valider") {
 
     $email = $_POST["email"];
@@ -133,6 +138,8 @@ if (isset($_POST["boutonpermis"])) {
     header("Location: ../admin/page_permis.php");
     exit;
   }
+
+  // cette partie permet de supprimer les données du conducteur
   if ($boutonpermis1 == "supprimer") {
 
     $email = $_POST["email"];
