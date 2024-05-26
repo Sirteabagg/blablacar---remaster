@@ -1,4 +1,3 @@
-
 <!-- page qui permet de mettre un prix sur un trajet  -->
 
 <?php
@@ -166,6 +165,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
                 $distance = $donnees["features"][0]["properties"]["segments"][0]["distance"];
                 $price = 7 * ($distance / 1000) / 100 * 1.9 / 4;
                 $price = round($price, 0, PHP_ROUND_HALF_DOWN);
+                $temps = $distance / 1000 / 80;
             }
         }
 
@@ -188,6 +188,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
             <input type="hidden" name="depart" value="<?php echo $idArr; ?>">
             <input type="hidden" name="nbpassager" value="<?php echo $nbpassager; ?>">
             <input type="hidden" name="depCamp" value="<?php echo $departCampus; ?>">
+            <input type="hidden" name="temps" value="<?php echo $temps; ?>">
             <br><br>
             <input class="styled" type="submit" value="Validé" id="valideprix"></input>
         </form>
