@@ -11,6 +11,7 @@
 
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- lib jquery et moment pour les format -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -112,16 +113,16 @@
                     <input type="submit" value="Rechercher" class="bouton-submit font-nexa">
                 </div>
             </form>
-           
+
         </div>
         <a href="Information.php" class="balise_pour_hugo">
-        <div>Information</div>
+            <div>Information</div>
         </a>
-        
-    
-    <?php require "../../../php/footer.php" ?>
+
+        <!-- affiche le footer global à toutes les pages -->
+        <?php require "../../../php/footer.php" ?>
     </main>
-    
+
 </body>
 
 </html>

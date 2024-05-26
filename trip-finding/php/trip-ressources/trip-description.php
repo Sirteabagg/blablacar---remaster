@@ -15,6 +15,7 @@ FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination
 
 $trip = array();
 $driver = array();
+//stock toutes les données dans un tableau pour mieux les afficher
 while ($donnees = $requestTrip->fetch()) {
     if ($donnees["idTrip"] == $_GET["idTrip"]) {
         $trip = $donnees;
@@ -22,9 +23,10 @@ while ($donnees = $requestTrip->fetch()) {
 }
 
 $driver = $trip["idDriver"];
+//recuperer les infos de la voiture
 $requestCar = $bdd->query("SELECT color, model, brand FROM Driver d JOIN Car c ON d.registration = c.registration WHERE d.idDriver = $driver");
 $car = $requestCar->fetch();
-
+//recuperer l'id du passager
 $requestPass = $bdd->query("SELECT idPassenger FROM Passenger p JOIN User u on p.email = u.email WHERE u.email = '$email'");
 $idPass = $requestPass->fetch()["idPassenger"];;
 
@@ -47,6 +49,7 @@ $idPass = $requestPass->fetch()["idPassenger"];;
 <body>
     <header>
         <div class="title-description">
+            <!-- condition permettant d'acces a certaine page grace a une method get fait plus tot -->
             <?php if (isset($_GET["mytrip"])) {
                 echo '<a href="../../../trajet/php/my-trip.php">';
             } else {

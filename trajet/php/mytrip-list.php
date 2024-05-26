@@ -40,6 +40,7 @@ while ($donnees = $requestTrip->fetch()) {
         </div>
     </header>
     <main>
+        <!-- meme chose que dans trip-selection -->
         <?php
         echo '<a href="trip-description.php?idTrip=' . $trip["idTrip"] . '&nbPass=' . $_POST["passengers"] . '"><div class="trip-container">';
         $contenu_image = $trip['pdp'];

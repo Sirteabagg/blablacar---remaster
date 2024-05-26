@@ -2,7 +2,7 @@
 
 require "../../../php/config.php";
 
-
+// si idTrip est bien set
 if (isset($_GET["idTrip"])) {
     $idTrip = $_GET["idTrip"];
 }
@@ -49,6 +49,7 @@ while ($donnees = $requestPassengers->fetch()) {
     </header>
     <main>
         <?php
+        // mecanique que les autres fichiers pour afficher des blocks d'html
         foreach ($passenger as $pass) {
 
             echo "<a href='../../../profil/php/visuinfo.php?idTrip=" . $idTrip . "&idPass=" . $pass['idPassenger'] . "'>";

@@ -6,7 +6,7 @@ session_start();
 
 $email = $_SESSION["current-user-email"];
 
-
+//verifie si existe
 $checkUser = $bdd->query("SELECT COUNT(*) as here FROM Driver d JOIN `User` u on d.email = u.email WHERE u.email = '$email'");
 $emailHere = $checkUser->fetch()["here"];
 if ($emailHere == 0) {

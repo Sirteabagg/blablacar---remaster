@@ -3,16 +3,17 @@ session_start();
 require "../../../php/config.php";
 
 $email = $_SESSION["current-user-email"];
-
+// on recupere toutes les info liées au trajet, les CONCAT permettent d'afficher l'heure avec un certain format
 $requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.dates, price, passed, d.ville as depart, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
 FROM TripInfo t JOIN Destination d on t.idDep = d.idDestination JOIN Destination d2 on t.idArr = d2.idDestination JOIN Driver d3 on t.idDriver = d3.idDriver JOIN `User` u on d3.email = u.email");
 
+// on verifie s'il existe en tant que passager
 $checkPass = $bdd->query("SELECT COUNT(*) as here FROM Passenger p JOIN `User` u on p.email = u.email WHERE u.email = '$email'");
 $emailHere = $checkPass->fetch()["here"];
 
-if ($emailHere == 0) {
+if ($emailHere == 0) { // sinon on l''ajoute
     $ajoutPass = $bdd->prepare("INSERT INTO Passenger (email) VALUES (:email)");
     $ajoutPass->bindParam(":email", $email);
     $ajoutPass->execute();
@@ -45,7 +46,8 @@ $arrivee = str_replace(' ', '+', $arrivee);
 $depart = strtr($depart, ' ', '+');
 $arrivee = strtr($arrivee, ' ', '+');
 
-
+// appel d'api par HTTP
+// on injecte une adresse et on recupere les info de latitude, longitude
 $url_api_adresse_dep = "https://api-adresse.data.gouv.fr/search/?q=$depart&limit=1";
 $url_api_adresse_arr = "https://api-adresse.data.gouv.fr/search/?q=$arrivee&limit=1";
 
@@ -137,7 +139,7 @@ curl_close($curl_arr);
 
                 $longitude_user = $tab_coord[$i][0];
                 $latitude_user = $tab_coord[$i][1];
-
+                // appel api pour recuperer la distance entre 2 points grace a la latitude et longitude recuperer plus tôt
                 $url_api_adresse = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248734c41a8117a44f6839360a0e5bbe9f9&start=$longitude_user,$latitude_user&end=$longitude_trip,$latitude_trip";
                 $curl = curl_init();
 
