@@ -29,7 +29,6 @@ try {
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
-        // Rediriger vers la page profilform.php après la mise à jour des informations utilisateur
         header("Location: profilforme.php");
         exit();
     }
@@ -40,32 +39,32 @@ try {
         $new_password = $_POST['new_password'];
         $confirm_password = $_POST['confirm_password'];
 
-        // Vérifiez que le nouveau mot de passe et la confirmation correspondent
+        // Verifie que les deux mots de passe sont identiques sinon affiche un message d'erreur.
         if ($new_password !== $confirm_password) {
             echo "Les nouveaux mots de passe ne correspondent pas.";
             exit();
         }
 
-        // Récupérer le mot de passe actuel haché de l'utilisateur depuis la base de données
+        // Récupére le mot de passe actuel haché de l'utilisateur depuis la base de données
         $stmt = $bdd->prepare("SELECT pwd FROM user WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            // Vérifiez que le mot de passe actuel est correct
+            // Vérifie que le mot de passe actuel est correct
             if (password_verify($current_password, $user['pwd'])) {
-                // Hachez le nouveau mot de passe
+                // Hache le nouveau mot de passe
                 $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-                // Mettez à jour le mot de passe haché dans la base de données
+                // Requête permettant de mettre à jour le mot de passe haché dans la base de données
                 $stmt = $bdd->prepare("UPDATE user SET pwd = :new_password WHERE email = :email");
                 $stmt->bindParam(':new_password', $hashed_new_password);
                 $stmt->bindParam(':email', $email);
                 $stmt->execute();
 
                 echo "Mot de passe modifié avec succès.";
-                // Rediriger après la mise à jour du mot de passe
+                
                 header("Location: profilforme.php");
                 exit();
             } else {
@@ -122,6 +121,7 @@ try {
             <div class="grid">
                 <div class="case">
                     <input type="text" placeholder="nom" name="nom" class="form-input" value="<?php echo htmlspecialchars($user['nom'] ?? ''); ?>">
+                    <!-- récupère toute les données dans la base pour les afficher -->
                 </div>
                 <div class="case">
                     <input type="text" placeholder="prenom" name="prenom" class="form-input" value="<?php echo htmlspecialchars($user['prenom'] ?? ''); ?>">
