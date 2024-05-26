@@ -109,6 +109,22 @@ if (isset($_POST["boutonpermis"])) {
     $email = $_POST["email"];
     $reponse = $bdd->query("UPDATE permis SET validation = 1 WHERE iduser = '$email'");
     $donnees = $reponse->execute();
+    $permis = 1;
+    $null = NULL;
+
+    $requete = $bdd->prepare("INSERT INTO driver ( permis,iban,registration,email) VALUES ( :valeur2,:valeur3, :valeur4,:valeur5)");
+
+    // Liaison des valeurs des paramètres
+    $requete->bindParam(':valeur2', $permis);
+    $requete->bindParam(':valeur3', $null);
+    $requete->bindParam(':valeur4', $null);
+    $requete->bindParam(':valeur5', $email);
+  
+ 
+
+    // Exécution de la requête
+    $requete->execute();
+
     header("Location: ../admin/page_permis.php");
     exit;
   }
