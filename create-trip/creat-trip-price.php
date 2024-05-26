@@ -1,5 +1,9 @@
+
+<!-- page qui permet de mettre un prix sur un trajet  -->
+
 <?php
 require "../php/config.php";
+
 if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"], $_POST["depart2"], $_POST["arriver2"], $_POST["nbpassager"])) {
     if ($_POST["depart1"] == NULL) {
         $adressdep = $_POST["depart2"];
@@ -18,8 +22,15 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
     $adressdepModif = strtr($adressdep, ' ', '+');
     $adressarrModif = strtr($adressarr, ' ', '+');
 
+
+
+
+    // recherchons la latitude et la longitude des addresse de départ et d'arriver
+
+
     $url_api_adresse_dep = "https://api-adresse.data.gouv.fr/search/?q=$adressdepModif&limit=1";
     $url_api_adresse_arr = "https://api-adresse.data.gouv.fr/search/?q=$adressarrModif&limit=1";
+
 
     // Initialisation de CURL
     $curl_dep = curl_init();
@@ -137,6 +148,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
     </header>
     <br><br>
     <main>
+        <!-- affichage de la map  -->
         <?php
         $url_api_adresse = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248734c41a8117a44f6839360a0e5bbe9f9&start=$longitude_dep,$latitude_dep&end=$longitude_arr,$latitude_arr";
         $curl = curl_init();
@@ -159,6 +171,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
 
         curl_close($curl);
         ?>
+        <!-- permet de récuperer le prix donner par l'utilisateur  -->
         <form action="create-trip-donnee.php" method="post">
             <nav class="centrer modele-container">
                 <span class="text1"></span>
@@ -168,6 +181,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
                     <input type="range" name="prix" id="Prix" placeholder="Prix" class="form-input ml-2" value="<?php echo $price; ?>" required="required" min="0" max="<?php echo $price + 10; ?>" step="0.5">
                 </div>
             </nav>
+            <!-- transmition par post pour le fichier trip donnee  -->
             <input type="hidden" name="date" value="<?php echo $date; ?>">
             <input type="hidden" name="heure" value="<?php echo $heure; ?>">
             <input type="hidden" name="arriver" value="<?php echo $idDep; ?>">

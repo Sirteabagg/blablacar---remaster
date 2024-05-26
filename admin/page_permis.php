@@ -1,3 +1,5 @@
+
+<!-- cette page permet de voire toute les nformations relatif au conducteur, et de faire des action sur celui ci  -->
 <?php
 
 require "../php/config.php";
@@ -21,6 +23,7 @@ $reponse = $bdd->query('SELECT * FROM permis');
     <title>Document</title>
 </head>
 
+<!-- menu de l'admin  -->
 <body class="page-type">
 
     <div class=" droite">
@@ -35,7 +38,7 @@ $reponse = $bdd->query('SELECT * FROM permis');
 
     </div>
 
-
+    <!-- information du conducteur, permis, et valider ou supprimer sa candidature  -->
     <div class=" gauche">
         <div class="titre22 titre">Gestion de permis</div>
 

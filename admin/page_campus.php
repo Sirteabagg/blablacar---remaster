@@ -1,3 +1,5 @@
+<!-- cette page est la page des campus de l'admin, on peut en ajouter et en supprimer  -->
+
 <?php
 require "../php/config.php";
 
@@ -22,6 +24,7 @@ $reponse = $bdd->query("SELECT * FROM campus");
 
 <body class="page-type">
 
+<!-- menu de l'admin  -->
       <div class=" droite">
             <div class=" titrechoisi">Campus</div>
             <a href="..\admin\page_utilisateur.php">
@@ -33,7 +36,7 @@ $reponse = $bdd->query("SELECT * FROM campus");
 
       </div>
 
-
+<!-- ajouter des campus  -->
       <div class=" gauche">
             <div class="titre22 titre">Campus</div>
             <form method="post" action="ecrire_en_php.php">
@@ -59,7 +62,7 @@ $reponse = $bdd->query("SELECT * FROM campus");
 
 
 
-
+            <!-- supprime les campus de la base de donnéé , et affiche les campus de la base de donnee -->
 
             <?php while ($donnees = $reponse->fetch()) { ?>
 

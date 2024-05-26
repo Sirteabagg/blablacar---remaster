@@ -1,3 +1,5 @@
+<!-- cette page permet de lire les donnee de l'utilisateur  -->
+
 <?php
 require "../php/config.php";
 

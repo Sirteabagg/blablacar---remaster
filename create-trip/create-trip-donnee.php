@@ -1,3 +1,5 @@
+<!-- page qui permet de transmettre les donnees de la page create trip à la base de donnee  -->
+
 <?php
 require "../php/config.php";
 session_start();

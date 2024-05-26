@@ -1,3 +1,5 @@
+<!-- page qui permet de félicité l'utilisateur pour avoir creer son trajet  -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,9 +19,11 @@
         <div>
             <h4 class="colorwhite">Votre trajet à été enregistrer</h4>
         </div>
+
         <a href="../trip-finding/php/trip-ressources/trip-form.php" style="text-decoration:none"><button class="styled">Accueil</button></a>
 
     </main>
+
 </body>
 
 </html>

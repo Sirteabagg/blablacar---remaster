@@ -1,3 +1,5 @@
+<!-- cette page permet de voir les informations relatif au utilisateur -->
+
 <?php
 require "../php/config.php";
 
@@ -21,7 +23,7 @@ $reponse = $bdd->query('SELECT * FROM user');
 </head>
 
 <body class="page-type">
-
+<!-- menu de l'admin  -->
   <div class=" droite">
     <a href="..\admin\page_campus.php">
       <div class=" titre">Campus</div>
@@ -49,6 +51,7 @@ $reponse = $bdd->query('SELECT * FROM user');
         <div class=" titre1"></div>
 
       </div>
+      <!-- selection de tout les utilisateurs, ici c'est laffichage -->
       <?php while ($donnees = $reponse->fetch()) { ?>
         <form method="post" action="effacer_utilisateur.php" class="listeutilisateur ">
 
@@ -56,8 +59,9 @@ $reponse = $bdd->query('SELECT * FROM user');
           <input type="text" class="adresse1 titre1 input_campus non-selectable" name="prenom" readonly="readonly" value="' . $donnees["prenom"] . '">
           <input type="text" class="adresse1 titre1 input_campus non-selectable" name="email" readonly="readonly" value="' . $donnees["email"] . '" >';
           ?>
-
+          <!-- bouton pour voir les information   -->
           <input type="submit" name="boutonpermis" value="information" class="selection titre1">
+          <!-- bouton pour bannir  -->
           <input type="submit" name="boutonpermis" value="bannir" class="selection titre1">
 
 

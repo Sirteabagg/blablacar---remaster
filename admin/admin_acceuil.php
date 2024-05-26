@@ -16,6 +16,7 @@
     <h2 class="titre">Administrateur</h2>
   </header>
 
+  <!-- lien vers la page campus  -->
   <a href="..\admin\page_campus.php">
     <div class="rectangle">
         
@@ -26,6 +27,7 @@
     </div>
     </a>
    
+    <!-- lien vers la page utilisateur  -->
     <a href="..\admin\page_utilisateur.php">
     <div class="rectangle">
         <div class="texte-grid titreacceuil">Liste Utilisateur</div> 
@@ -34,6 +36,7 @@
     </div>
     </a>
 
+    <!-- lien vers la page permis  -->
     <a href="..\admin\page_permis.php">
     <div class="rectangle">
         <div class="texte-grid titreacceuil">Gestion de permis</div> 
