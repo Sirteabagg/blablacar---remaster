@@ -102,7 +102,7 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
 
         #map {
             width: 375px;
-            height: 667px;
+            height: 550px;
         }
 
         .leaflet-touch .leaflet-control-layers,
