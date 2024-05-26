@@ -47,6 +47,7 @@ if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], 
 </head>
 
 <body>
+    <!-- header qui revient vers la page trip-description.php -->
     <header>
         <div class="title-description">
             <?php echo "<a href='trip-description.php?idTrip=$id'>"; ?>
@@ -65,6 +66,7 @@ if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
+    <!-- script permettant d'ajouter la carte avec leaflet -->
     <?php
     echo "<script>
     var map = L.map('map').setView([$longdep, $latdep], 0);

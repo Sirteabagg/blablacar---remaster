@@ -3,6 +3,7 @@
 session_start();
 $email = $_SESSION["current-user-email"];
 
+// requete pour avoir toutes les infos necessaires
 $requestTrip = $bdd->query("SELECT idTrip, t.idDriver, t.time, t.dates, price, passed, d.ville as depart, d.latitude as latDep, d.longitude as longDep, d2.ville as arrive, d2.latitude as latArr, d2.longitude as longArr, u.pdp as pdp,
 u.prenom as prenom, u.notegenerale as notegenerale, CONCAT(SUBSTRING(timeDepart, 1, 2), ':', SUBSTRING(timeDepart, 4, 2)) AS tDeparture,
 CONCAT(SUBSTRING(ADDTIME(timeDepart, time), 1, 2), ':', SUBSTRING(ADDTIME(timeDepart, time), 4, 2)) as tArrival
@@ -34,6 +35,7 @@ while ($donnees = $requestTrip->fetch()) {
         <div>
 
             <?php
+            // si il y a des données afficher la vignette avec les info du trajet cliquable
             if ($donnees === false) {
                 foreach ($trips as $trip) {
                     echo '<a href="../../trip-finding/php/trip-ressources/trip-description.php?idTrip=' . $trip["idTrip"] . '&mytrip=1"><div class="trip-container">';
@@ -55,6 +57,7 @@ while ($donnees = $requestTrip->fetch()) {
         </div>
         <a href="mytrip-acceptation.php"><button>demande de trajet</button></a>
     </main>
+    <!-- affiche le footer -->
     <?php require "../../php/footer.php" ?>
 </body>
 
