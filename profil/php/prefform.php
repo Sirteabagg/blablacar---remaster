@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Récupérer les informations de la session
+// Récupére les informations de la session
 if (isset($_SESSION["hostBdd"], $_SESSION["passwordBdd"], $_SESSION["current-user-email"])) {
     $host = $_SESSION["hostBdd"];
     $password = $_SESSION["passwordBdd"];
@@ -23,17 +23,17 @@ try {
             $pref3 = $_POST['pref3'];
             $pref4 = $_POST['pref4'];
 
-            // Vérifiez si une ligne existe pour cet email dans les préférences
+            // Vérifie si une ligne existe pour cet email dans les préférences
             $stmt = $bdd->prepare("SELECT idPref FROM preferences WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                // Mettre à jour les préférences de l'utilisateur existant
+                // Met à jour les préférences de l'utilisateur existant
                 $stmt = $bdd->prepare("UPDATE preferences SET pref1 = :pref1, pref2 = :pref2, pref3 = :pref3, pref4 = :pref4 WHERE email = :email");
             } else {
-                // Insérer une nouvelle ligne pour l'utilisateur
+                // Insére une nouvelle ligne pour l'utilisateur 
                 $stmt = $bdd->prepare("INSERT INTO preferences (email, pref1, pref2, pref3, pref4) VALUES (:email, :pref1, :pref2, :pref3, :pref4)");
             }
 
@@ -44,20 +44,20 @@ try {
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
-            // Rediriger vers la page prefform.php après la mise à jour
+            
             header("Location: prefform.php");
             exit();
         }
 
-        // Mise à jour des informations du véhicule
-        if (isset($_POST['brand'])) {
+       
+        if (isset($_POST['brand'])) { //Si la variable $_POST['brand'] est définie c'est que des données pour les détails du véhicule ont été soumises via le formulaire.
             $brand = $_POST['brand'];
             $model = $_POST['model'];
             $color = $_POST['color'];
             $registration = $_POST['registration'];
-            $places = $_POST['places'];
+            $places = $_POST['places'];//recuperation des valeurs
 
-            // Vérifiez si une ligne existe pour cet email dans les véhicules
+            //vérifie si le conducteur a déjà enregistré un véhicule dans la base de données en associant son adresse e-mail
             $requetedriver = $bdd->prepare("SELECT idDriver, registration FROM driver WHERE email = :email");
             $requetedriver->bindParam(':email', $email);
             $requetedriver->execute();
@@ -76,16 +76,26 @@ try {
                     $stmt->execute();
                     $ajoutvoiture = $bdd->prepare("UPDATE driver SET registration='$registration' WHERE idDriver=$driver");
                     $ajoutvoiture->execute();
-                }
+
+                    //recupere les données de véhicule                    
+                } 
+                               
+            }            
+
+                
                 header("Location: prefform.php");
                 exit();
-            }
+            
+
         }
 
         if (isset($_POST['idpermis'])) {
             $idpermis = $_POST['idpermis'];
 
+
+
             // Vérifiez si une ligne existe pour cet email dans les permis
+
             $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
@@ -104,20 +114,25 @@ try {
             $stmt->execute();
 
 
+      
+
             // Rediriger vers la page prefform.php après la mise à jour
+
             header("Location: prefform.php");
             exit();
         }
 
         if (isset($_FILES['photopermis']) && $_FILES['photopermis']['error'] === UPLOAD_ERR_OK) {
-            // Chemin temporaire du fichier téléchargé
+            // Chemin 'temporaire' du fichier téléchargé
             $tmpFilePath = $_FILES['photopermis']['tmp_name'];
 
             // Lire le contenu du fichier
             $permisContent = file_get_contents($tmpFilePath);
 
+
             // Vérifiez si une ligne existe pour cet email dans la table permis
             $stmt = $bdd->prepare("SELECT iduser FROM permis WHERE iduser = :email");
+
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -148,7 +163,7 @@ try {
     $preferences = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$preferences) {
-        // Si l'utilisateur n'a pas encore de préférences, définir des valeurs par défaut
+        // Si l'utilisateur n'a pas encore de préférences, définir des valeurs par défaut comme tel:
         $preferences = [
             'pref1' => '',
             'pref2' => '',
@@ -159,7 +174,9 @@ try {
 
 
 
+
     // Récupération des informations du véhicule de l'utilisateur
+
     $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM car c JOIN driver d ON c.registration=d.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
@@ -173,7 +190,7 @@ try {
     $permis = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$permis) {
-        // Si l'utilisateur n'a pas encore de numéro de permis, définir une valeur par défaut
+        // Si l'utilisateur n'a pas encore de numéro de permis, défini une valeur par défaut:
         $permis = ['idpermis' => ''];
     }
 } catch (Exception $e) {
