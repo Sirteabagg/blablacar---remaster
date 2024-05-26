@@ -63,30 +63,29 @@ try {
             $places = $_POST['places'];
 
             // Vérifiez si une ligne existe pour cet email dans les véhicules
-            $stmt = $bdd->prepare("SELECT email FROM car WHERE email = :email");
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-            $car = $stmt->fetch(PDO::FETCH_ASSOC);
+            $requetedriver = $bdd->prepare("SELECT idDriver, registration FROM driver WHERE email = :email");
+            $requetedriver->bindParam(':email', $email);
+            $requetedriver->execute();
+            $donnee = $requetedriver->fetch(PDO::FETCH_ASSOC);
 
-            if ($car) {
-                // Mettre à jour les informations du véhicule existant
-                $stmt = $bdd->prepare("UPDATE car SET brand = :brand, model = :model, color = :color, registration = :registration, places = :places WHERE email = :email");
-            } else {
-                // Insérer une nouvelle ligne pour le véhicule
-                $stmt = $bdd->prepare("INSERT INTO car (email, brand, model, color, registration, places) VALUES (:email, :brand, :model, :color, :registration, :places)");
-            }
-
-            $stmt->bindParam(':brand', $brand);
-            $stmt->bindParam(':model', $model);
-            $stmt->bindParam(':color', $color);
-            $stmt->bindParam(':registration', $registration);
-            $stmt->bindParam(':places', $places);
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-
-            // Rediriger vers la page prefform.php après la mise à jour
-            header("Location: prefform.php");
-            exit();
+            if($donnee){
+                $driver=$donnee['idDriver'];
+                $car=$donnee['registration'];                
+                if(!$car){
+                    $stmt = $bdd->prepare("INSERT INTO car (registration, color, model, brand, places) VALUES (:registration, :color, :model, :brand, :places)");
+                    $stmt->bindParam(':brand', $brand);
+                    $stmt->bindParam(':model', $model);
+                    $stmt->bindParam(':color', $color);
+                    $stmt->bindParam(':registration', $registration);
+                    $stmt->bindParam(':places', $places);
+                    $stmt->execute();
+                    $ajoutvoiture=$bdd->prepare("UPDATE driver SET registration='$registration' WHERE idDriver=$driver");
+                    $ajoutvoiture->execute();
+                    
+                } 
+                header("Location: prefform.php");
+                exit();                    
+            }            
         }
 
         if (isset($_POST['idpermis'])) {
@@ -163,8 +162,8 @@ try {
     }
 
     // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, registration, places FROM car WHERE email = :email");
-    $stmt->bindParam(':email', $email);
+    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration=c.registration WHERE idDriver =:idDriver");
+    $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
 

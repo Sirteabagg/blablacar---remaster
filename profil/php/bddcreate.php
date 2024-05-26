@@ -17,7 +17,7 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
     try {
 
         // Vérifier si l'utilisateur existe déjà
-        $requeteUser = $connexion->prepare("SELECT email FROM user WHERE email = :email");
+        $requeteUser = $bdd->prepare("SELECT email FROM user WHERE email = :email");
         $requeteUser->bindParam(':email', $email);
         $requeteUser->execute();
 
@@ -28,7 +28,7 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
         }
 
         // Requête SQL préparée pour l'insertion
-        $requete = $connexion->prepare("INSERT INTO user (email, nom, prenom, pwd) VALUES (:email, :nom, :prenom, :mdp)");
+        $requete = $bdd->prepare("INSERT INTO user (email, nom, prenom, pwd) VALUES (:email, :nom, :prenom, :mdp)");
 
         // Liaison des valeurs des paramètres
         $requete->bindParam(':email', $email);
@@ -51,7 +51,7 @@ if (isset($_POST["email"], $_POST["nom"], $_POST["prenom"], $_POST["mdp"])) {
     }
 
     // Fermer la connexion
-    $connexion = null;
+    $bdd = null;
 } else {
     echo "Les champs 'email', 'nom', 'prenom' et 'mdp' n'ont pas été soumis.";
     exit;
