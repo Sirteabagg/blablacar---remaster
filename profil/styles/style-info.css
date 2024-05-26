@@ -8,10 +8,7 @@
   font-size: 24px;
   margin-right: 10px;
 }
-
-  
-
-  .grid {
+.grid {
     
     display: grid;
     grid-template-columns: 1fr; /* Une seule colonne */
@@ -78,4 +75,23 @@ a{
   border-radius: 25px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+a{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.confirmButton{
+  margin-top: 55px;
+  margin-bottom: 70px;
+
 }

@@ -13,21 +13,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["email"], $_POST["mdp"])) {
         $email = $_POST["email"];
         $password = $_POST["mdp"];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         try {
 
-            $request = $bdd->query("SELECT * FROM User WHERE email = '$email' AND pwd = '$password'");
+            $request = $bdd->query("SELECT email, nom, pwd FROM User WHERE email = '$email'");
             $user = $request->fetch();
 
             if (!empty($user)) {
+                if (password_verify($password, $user["pwd"])) {
 
-                $_SESSION["current-user-name"] = $user["nom"];
-                $_SESSION["current-user-email"] = $user["email"];
-                echo $user["nom"];
+                    $_SESSION["current-user-name"] = $user["nom"];
+                    $_SESSION["current-user-email"] = $user["email"];
 
-                if ($user["nom"] == "admin") {
-                    header("Location: ../../admin/admin_acceuil.php");
+                    if ($user["nom"] == "admin") {
+                        header("Location: ../../admin/admin_acceuil.php");
+                    } else {
+                        header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+                    }
                 } else {
-                    header("Location: ../../trip-finding/php/trip-ressources/trip-form.php");
+                    header("Location: connexion.php");
                 }
             } else {
                 header("Location: connexion.php");
