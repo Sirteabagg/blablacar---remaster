@@ -1,3 +1,5 @@
+// page qui permet d'afficher le calendrier et d'alterner le départ et l'arriver d'un campus 
+
 $(document).ready(function() {
     // Sélectionner l'élément d'entrée de texte pour la date
     $('#datepicker').datepicker({
@@ -10,7 +12,7 @@ $(document).ready(function() {
     });
 });
 
-
+// depart 
 document.getElementById('Campus').addEventListener('click', (event) => {
     var check = document.getElementById("Campus");
     var select = document.getElementById("depart1");
@@ -25,6 +27,7 @@ document.getElementById('Campus').addEventListener('click', (event) => {
     }
 })
 
+// arriver 
 document.getElementById('Campus').addEventListener('click', (event) => {
     var check = document.getElementById("Campus");
     var select = document.getElementById("arriver1");

@@ -1,3 +1,5 @@
+<!-- page qui permet de félicité l'utilisateur pour avoir creer son trajet  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +17,7 @@
         <div>
             <h4 class="colorwhite">Votre trajet à été enregistrer</h4>
         </div>
+        <!-- lien pour aller sur son profil -->
         <a href="..\profil\profilforme.php" style="text-decoration:none"><button class="styled">Mon Profil</button></a>
         
         </main>

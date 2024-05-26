@@ -1,3 +1,5 @@
+<!-- page qui permet de récupéere les données de l'utilisateur afin de creer un trajet  -->
+
 <?php require "../php/config.php";
 session_start();
 $email = $_SESSION["current-user-email"];
@@ -45,12 +47,13 @@ if ($emailHere == 0) {
                     campus OMNES
                 </span>
                 <div class="select">
+                    <!-- creation d'un select et d'un input avec un des deux ayant un display = none  -->
                     <input type="text" name="depart1" id="depart1" placeholder="Départ" class="form-input autocomplete ">
                     <div class="suggestions"></div>
                     <select name="depart2" id="depart2" class="form-input ml-2">
                         <?php
                         $reponse = $bdd->query('SELECT * FROM campus');
-                        // On affiche chaque entr´ee une `a une
+                        // on récupère les différents campus 
                         while ($donnees = $reponse->fetch()) {
                         ?>
                             <option value="<?php echo $donnees['address']; ?>" name="<?php echo $donnees['city']; ?>">Campus <?php echo $donnees['city']; ?></option>
@@ -68,12 +71,13 @@ if ($emailHere == 0) {
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
+                    <!-- creation d'un select et d'un input avec un des deux ayant un display = none  -->
                     <input type="text" name="arriver2" id="arriver2" placeholder="Arriver" class="form-input autocomplete ">
                     <div class="suggestions"></div>
                     <select name="arriver1" id="arriver1" class="form-input ml-2">
                         <?php
                         $reponse = $bdd->query('SELECT * FROM campus');
-                        // On affiche chaque entr´ee une `a une
+                        // on récupère les différents campus 
                         while ($donnees = $reponse->fetch()) {
                         ?>
                             <option value="<?php echo $donnees['address']; ?>" name="<?php echo $donnees['city']; ?>">Campus <?php echo $donnees['city']; ?></option>
