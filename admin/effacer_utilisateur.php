@@ -69,10 +69,28 @@ if (isset($_POST["boutonpermis"])) {
       notegenerale : <?php echo $donnees['notegenerale']; ?>,<br>
       caption : <?php echo $donnees['caption']; ?><br>
     </p>
+    
 <?php
+    $contenu_image = $donnees['pdp'];
+    $type_mime = 'image/jpeg'; // Remplacez par le type MIME de votre image si nécessaire
+    $encoded_image = base64_encode($contenu_image);
+    $image_data = "data:$type_mime;base64,$encoded_image";
+    echo "<img src=\"$image_data\" class='img-user' alt=\"Image\">";
   }
 }
+
+
+              
+
+
 ?>
+
+
+
+
+
+
+
 <form method="post" action="page_utilisateur.php" class="listepermis ">
 
   <input type="submit" name="boutonpermis" value="retour" class="selection titre1">

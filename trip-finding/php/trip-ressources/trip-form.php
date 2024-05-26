@@ -112,9 +112,16 @@
                     <input type="submit" value="Rechercher" class="bouton-submit font-nexa">
                 </div>
             </form>
+           
         </div>
-    </main>
+        <a href="Information.php" class="balise_pour_hugo">
+        <div>Info</div>
+        </a>
+        
+    
     <?php require "../../../php/footer.php" ?>
+    </main>
+    
 </body>
 
 </html>
