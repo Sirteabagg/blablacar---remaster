@@ -1,27 +1,25 @@
 <?php
-
+require "../php/config.php";
 if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"], $_POST["depart2"], $_POST["arriver2"], $_POST["nbpassager"])) {
     if ($_POST["depart1"] == NULL) {
         $adressdep = $_POST["depart2"];
         $adressarr = $_POST["arriver2"];
+        $departCampus = 1;
     } else {
         $adressdep = $_POST["depart1"];
         $adressarr = $_POST["arriver1"];
+        $departCampus = 0;
     }
     $date = $_POST["date"];
     $heure = $_POST["heure"];
     $nbpassager = $_POST["nbpassager"];
 
 
+    $adressdepModif = strtr($adressdep, ' ', '+');
+    $adressarrModif = strtr($adressarr, ' ', '+');
 
-    $adressdep = strtr($adressdep, ' ', '+');
-    $adressarr = strtr($adressarr, ' ', '+');
-
-
-
-
-    $url_api_adresse_dep = "https://api-adresse.data.gouv.fr/search/?q=$adressdep&limit=1";
-    $url_api_adresse_arr = "https://api-adresse.data.gouv.fr/search/?q=$adressarr&limit=1";
+    $url_api_adresse_dep = "https://api-adresse.data.gouv.fr/search/?q=$adressdepModif&limit=1";
+    $url_api_adresse_arr = "https://api-adresse.data.gouv.fr/search/?q=$adressarrModif&limit=1";
 
     // Initialisation de CURL
     $curl_dep = curl_init();
@@ -53,7 +51,6 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
         if (isset($donnees_dep['features'], $donnees_arr['features']) && !empty($donnees_dep['features']) && !empty($donnees_arr['features'])) {
 
             $depcity = $donnees_dep["features"][0]["properties"]["city"];
-            echo $depcity;
             $arrcity = $donnees_arr["features"][0]["properties"]["city"];
             $geometry = $donnees_dep['features'][0]['geometry'];
             $latitude_dep = $geometry['coordinates'][1];
@@ -61,6 +58,28 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
             $geometry = $donnees_arr['features'][0]['geometry'];
             $latitude_arr = $geometry['coordinates'][1];
             $longitude_arr = $geometry['coordinates'][0];
+
+            //requete bdd pour creer les lieux dans la bdd
+
+            $creerCityDep = $bdd->prepare("INSERT INTO Destination (ville, adresse, latitude, longitude) VALUES (:ville, :adresse, :latitude, :longitude)");
+            $creerCityDep->bindParam(":ville", $depcity);
+            $creerCityDep->bindParam(":adresse", $adressdep);
+            $creerCityDep->bindParam(":latitude", $latitude_dep);
+            $creerCityDep->bindParam(":longitude", $longitude_dep);
+
+            $creerCityArr = $bdd->prepare("INSERT INTO Destination (ville, adresse, latitude, longitude) VALUES (:ville, :adresse, :latitude, :longitude)");
+            $creerCityArr->bindParam(":ville", $arrcity);
+            $creerCityArr->bindParam(":adresse", $adressarr);
+            $creerCityArr->bindParam(":latitude", $latitude_arr);
+            $creerCityArr->bindParam(":longitude", $longitude_arr);
+
+            $creerCityDep->execute();
+            $creerCityArr->execute();
+
+            $requestDep = $bdd->query('SELECT idDestination FROM Destination WHERE adresse = "' . $adressdep . '"');
+            $requestArr = $bdd->query('SELECT idDestination FROM Destination WHERE adresse = "' . $adressarr . '"');
+            $idDep = $requestDep->fetch()["idDestination"];
+            $idArr = $requestArr->fetch()["idDestination"];
         } else {
             echo "Aucune adresse trouvée.";
         }
@@ -151,9 +170,10 @@ if (isset($_POST["date"], $_POST["heure"], $_POST["depart1"], $_POST["arriver1"]
             </nav>
             <input type="hidden" name="date" value="<?php echo $date; ?>">
             <input type="hidden" name="heure" value="<?php echo $heure; ?>">
-            <input type="hidden" name="arriver" value="<?php echo $adressarr; ?>">
-            <input type="hidden" name="depart" value="<?php echo $adressdep; ?>">
+            <input type="hidden" name="arriver" value="<?php echo $idDep; ?>">
+            <input type="hidden" name="depart" value="<?php echo $idArr; ?>">
             <input type="hidden" name="nbpassager" value="<?php echo $nbpassager; ?>">
+            <input type="hidden" name="depCamp" value="<?php echo $departCampus; ?>">
             <br><br>
             <input class="styled" type="submit" value="Validé" id="valideprix"></input>
         </form>
