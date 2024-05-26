@@ -1,4 +1,6 @@
+
 <?php
+require "../../php/config.php"
 
 if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], $_GET["idTrip"])) {
     $longdep = $_GET["longdep"];
