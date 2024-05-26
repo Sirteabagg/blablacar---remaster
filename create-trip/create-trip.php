@@ -29,9 +29,9 @@
                     campus OMNES
                 </span>
                 <div class="select">
-                    <input type="text" name="depart" id="depart1" placeholder="Départ" class="form-input autocomplete " required="required">
+                    <input type="text" name="depart1" id="depart1" placeholder="Départ" class="form-input autocomplete ">
                     <div class="suggestions"></div>
-                    <select name="depart" id="depart2" required="required" class="form-input ml-2">
+                    <select name="depart2" id="depart2" class="form-input ml-2">
                         <?php
                             // Sous WAMP (Windows)
                             $bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
@@ -65,9 +65,9 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="text" name="arriver" id="arriver2" placeholder="Arriver" class="form-input autocomplete " required="required">
+                    <input type="text" name="arriver2" id="arriver2" placeholder="Arriver" class="form-input autocomplete ">
                     <div class="suggestions"></div>
-                    <select name="arriver" id="arriver1" required="required" class="form-input ml-2">
+                    <select name="arriver1" id="arriver1" class="form-input ml-2">
                         <?php
                             // Sous WAMP (Windows)
                             $bdd = new PDO('mysql:host=localhost;dbname=blablaomnes;
@@ -120,7 +120,7 @@
                 <span class="text2"></span>
                 <span class="text3"></span>
                 <div class="select">
-                    <input type="number" name="nbpassager" placeholder="Nombre de passager" class="form-input ml-2" required="required" min="1">           
+                    <input type="number" name="nbpassager" placeholder="Nombre de passager" class="form-input ml-2" required="required" min="1" max="10">           
                 </div>  
             </nav>
             <br><br>
