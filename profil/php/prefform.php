@@ -161,25 +161,15 @@ try {
         ];
     }
 
-    // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration=c.registration WHERE idDriver =:idDriver");
+       // Récupération des informations du véhicule de l'utilisateur
+    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration = c.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$car) {
-        // Si l'utilisateur n'a pas encore d'informations de véhicule, définir des valeurs par défaut
-        $car = [
-            'brand' => '',
-            'model' => '',
-            'color' => '',
-            'registration' => '',
-            'places' => ''
-        ];
-    }
+    echo $car['registration'];
 
     // Récupération du numéro de permis de l'utilisateur
-    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE email = :email");
+    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $permis = $stmt->fetch(PDO::FETCH_ASSOC);
