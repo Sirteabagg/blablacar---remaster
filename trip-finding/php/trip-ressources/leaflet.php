@@ -22,9 +22,9 @@ if (isset($_GET["longdep"], $_GET["latdep"], $_GET["longarr"], $_GET["latarr"], 
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    <link rel="stylesheet" href="../../../css/style-main-structure.css">
-
-    <link rel="stylesheet" href="../../styles/style-trip-description.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style-main-structure.css">
+ 
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/trip-finding/styles/style-trip-description.css">
 
 
     <style>
