@@ -25,20 +25,20 @@ if (strpos($systeme_exploitation, 'Darwin') !== false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../css/style-main-structure.css"> // lien du css pricipal
+    <link rel="stylesheet" href="../../css/style-main-structure.css"> 
     <link rel="stylesheet" href="../styles/connexionstyle.css">
 </head>
 
 <body>
     <h1 class="titre">Bienvenue</h1>
-    <form action="verif-connexion.php" method="post"> // methode post
-        <input type="text" placeholder="Email" name="email" class="form-input">
+    <form action="verif-connexion.php" method="post"> 
+        <input type="text" placeholder="Email" name="email" class="form-input"> 
         <input type="password" placeholder="Mot de passe" name="mdp" class="form-input">
         <input type="submit" class="button-submit" value="Se connecter">
     </form>
-    <a href="create.php"><input type="submit" class="button-submit" value="Créer un compte"></a>  //lien vers créa compte
+    <a href="create.php"><input type="submit" class="button-submit" value="Créer un compte"></a> <!--  redirige vers la page de céation de compte-->
     <div class="img">
-        <img src="../../images/logoblabla.png" width="275" height="320"> //logo
+        <img src="../../images/logoblabla.png" width="275" height="320"> <!-- Logo -->
     </div>
 </body>
 
