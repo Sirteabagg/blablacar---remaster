@@ -115,7 +115,7 @@
            
         </div>
         <a href="Information.php" class="balise_pour_hugo">
-        <div>Info</div>
+        <div>Information</div>
         </a>
         
     
