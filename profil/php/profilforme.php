@@ -114,5 +114,7 @@ try {
             </a>
         </div>
     </div>
-    <?php require "../../php/footer.php" ?>
+    <?php
+    require "../../php/footer.php";
+    ?>
 </body>

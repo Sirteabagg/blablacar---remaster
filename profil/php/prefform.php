@@ -92,17 +92,17 @@ try {
             $idpermis = $_POST['idpermis'];
            
             // Vérifiez si une ligne existe pour cet email dans les permis
-            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE email = :email");
+            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($permis) {
                 // Mettre à jour le permis existant
-                $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE email = :email");
+                $stmt = $bdd->prepare("UPDATE permis SET idpermis = :idpermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour le permis
-                $stmt = $bdd->prepare("INSERT INTO permis (email, idpermis) VALUES (:email, :idpermis)");
+                $stmt = $bdd->prepare("INSERT INTO permis (iduser, idpermis) VALUES (:email, :idpermis)");
             }
 
             $stmt->bindParam(':idpermis', $idpermis);
@@ -122,17 +122,17 @@ try {
             $permisContent = file_get_contents($tmpFilePath);
 
             // Vérifiez si une ligne existe pour cet email dans la table permis
-            $stmt = $bdd->prepare("SELECT email FROM permis WHERE email = :email");
+            $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $permis = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($permis) {
                 // Mettre à jour la photo de permis existante
-                $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE email = :email");
+                $stmt = $bdd->prepare("UPDATE permis SET photopermis = :photopermis WHERE iduser = :email");
             } else {
                 // Insérer une nouvelle ligne pour la photo de permis
-                $stmt = $bdd->prepare("INSERT INTO permis (email, photopermis) VALUES (:email, :photopermis)");
+                $stmt = $bdd->prepare("INSERT INTO permis (iduser, photopermis) VALUES (:email, :photopermis)");
             }
 
             $stmt->bindParam(':photopermis', $permisContent, PDO::PARAM_LOB);
@@ -161,25 +161,16 @@ try {
         ];
     }
 
-    // Récupération des informations du véhicule de l'utilisateur
-    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM driver d JOIN car c ON d.registration=c.registration WHERE idDriver =:idDriver");
+  
+
+       // Récupération des informations du véhicule de l'utilisateur
+    $stmt = $bdd->prepare("SELECT brand, model, color, c.registration, places FROM car c JOIN driver d ON c.registration=d.registration WHERE idDriver = :idDriver");
     $stmt->bindParam(':idDriver', $idDriver);
     $stmt->execute();
     $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$car) {
-        // Si l'utilisateur n'a pas encore d'informations de véhicule, définir des valeurs par défaut
-        $car = [
-            'brand' => '',
-            'model' => '',
-            'color' => '',
-            'registration' => '',
-            'places' => ''
-        ];
-    }
-
     // Récupération du numéro de permis de l'utilisateur
-    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE email = :email");
+    $stmt = $bdd->prepare("SELECT idpermis FROM permis WHERE iduser = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $permis = $stmt->fetch(PDO::FETCH_ASSOC);
