@@ -4,6 +4,8 @@ L’objectif de l’application est de permettre aux étudiants de s’organiser
 
 ⚠️ L’application n’est pas accessible en ligne, car elle n’a pas encore été hébergée.
 
+Ce projet a été réalisé il y a 1 ans, [Application de recrutement]([https://www.exemple.com](https://github.com/Sirteabagg/appRecrutement)) voici, un projet qui est plus d'actualité.
+
 Vous trouverez ci-dessous des captures d’écran illustrant l’ensemble des pages et fonctionnalités disponibles dans l’application.
 
 ## Création de compte et connexion 
