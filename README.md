@@ -1,9 +1,10 @@
-Ce projet a pour but d'évaluer nos connaissance en développement web.
-L'application permet aux étudiants de faire des covoiturages selon leur campus (Paris, Lyon, Bordeaux...)
+Ce projet a été réalisé dans le cadre d’une évaluation de nos compétences en développement web.
 
-Ce projet n'est pas utilisable sur internet, car il n'y a pas d'hébergement fait.
+L’objectif de l’application est de permettre aux étudiants de s’organiser pour faire du covoiturage entre différents campus (Paris, Lyon, Bordeaux, etc.).
 
-Voici donc des screens illustrant toutes les pages navigables : 
+⚠️ L’application n’est pas accessible en ligne, car elle n’a pas encore été hébergée.
+
+Vous trouverez ci-dessous des captures d’écran illustrant l’ensemble des pages et fonctionnalités disponibles dans l’application.
 
 ## Création de compte et connexion 
 <br> <img width="363" alt="Screenshot 2025-07-08 at 16 17 31" src="https://github.com/user-attachments/assets/e89dae10-51e7-421a-9bd4-4d707e7e78af" /> <img width="363" alt="Screenshot 2025-07-08 at 16 17 44" src="https://github.com/user-attachments/assets/3ff15637-1b2e-4073-91df-1c0e84c5cd1b" />
